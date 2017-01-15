@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Card Expansion Effect - Demo 1</title>
+	<title>Card Expansion Effect - Demo 3</title>
 	<meta name="description" content="Card Expansion Effect with SVG clipPath" />
 	<meta name="keywords" content="clipPath, svg, effect, layout, expansion, images, grid, polygon" />
 	<meta name="author" content="Claudio Calautti for Codrops" />
@@ -25,18 +25,19 @@
 	};
 	</script>
 </head>
-<body class="demo-1">
+
+<body class="demo-3">
 	<div class="container">
 		<header class="codrops-header">
 			<div class="codrops-links">
 				<a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Development/ColorExtraction/" title="Previous Demo"><span>Previous Demo</span></a>
 				<a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=24222" title="Back to the article"><span>Back to the Codrops article</span></a>
 			</div>
-			<h1>Card Expansion Effect with SVG clipPath <span>Circular clip</span></h1>
+			<h1>Card Expansion Effect with SVG clipPath  <span>Polygonal clip, reversed pattern.</span></h1>
 			<nav class="codrops-demos">
-				<a class="current-demo" href="index.html">Demo 1</a>
+				<a href="index.html">Demo 1</a>
 				<a href="index2.html">Demo 2</a>
-				<a href="index3.html">Demo 3</a>
+				<a class="current-demo" href="index3.html">Demo 3</a>
 				<a href="index4.html">Demo 4</a>
 			</nav>
 		</header>
@@ -50,8 +51,7 @@
 						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
 							<defs>
 								<clipPath id="clipPath1">
-									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
-									<circle class="clip" cx="960" cy="250" r="992"></circle>
+									<polygon class="clip" points="0,500 0,0 1920,0 1920,500"></polygon>
 								</clipPath>
 							</defs>
 							<image clip-path="url(#clipPath1)" width="1920" height="500" xlink:href="img/a.jpg"></image>
@@ -83,8 +83,7 @@
 						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
 							<defs>
 								<clipPath id="clipPath2">
-									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
-									<circle class="clip" cx="960" cy="250" r="992"></circle>
+									<polygon class="clip" points="0,500 0,0 1920,0 1920,500"></polygon>
 								</clipPath>
 							</defs>
 							<image clip-path="url(#clipPath2)" width="1920" height="500" xlink:href="img/b.jpg"></image>
@@ -116,8 +115,7 @@
 						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
 							<defs>
 								<clipPath id="clipPath3">
-									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
-									<circle class="clip" cx="960" cy="250" r="992"></circle>
+									<polygon class="clip" points="0,500 0,0 1920,0 1920,500"></polygon>
 								</clipPath>
 							</defs>
 							<image clip-path="url(#clipPath3)" width="1920" height="500" xlink:href="img/c.jpg"></image>
@@ -149,8 +147,7 @@
 						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
 							<defs>
 								<clipPath id="clipPath4">
-									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
-									<circle class="clip" cx="960" cy="250" r="992"></circle>
+									<polygon class="clip" points="0,500 0,0 1920,0 1920,500"></polygon>
 								</clipPath>
 							</defs>
 							<image clip-path="url(#clipPath4)" width="1920" height="500" xlink:href="img/d.jpg"></image>
@@ -182,8 +179,7 @@
 						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
 							<defs>
 								<clipPath id="clipPath5">
-									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
-									<circle class="clip" cx="960" cy="250" r="992"></circle>
+									<polygon class="clip" points="0,500 0,0 1920,0 1920,500"></polygon>
 								</clipPath>
 							</defs>
 							<image clip-path="url(#clipPath5)" width="1920" height="500" xlink:href="img/e.jpg"></image>
@@ -215,8 +211,7 @@
 						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
 							<defs>
 								<clipPath id="clipPath6">
-									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
-									<circle class="clip" cx="960" cy="250" r="992"></circle>
+									<polygon class="clip" points="0,500 0,0 1920,0 1920,500"></polygon>
 								</clipPath>
 							</defs>
 							<image clip-path="url(#clipPath6)" width="1920" height="500" xlink:href="img/f.jpg"></image>
@@ -265,8 +260,8 @@
 	<script src="js/vendors/TweenMax.min.js"></script>
 	<script src="js/vendors/ScrollToPlugin.min.js"></script>
 	<script src="js/vendors/cash.min.js"></script>
-	<script src="js/Card-circle.js"></script>
-	<script src="js/demo.js"></script>
+	<script src="js/Card-polygon.js"></script>
+	<script src="js/demo-3.js"></script>
 </body>
 
 </html>
