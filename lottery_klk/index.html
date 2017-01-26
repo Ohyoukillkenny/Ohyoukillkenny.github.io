@@ -36,61 +36,57 @@
         document.addEventListener('DOMContentLoaded', function(){
             hexaDemo3 = new HexaFlip(document.getElementById('hexaflip-demo3'));
 
-            // setTimeout(function(){
-            //     var now = new Date,
-            //         hour = now.getHours(),
-            //         minute = now.getMinutes().toString(),
-            //         meridian;
-            //     if(hour > 12){
-            //         hour = (hour - 12).toString();
-            //         meridian = 'pm';
-            //     }else{
-            //         meridian = 'am';
-            //         (hour === 0) && (hour = 12);
-            //         hour = hour.toString();
-            //     }
-            //     if(minute.length > 1){
-            //         minute = minute.substr(0, 1) + '0';
-            //     }else{
-            //         minute = '00';
-            //     }
-            //     hexaDemo3.setValue({ hour: hour, minute: minute, meridian: meridian });
-            // }, 1);
+            setTimeout(function(){
+                hexaDemo3.setValue({ hour: '--', minute: 'Hi', meridian: '--' });
+            }, 1);
 
             var flag = 0;
-            function selectTrophy(){
-                if (flag) {
-                    i = Math.floor(Math.random() * 3) + 1;
-                    if (i == 1) {return '1st';}
-                    if (i == 2) {return '2nd';}
-                    else {return '3rd';}
-                }
-                else{
-                    return '--'
-                }
-            }
+            // function selectTrophy(){
+            //     if (flag) {
+            //         i = Math.floor(Math.random() * 3) + 1;
+            //         if (i == 1) {return '1st';}
+            //         if (i == 2) {return '2nd';}
+            //         else {return '3rd';}
+            //     }
+            //     else{
+            //         return '--'
+            //     }
+            // }
             var temptable, tempguest;
-            function selectTable(){
-                if (flag == 0) {
-                    temptable = Math.floor(Math.random() * 16) + 1 + '';
-                    return temptable;
-                }
-                else{ return temptable;}
-            }
-            function selectGuest(){
-                if (flag == 0) {
-                    tempguest = Math.floor(Math.random() * 10) + 1 + '';
-                    return tempguest;
-                }
-                else{ return tempguest;}
-            }
+            // function selectTable(){
+            //     if (flag == 0) {
+            //         temptable = Math.floor(Math.random() * 16) + 1 + '';
+            //         return temptable;
+            //     }
+            //     else{ return temptable;}
+            // }
+            // function selectGuest(){
+            //     if (flag) {
+            //         tempguest = Math.floor(Math.random() * 10) + 1 + '';
+            //         return tempguest;
+            //     }
+            //     else{ return tempguest;}
+            // }
 
             document.getElementById('set-button').addEventListener('click', function(){
                 flag = !flag
-                var time = {
-                    hour : selectTable(),
-                    minute : selectGuest(),
-                    meridian : selectTrophy()
+                var time;
+                if (flag == 0) 
+                {
+                    temptable = Math.floor(Math.random() * 16) + 1 + '';
+                    time = {
+                        hour : temptable,
+                        minute : '--',
+                        meridian : '--'
+                    }
+                }
+                else
+                {
+                    time = {
+                        hour : temptable,
+                        minute : '--',
+                        meridian : Math.floor(Math.random() * 10) + 1 + ''
+                    }
                 }
                 hexaDemo3.setValue(time);
             });

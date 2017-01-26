@@ -78,17 +78,28 @@
             for (i = _j = 1; _j <= 16; i = ++_j) {
               _results.push(i + '');
             }
+            _results.push('--');
             return _results;
           })(),
-          minute: (function() {
+          // minute: (function() {
+          //   var _j, _results;
+          //   _results = [];
+          //   for (i = _j = 1; _j <= 10; i = ++_j) {
+          //     _results.push(i + '');
+          //   }
+          //   return _results;
+          // })(),
+          minute : ['--','Hi'],
+          // meridian: ['1st', '2nd' , '3rd', '--']
+          meridian: (function() {
             var _j, _results;
             _results = [];
             for (i = _j = 1; _j <= 10; i = ++_j) {
               _results.push(i + '');
             }
+            _results.push('--');
             return _results;
-          })(),
-          meridian: ['1st', '2nd' , '3rd', '--']
+          })()
         };
       }
       setsKeys = Object.keys(this.sets);
