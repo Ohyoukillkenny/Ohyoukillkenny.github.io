@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Lottery System, Developed by Lingkun Kong</title>
+        <meta name="description" content="Lottery System, Developed by Lingkun Kong" />
+        <meta name="keywords" content="hexaflip, 3d cube, css3 javascript, plugin, perspective, rotation, transition" />
+        <meta name="author" content="Dan Motzenbecker for Codrops" />
+        <link rel="shortcut icon" href="../favicon.ico">
+        <link rel="stylesheet" type="text/css" href="default.css" />
+        <link href="hexaflip.css" rel="stylesheet" type="text/css">
+        <link href="demo.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="container">
+            <!-- Codrops top bar -->
+            <!-- <div class="codrops-top clearfix">
+                <a href="http://tympanus.net/Tutorials/InteractiveSVG/"><strong>&laquo; Previous Demo: </strong>Interactive SVG Infographic</a>
+                <span class="right"><a href="http://tympanus.net/codrops/?p=14452"><strong>Back to the Codrops Article</strong></a></span>
+            </div> -->
+            <header class="clearfix">
+                <h1>上海温州学创联<span style="text-align:center">初五年会抽奖 ⊙ω⊙</span></h1>
+            </header>
+            <div class="main">
+                <div id="hexaflip-demo3" class="demo"></div>
+                <div id="choose-time">
+                    <span id="set-button">Shot It</span>
+                </div>
+            </div>
+        </div>
+    <script src="hexaflip.js"></script>
+    <script>
+        var hexaDemo3;
+        document.addEventListener('DOMContentLoaded', function(){
+            hexaDemo3 = new HexaFlip(document.getElementById('hexaflip-demo3'));
+
+            // setTimeout(function(){
+            //     var now = new Date,
+            //         hour = now.getHours(),
+            //         minute = now.getMinutes().toString(),
+            //         meridian;
+            //     if(hour > 12){
+            //         hour = (hour - 12).toString();
+            //         meridian = 'pm';
+            //     }else{
+            //         meridian = 'am';
+            //         (hour === 0) && (hour = 12);
+            //         hour = hour.toString();
+            //     }
+            //     if(minute.length > 1){
+            //         minute = minute.substr(0, 1) + '0';
+            //     }else{
+            //         minute = '00';
+            //     }
+            //     hexaDemo3.setValue({ hour: hour, minute: minute, meridian: meridian });
+            // }, 1);
+
+            var flag = 0;
+            function selectTrophy(){
+                if (flag) {
+                    i = Math.floor(Math.random() * 3) + 1;
+                    if (i == 1) {return '1st';}
+                    if (i == 2) {return '2nd';}
+                    else {return '3rd';}
+                }
+                else{
+                    return '--'
+                }
+            }
+            var temptable, tempguest;
+            function selectTable(){
+                if (flag == 0) {
+                    temptable = Math.floor(Math.random() * 16) + 1 + '';
+                    return temptable;
+                }
+                else{ return temptable;}
+            }
+            function selectGuest(){
+                if (flag == 0) {
+                    tempguest = Math.floor(Math.random() * 10) + 1 + '';
+                    return tempguest;
+                }
+                else{ return tempguest;}
+            }
+
+            document.getElementById('set-button').addEventListener('click', function(){
+                flag = !flag
+                var time = {
+                    hour : selectTable(),
+                    minute : selectGuest(),
+                    meridian : selectTrophy()
+                }
+                hexaDemo3.setValue(time);
+            });
+        }, false);
+
+    </script>
+    </body>
+</html>
