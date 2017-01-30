@@ -41,52 +41,39 @@
             }, 1);
 
             var flag = 0;
-            // function selectTrophy(){
-            //     if (flag) {
-            //         i = Math.floor(Math.random() * 3) + 1;
-            //         if (i == 1) {return '1st';}
-            //         if (i == 2) {return '2nd';}
-            //         else {return '3rd';}
-            //     }
-            //     else{
-            //         return '--'
-            //     }
-            // }
             var temptable, tempguest;
             // function selectTable(){
-            //     if (flag == 0) {
-            //         temptable = Math.floor(Math.random() * 16) + 1 + '';
-            //         return temptable;
-            //     }
-            //     else{ return temptable;}
+            //     temptable = Math.floor(Math.random() * 16) + 1 + '';
+            //     return temptable;
             // }
             // function selectGuest(){
-            //     if (flag) {
-            //         tempguest = Math.floor(Math.random() * 10) + 1 + '';
-            //         return tempguest;
-            //     }
-            //     else{ return tempguest;}
+            //     tempguest = Math.floor(Math.random() * 10) + 1 + '';
+            //     return tempguest;
             // }
 
             document.getElementById('set-button').addEventListener('click', function(){
-                flag = !flag
                 var time;
-                if (flag == 0) 
+                time = {hour : '--', minute : '--',meridian : '--'}
+                switch(flag)
                 {
-                    temptable = Math.floor(Math.random() * 16) + 1 + '';
-                    time = {
-                        hour : temptable,
-                        minute : '--',
-                        meridian : '--'
-                    }
-                }
-                else
-                {
-                    time = {
-                        hour : temptable,
-                        minute : '--',
-                        meridian : Math.floor(Math.random() * 10) + 1 + ''
-                    }
+                    case 0: 
+                        flag = 1; 
+                        break;
+                    case 1: 
+                        flag = 2; 
+                        temptable = Math.floor(Math.random() * 16) + 1 + '';
+                        time = {hour : temptable, minute : '--',meridian : '--'};
+                        break;
+                    case 2: 
+                        flag = 3;
+                        tempguest = Math.floor(Math.random() * 10) + 1 + '';
+                        time = {hour : temptable, minute : '--',meridian : tempguest};
+                        break;
+                    case 3: 
+                        flag = 1; 
+                        time = {hour : '--', minute : '--',meridian : '--'}; 
+                        break;
+                    default: break;
                 }
                 hexaDemo3.setValue(time);
             });
