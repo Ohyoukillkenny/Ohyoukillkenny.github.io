@@ -94,7 +94,7 @@
           meridian: (function() {
             var _j, _results;
             _results = [];
-            for (i = _j = 1; _j <= 10; i = ++_j) {
+            for (i = _j = 1; _j <= 11; i = ++_j) {
               _results.push(i + '');
             }
             _results.push('--');
