@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<body>
+<pre><code>
+def compare(a,b):
+	if a > b:
+		return False
+	else:
+		return True
+
+def Getsteps(x,y):
+	steps = 0
+	if x == 0:
+		steps = steps + 1
+		x = x + 1
+	while x < y:
+		x = x * 2
+		steps = steps + 1
+	if x == y:
+		return steps
+	if x > y:
+		steps = steps - 1
+		steps = (y - x/2) + steps
+	return steps
+
+def countstep(a,b):
+	Minsteps = 0;
+	for i in xrange(0,len(a)):
+		if compare(a[i],b[i]) is True:
+			Minsteps = Minsteps + Getsteps(a[i],b[i])
+		else:
+			return -1
+	return Minsteps
+
+if __name__ == "__main__":
+	a = [5,0,0]
+	b = [1,2,3]
+	if len(a) != len(b):
+		print 'Invalid Input'
+	else:
+		print countstep(a,b)
+</code></pre>
+</body>
+</html>
