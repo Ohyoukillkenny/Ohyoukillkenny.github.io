@@ -1,2 +1,0 @@
-# Ohyoukillkenny.github.io
-myblob
