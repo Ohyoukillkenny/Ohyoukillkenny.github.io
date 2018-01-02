@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Welcome to Lingkun Kong's small house</title>
+	<meta name="description" content="Card Expansion Effect with SVG clipPath" />
+	<meta name="keywords" content="clipPath, svg, effect, layout, expansion, images, grid, polygon" />
+	<meta name="author" content="Claudio Calautti for Codrops" />
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/card.css" />
+	<link rel="stylesheet" type="text/css" href="css/pattern.css" />
+	<!--[if IE]>
+	  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script>
+	if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+		var root = document.getElementsByTagName('html')[0];
+		root.setAttribute('class', 'ff');
+	};
+	</script>
+</head>
+<body class="demo-1">
+	<div class="container">
+		<header class="codrops-header">
+			<div class="codrops-links">
+				<a class="codrops-icon codrops-icon--prev" href="index.html" title="Go to index"><span>Go to index</span></a>
+				<a class="codrops-icon codrops-icon--drop" href="https://github.com/Ohyoukillkenny" title="Go to my github profile"><span>Go to my github profile</span></a>
+			</div>
+			<h1>Lingkun Kong's small house <span>kenny_kong@foxmail.com</span></h1>
+			<nav class="codrops-demos">
+				<a class="current-demo" href="index.html">All</a>
+				<a href="index2.html">Movie and Fiction</a>
+				<a href="index3.html">Music</a>
+				<a href="index4.html">Coding</a>
+			</nav>
+		</header>
+		<div class="content">
+			<!-- trianglify pattern container -->
+			<div class="pattern pattern--hidden"></div>
+			<!-- cards -->
+			<div class="wrapper">
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath1">
+									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
+									<circle class="clip" cx="960" cy="250" r="992"></circle>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath1)" width="1920" height="500" xlink:href="img/a.jpg"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">Who am I ?</h2>
+								<p class="card__subtitle">In me the tiger sniffs the rose.</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">Lingkun Kong</span>
+									<span class="meta__date">01/17/2017</span>
+								</div>
+								<p>Not only for recording.</p>
+								<p><I>In me the cave-man clasps the seer,</I></p>
+								<p><I>And garlanded Apollo goes </I></p>
+								<p><I>Chanting to Abraham’s deaf ear.</I></p>
+								<p><I>In me the tiger sniffs the rose.</I></p>
+								<p>Hello, my name is Kong Lingkun, an undergraduate student from Shanghai Jiao Tong University, majoring in computer science.</p>
+								<p>From long times ago, when lying in bed, I was tortured by a weird feeling that I had to do something about myself, something announcing my existence in the world, both phisically and mentally, otherwise I would be swallowed by the abyss of loneliness and confusion. And soon, I realized that what I should do was to follow the voice from innermost of my body and soul -- I had to write something down to avoid burying my thoughts and youth into the dust of time. And that is why this website or blog exists.</p>
+								<p>This website mainly records my coding experience and my personal understanding about movies, fictions and music. And actually, I believe most of them will be written in Chinese.</p>
+								<p>In this website, I hope I can learn and grow up with all of you.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath2">
+									<polygon class="clip" points="0,500 0,0 1920,0 1920,500"></polygon>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath2)" width="1920" height="500" xlink:href="img/lottery.jpg"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">Lottery</h2>
+								<p class="card__subtitle">Silly Code for Lottery</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">Lingkun Kong</span>
+									<span class="meta__date">01/26/2017</span>
+								</div>
+								<p>愚蠢的一个年会抽奖系统，花了两个小时，然而一点都不智能。但是好想要红包。</p>
+								<p>戳两下初始化，戳第一次选择桌号。</p>
+								<p>再戳一下选择座位号。</p> 
+								<p>戳我可以进入demo哟</p>
+								<a href="lottery_klk/index.html" title="lottery demo"><span>我</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath3">
+									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
+									<circle class="clip" cx="960" cy="250" r="992"></circle>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath3)" width="1960" height="500" xlink:href="img/take_the_lead.jpg"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">打底裤和荷尔蒙</h2>
+								<p class="card__subtitle">第一部影评送给自己</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">Lingkun Kong</span>
+									<span class="meta__date">01/27/2017</span>
+								</div>
+								<p>第一篇影评送给Take the Lead中老师教导学生探戈的片段。这也是我心目中所有看过的电影里最优秀的一段舞蹈。</p>
+								<p>说起电影中的舞蹈的佳作，其实有很多。每一个男人心中，都希望能有一个能和他一起不顾众人目光，纵情跳着兔子舞的米亚；上校牵起佳人的纤手，尽管已经盲目，却在探戈中更能体会佳人的羞涩动人；芳芳对着镜子纵情狂欢，尽显青春的活泼和清纯的魅力；配着爵士乐 －－ Down in Mexico，美女朝大叔跳起贴面舞，微微鼓起的肚囊让人欲罢不能（<a href="https://www.youtube.com/watch?v=T1T8iZn6tzU" title="lap dance"><span>Death Proof</span></a>，个人也超喜欢这段）；美国往事中，少女在面包的粉尘之中，翩翩起舞，宛若仙女下凡 ……</p>
+								<p>然而，我心中的最经典的舞曲，却一直留给Take the ead中这段惊艳了青春的探戈。</p>
+								<p>这部电影作为宣扬美国主旋律的青春歌舞片，其实从故事角度而言，电影的情节略显单薄。故事的承起转折，略有些生硬和俗套 －－ 主要讲了一个教师通过教导学生跳交际舞，从而将这些“不良少年”感化，将他们重新拉上了人生的正轨。这些学生都是“街舞少年”，在国内就是大名鼎鼎的“葬爱家族”里的成员。原来他们只喜欢跳街舞，喜欢在Pop和Rap的旋律中乱扭，而认为交际舞特别无聊，一点都不够酷炫。影片中的这段探戈，就是教师用于吸引这些“街舞少年”投入交际舞的怀抱的工具。（确实成功了，反正我看到我也会想去学）</p>
+								<p>当时，这个电影片段出现于我高中的音乐课。我记得老师是为了介绍“探戈”这个经典的舞蹈形式，然后放了这部电影给我们看。当时我就震惊了。说实话，就像是电影中的那个黑人小哥看到这段舞时情不自禁的吼出来的 just getting his flirt on。确实，这段舞更像是情人之间的调情，点燃了高中时我们无处安放的荷尔蒙。我印象特别深刻，当时观看这段舞的时候，已经下课了，但是全班的所有人都盯着视频看，没有一个人想要离开，或者发出声音。教室里除了舞曲的鼓点和下课的铃声，恐怕也就只剩下我们咽口水的声音了。</p>
+								<p>学习的时间很枯燥，也很漫长。所有人都拼命着压抑着野蛮生长的荷尔蒙，抵挡着各种奇形怪状的思绪带来的干扰，埋头学习，努力地往前冲冲冲。而这段舞蹈却像是一个有魔力的炸弹，点燃了所有人的荷尔蒙。反正我是记得，有人直接放声地说了出来－－“万恶的安全裤”然后一片哄笑，众人面红耳赤，窃窃私语，漏出燥热而意味深长的笑容。</p>
+								<p>探戈起源于情人之间的秘密舞蹈。传说中男士跳舞时都佩带着短刀。现在虽已不佩带短刀，但舞蹈者必须表情严肃，提防被人发现的表情。然而这种表情的严肃，配上激情四溢的舞曲动作，更体现出一种反差与冲突之美，恰似在压抑中燃烧的荷尔蒙。（不知道为什么，跳舞跳着，两个人都想把对方吃掉（；￣ェ￣），不敢看）</p>
+								<p>需要注意的是，这里其实男主原来并不会跳探戈。导演特意特意请了专业舞蹈演员（女）教导男主学习探戈，并在短短一周内，两人磨合出了这段令人惊艳的舞蹈。（默默吐槽一下，毕竟看男主大家都只看脸）当然这也归功于优秀的摄影和剪辑。明亮的光线从窗外泻入，使得画面简明而动感。摄像机剪辑女舞者婀娜的身姿以及翩飞的舞步，更显探戈抓人的魅力。此外，影片对传统的Asi Se Baila El Tango（著名探戈舞曲）进行了改编，加入了鼓点，钢琴以及人声，使得舞蹈的表现显得更为有力。</p>
+								<p>总而言之，这部电影并不是一部剧情感人至深的佳作，影片本身并不能给舞蹈添色。所以很多人眼中可能这段舞蹈并不能摘得心目中影史最佳舞蹈的桂冠。但是，这段舞蹈对于我而言，并不仅仅只是一段舞，或者是一段优秀的电影片段，它还是我压抑里，躁动的青春。</p>
+								<p>想要从油管看这个舞蹈，请戳我。</p>
+								<a href="https://www.youtube.com/watch?v=6lAKlYTQVKY" title="youtube take the lead"><span>我</span></a>
+								<p>如果你并不会科学上网，那就戳下面，我提供了下载的文件链接。</p>
+								<a href="downloads/take_the_lead.zip" title="take the lead"><span>下面</span></a>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath4">
+									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
+									<circle class="clip" cx="960" cy="250" r="992"></circle>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath4)" width="1920" height="500" xlink:href="img/king_crimson.jpg"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">Confusion Will Be My Epitaph</h2>
+								<p class="card__subtitle">King Crimson,徘徊于虚幻和真实间。</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">Lingkun Kong</span>
+									<span class="meta__date">01/28/2017</span>
+								</div>
+								<p>When silence drowns the screams. Confusion will be my epitaph.</p>
+								<embed src="https://www.xiami.com/widget/0_1088715/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed>
+								<p>海德格尔认为生即“向死亡的存在”或说是“向死而生”，在我们生命的过程中死亡作为必然的终点，如影随行。人始终以向死而生的方式存在着。然而虽然永远无法摆脱徒劳的循环，但这仍是生命最为悲壮也最为动容之处。</p>
+								<p>King Crimson，伟大的前卫摇滚乐队，在摇滚音乐的发展史中画下了浓墨重彩的一笔，影响了一代人的青春，为摇滚的发展增添了更多的可能。</p>
+								<p>Crimson迷恋着真实，然而却发现生命中处处充斥着虚幻。于是，他们以一种挣扎的姿态去寻找真实，即徘徊在虚无铸成的深渊里，吟唱，怒嚎着为了触碰其实在他们定义中不会存在的真实。</p>
+								<p>倾听这一首Epitaph，我不会将它当作一种消遣娱乐。隐藏在坚冷诡秘的音效后的是令人心惊的恐怖，以及一种深深的对生命思辨。而这在我看来，比那些歇斯底里的怒嚎其实更难打动人心，更能引发人们对音乐内涵的理解与深思。</p>
+								<p>如果你热爱思考，我想你应该会喜欢King Crimson的音乐。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath5">
+									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
+									<circle class="clip" cx="960" cy="250" r="992"></circle>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath5)" width="1920" height="500" xlink:href="img/love_soul.jpg"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">Only Love Soul Matter</h2>
+								<p class="card__subtitle">You can go to the east, go to the west</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">K</span>
+									<span class="meta__date">02/2/2017</span>
+								</div>
+								<p>清风徐来，水波不兴。</p>
+								<embed src="https://www.xiami.com/widget/0_3187871/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed>
+								<p>最近发生了很多不错的事情</p>
+								<p>决定下个学期开始睡实验室，挤出运动以及聊天的时间！</p>
+								<p>但是现在决定听大叔的歌，内心清风徐来，水波不兴。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath6">
+									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
+									<circle class="clip" cx="960" cy="250" r="992"></circle>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath6)" width="1948" height="1366" xlink:href="img/newchurch.jpg"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">Toccata And Fugue</h2>
+								<p class="card__subtitle">Church and Holy Spirit</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">K</span>
+									<span class="meta__date">02/4/2017</span>
+								</div>
+								<p>我看到了透过教堂的玻璃，五彩斑斓的光。</p>
+								<embed src="https://www.xiami.com/widget/0_6618/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed>
+								<p>观看油管，效果更佳哟。</p>
+								<a href="https://www.youtube.com/watch?v=usQKlX7C900" title="youtube bach"><span>油管</span></a>
+								<p>听到这段音乐，总能想起教父里Michael从青年成长为一代教父，最后在教堂中给新的教子做洗礼的情景。</p>
+								<p>大爱管风琴的声音，肃穆而优雅，给人以内心的平静。</p>
+								<p>这是唯二一曲能加快我学习效率的音乐，另一个是德彪西的月光。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath1">
+									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
+									<circle class="clip" cx="960" cy="250" r="992"></circle>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath1)" width="1920" height="500" xlink:href="img/c.jpg"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">A simple problem</h2>
+								<p class="card__subtitle">python code for a simple problem</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">K</span>
+									<span class="meta__date">05/4/2017</span>
+								</div>
+								<p>输入：两个等长的数组a,b (a、b元素都不小于0)，每次可对a数组做如下两种改动中的一种<br>  1）选取a数组中任意一个元素，将其值增加1；<br>  2）将a数组中任取若干个元素，将其值都乘以2；<br>输出：最少需要操作次数，将a数组转化成和b数组完全一样；如果做不到，输出-1，请编程实现。</p>
+								<p>比如：<br>a=[0, 0], b=[1,2],   输出N=3<br>第1步：a[0] = a[0] + 1<br>第2步：a[1] = a[1] + 1<br>第3步:  a[1] = a[1] * 2</p>
+								<p>a=[5, 0, 0], b=[3, 2, 1], 输出N=-1</p>
+								<a href="downloads/p5.html" title="code"><span>代码</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card__container card__container--closed">
+						<svg class="card__image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 500" preserveAspectRatio="xMidYMid slice">
+							<defs>
+								<clipPath id="clipPath2">
+									<!-- r = 992 = hyp = Math.sqrt(960*960+250*250) -->
+									<circle class="clip" cx="960" cy="250" r="992"></circle>
+								</clipPath>
+							</defs>
+							<image clip-path="url(#clipPath2)" width="1920" height="500" xlink:href="img/weixin.png"></image>
+						</svg>
+						<div class="card__content">
+							<i class="card__btn-close fa fa-times"></i>
+							<div class="card__caption">
+								<h2 class="card__title">微信公众号开发入门实例</h2>
+								<p class="card__subtitle">python code for weixin development</p>
+							</div>
+							<div class="card__copy">
+								<div class="meta">
+									<img class="meta__avatar" src="img/authors/Pied_Piper.png" alt="author01" />
+									<span class="meta__author">K</span>
+									<span class="meta__date">17/6/2017</span>
+								</div>
+								<p>实现对特定用户的智能回复。</p>
+								<a href="downloads/weixin.zip" title="code"><span>代码</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /cards -->
+		</div><!-- /content -->
+	</div>
+	<!-- /container -->
+	<!-- JS -->
+	<script src="js/vendors/trianglify.min.js"></script>
+	<script src="js/vendors/TweenMax.min.js"></script>
+	<script src="js/vendors/ScrollToPlugin.min.js"></script>
+	<script src="js/vendors/cash.min.js"></script>
+	<script src="js/Card-circle.js"></script>
+	<script src="js/demo.js"></script>
+</body>
+
+</html>
