@@ -8,6 +8,7 @@
   <title>Learn Solidity (1) — Ballot | Lingkun&#39;s Small House</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Solidity学习笔记(1) — Ballot作者：孔令坤，转载请注明出处 最近开始学习Solidity，开始学习写smart contract。今天开始用一个官方提供的投票合同（Ballot Contract）进行第一步的学习。 环境的安装和使用方法这里不做过多的赘述，附上两个链接，大家可以用来参考： MetaMask配置：https://karl.tech/learning-solidity">
+<meta name="keywords" content="code">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Learn Solidity (1) — Ballot">
 <meta property="og:url" content="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/index.html">
@@ -15,7 +16,7 @@
 <meta property="og:description" content="Solidity学习笔记(1) — Ballot作者：孔令坤，转载请注明出处 最近开始学习Solidity，开始学习写smart contract。今天开始用一个官方提供的投票合同（Ballot Contract）进行第一步的学习。 环境的安装和使用方法这里不做过多的赘述，附上两个链接，大家可以用来参考： MetaMask配置：https://karl.tech/learning-solidity">
 <meta property="og:image" content="http://www.z4a.net/images/2018/01/01/12c442bfea71a1a6f.png">
 <meta property="og:image" content="http://www.z4a.net/images/2018/01/01/ballot-voter.png">
-<meta property="og:updated_time" content="2018-01-02T04:46:49.000Z">
+<meta property="og:updated_time" content="2018-01-03T02:31:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Learn Solidity (1) — Ballot">
 <meta name="twitter:description" content="Solidity学习笔记(1) — Ballot作者：孔令坤，转载请注明出处 最近开始学习Solidity，开始学习写smart contract。今天开始用一个官方提供的投票合同（Ballot Contract）进行第一步的学习。 环境的安装和使用方法这里不做过多的赘述，附上两个链接，大家可以用来参考： MetaMask配置：https://karl.tech/learning-solidity">
@@ -61,7 +62,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
@@ -125,9 +126,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjbxq4hb50000vgavobuyoq95" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjbz4xylp0006duavsgms40v1" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
     </footer>
   </div>
   
@@ -135,7 +138,7 @@
 <nav id="article-nav">
   
     <a href="/blog/01/02/LearnSolidity2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           Learn Solidity (2) — Auction
@@ -145,7 +148,7 @@
   
   
     <a href="/blog/01/28/打底裤和荷尔蒙/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">打底裤和荷尔蒙</div>
     </a>
   
@@ -160,7 +163,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
     </div>
@@ -182,14 +185,14 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/code/" style="font-size: 10px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
+      <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
     </div>
@@ -199,9 +202,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/01/03/LearnSolidity3/">Learn Solidity (3) — Safe Remote Purchase</a>
+          </li>
         
           <li>
             <a href="/blog/01/02/LearnSolidity2/">Learn Solidity (2) — Auction</a>
@@ -217,10 +224,6 @@
         
           <li>
             <a href="/blog/01/27/silly-lottery/">silly-lottery</a>
-          </li>
-        
-          <li>
-            <a href="/blog/01/16/hello-world/">Hello World</a>
           </li>
         
       </ul>
