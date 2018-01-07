@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>NULL in Solidity | Lingkun&#39;s Small House</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Inexistent NULL in Solidity作者：孔令坤，转载请注明出处 在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。 比如之前我遇到的enum： 12enum State &amp;#123; Created, Locked, Inactive &amp;#125;// Created = 0, Locked = 1, In">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NULL in Solidity">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/01/07/null-in-solidity/index.html">
+<meta property="og:site_name" content="Lingkun&#39;s Small House">
+<meta property="og:description" content="Inexistent NULL in Solidity作者：孔令坤，转载请注明出处 在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。 比如之前我遇到的enum： 12enum State &amp;#123; Created, Locked, Inactive &amp;#125;// Created = 0, Locked = 1, In">
+<meta property="og:updated_time" content="2018-01-07T08:32:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NULL in Solidity">
+<meta name="twitter:description" content="Inexistent NULL in Solidity作者：孔令坤，转载请注明出处 在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。 比如之前我遇到的enum： 12enum State &amp;#123; Created, Locked, Inactive &amp;#125;// Created = 0, Locked = 1, In">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Lingkun&#39;s Small House" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Lingkun&#39;s Small House</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">In me the tiger sniffs the rose.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-null-in-solidity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/07/null-in-solidity/" class="article-date">
+  <time datetime="2018-01-07T07:47:08.000Z" itemprop="datePublished">2018-01-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NULL in Solidity
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Inexistent-NULL-in-Solidity"><a href="#Inexistent-NULL-in-Solidity" class="headerlink" title="Inexistent NULL in Solidity"></a>Inexistent NULL in Solidity</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。</p>
+<p>比如<a href="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/">之前</a>我遇到的<code>enum</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">enum State &#123; Created, Locked, Inactive &#125;</span><br><span class="line"><span class="comment">// Created = 0, Locked = 1, Inactive = 2</span></span><br></pre></td></tr></table></figure>
+<p>之后，代码在没有对<code>myState</code>变量进行赋值的情况下，直接判断：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(myState == Created.Created);</span><br></pre></td></tr></table></figure>
+<p>所以这个时系统断定判断通过，而且并不会报错。</p>
+<p>那么，如何判断<code>mapping</code>中是否某个键是否”为空”呢？</p>
+<p>比较标准的做法是建立一个专门和value相关的结构体，用一个布尔型变量来看是否这个key所对应的value被赋过值，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">library Library &#123;</span><br><span class="line">  struct data &#123;</span><br><span class="line">     uint val;</span><br><span class="line">     bool isValue;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">contract myContract&#123;</span><br><span class="line">    using Library <span class="keyword">for</span> Library.data;</span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> Library.data) cluster;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ifExist</span>(<span class="params">address id</span>) <span class="title">returns</span>(<span class="params">bool</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cluster[id].isValue) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> flase; </span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="function"><span class="keyword">function</span> <span class="title">addCluster</span>(<span class="params">address id</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cluster[id].isValue) <span class="keyword">throw</span>; <span class="comment">// duplicate key</span></span><br><span class="line">        <span class="comment">// add ...</span></span><br><span class="line">      	cluster[id].isValue = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，我们也可以简单的来看一下value所对应的length来判断这个值是否被赋值过（零值无法判断！）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mapping(<span class="function"><span class="params">address</span> =&gt;</span> uint) public deposits;</span><br><span class="line"><span class="keyword">if</span>(deposits[msg.sender].length == <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="comment">// deposit[msg.sender] is empty, do your thing</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们不用判断某个变量是否为赋过值后的零值时，我建议用第二种通过length来判断的方法，因为后者将大大减少合约gas的消耗。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/07/null-in-solidity/" data-id="cjc4iumvk000a6mavb0tfilqi" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/01/04/start-solidity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Start with Solidity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/01/07/null-in-solidity/">NULL in Solidity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/04/start-solidity/">Start with Solidity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/03/LearnSolidity3/">Learn Solidity (3) — Safe Remote Purchase</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/02/LearnSolidity2/">Learn Solidity (2) — Auction</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/01/Solidity学习笔记(1)/">Learn Solidity (1) — Ballot</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Lingkun Kong<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
