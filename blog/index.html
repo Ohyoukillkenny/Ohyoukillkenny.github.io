@@ -65,6 +65,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-micro-payment" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/08/micro-payment/" class="article-date">
+  <time datetime="2018-01-08T02:11:52.000Z" itemprop="datePublished">2018-01-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/01/08/micro-payment/">Micropayment</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Smart-Contract-Micropayment"><a href="#Smart-Contract-Micropayment" class="headerlink" title="Smart Contract: Micropayment"></a>Smart Contract: Micropayment</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>在Solidity的官网上，<strong>Micropayment Channel</strong>的例子目前暂代开发。于是我决定自己写一个Micropayment的合约。</p>
+<h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><p>什么是Micropayment?</p>
+<p>假设你是一个中国移动用户，正在拨打国际长途电话，然后中国移动会根据你的通话时长来进行收费，每分钟1元钱，并按照满分钟计算（比如打了2分钟20秒，记为3分钟）。这个时候，我们可以通过一个智能合约，进行你与中国移动之间的付款。显然，如果你每分钟都要给中国移动付钱，那么这样就太麻烦了，相当于你每打一分钟电话就要再掏出一分钟的话费。这个时候，我们可以用所谓的Micropayment，来进行一次性的费用支付。</p>
+<img src="/blog/01/08/micro-payment/1.png" title="Overview of Micropayment">
+<p>如上图所示，Alice 通过智能合约向Bob（服务提供者）进行支付。首先，Alice往合约里存100单位的钱，然后获得Bob提供的服务。此后，智能合约开始计算时长。当Alice停止服务后，他将调用合约的函数，进行服务的停止。然后合约会自动结算Bob的服务费，然后将存在合约里的钱分别给到Alice和Bob手里。</p>
+<p>同时，为了防止Alice一直不停止服务，Bob拿不到应该拿到的服务费用，我们应当在合约中提供让Bob终止合约，并拿到所有的钱的选项。这个选项的判定条件应当是Alice已经用完了所有服务的时长。</p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>以下是代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.11</span>;</span><br><span class="line"></span><br><span class="line">contract Micropayment&#123;</span><br><span class="line">    uint public value;</span><br><span class="line">    uint public feePerMinute; <span class="comment">// the fee is counted by wei</span></span><br><span class="line">    uint public startTime;</span><br><span class="line">    uint public endTime;</span><br><span class="line">    address public serviceProvider;</span><br><span class="line">    address public user;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Micropayment</span>(<span class="params">uint fee</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(fee &gt; <span class="number">0</span>);</span><br><span class="line">        serviceProvider = msg.sender;</span><br><span class="line">        feePerMinute = fee;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    modifier condition(bool _condition) &#123;</span><br><span class="line">        <span class="built_in">require</span>(_condition);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyProvider() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == serviceProvider);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyUser() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == user);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event ServiceStarted();</span><br><span class="line">    event ServiceEnded();</span><br><span class="line">    event ForceEnd();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Force end the Micropayment (the service provider),</span></span><br><span class="line">    <span class="comment">/// and get paid,</span></span><br><span class="line">    <span class="comment">/// when user has run out his time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">forcePay</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyProvider</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &gt;= endTime);</span><br><span class="line">        ForceEnd();</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Start service as user.</span></span><br><span class="line">    <span class="comment">/// Give a expected service time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">startService</span>(<span class="params">uint eT</span>) // <span class="title">minutes</span></span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">condition</span>(<span class="params">msg.value &gt;= feePerMinute * eT</span>)</span></span><br><span class="line"><span class="function">        <span class="title">payable</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ServiceStarted();</span><br><span class="line">        user = msg.sender;</span><br><span class="line">        startTime = now;</span><br><span class="line">        endTime = now + eT * <span class="number">1</span> minutes;</span><br><span class="line">        value = msg.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// End the service (the user).</span></span><br><span class="line">    <span class="comment">/// Pay bill to service provider according to using time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">endService</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyUser</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &lt; endTime);</span><br><span class="line">        uint usingTime = (now - startTime) / <span class="number">60</span> + <span class="number">1</span>;</span><br><span class="line">        uint bill = usingTime * feePerMinute;</span><br><span class="line">        user.transfer(value - bill);</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        ServiceEnded();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以在我的github中找到：<a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
+<h4 id="Potential-Improvement"><a href="#Potential-Improvement" class="headerlink" title="Potential Improvement"></a>Potential Improvement</h4><p>目前的micropayment合约有一个比较伤的缺点，就是无法防止service的提供者, i.e., 中国移动耍赖。比如线下的时候明明还没有到服务截止时间，就停止了服务。从合约的角度来讲，目前无法杜绝这种情况的发生。所以和之前的<a href="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/">remote purchase</a>合约一样，需要线下有第三方的监管。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/08/micro-payment/" data-id="cjc5p1q7t000as3avitnbqhq6" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-null-in-solidity" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/01/07/null-in-solidity/" class="article-date">
@@ -108,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/07/null-in-solidity/" data-id="cjc4iumvk000a6mavb0tfilqi" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/07/null-in-solidity/" data-id="cjc5p1q7d0005s3avt6jcgiqe" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -188,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/04/start-solidity/" data-id="cjc4iumvn000b6mavcx6my5ev" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/04/start-solidity/" data-id="cjc5p1q85000ks3avm8volp3z" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -252,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/" data-id="cjc4iumup00016mavcfb5nyfv" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/" data-id="cjc5p1q6r0001s3avncpx67j4" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -317,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/02/LearnSolidity2/" data-id="cjc4iumuh00006mavnj2hewad" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/02/LearnSolidity2/" data-id="cjc5p1q6d0000s3avrjo1plwx" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -384,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjc4iumv500046mavsgbbbzr2" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjc5p1q770004s3avh2jhw2gf" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -436,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/28/打底裤和荷尔蒙/" data-id="cjc4iumvr000g6maviqvyn6rf" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/28/打底裤和荷尔蒙/" data-id="cjc5p1q84000hs3avzp55nna4" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -476,7 +529,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/27/silly-lottery/" data-id="cjc4iumvf00066mavzh51tqms" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/27/silly-lottery/" data-id="cjc5p1q7y000cs3avop5mbzyw" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
@@ -528,7 +581,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/16/hello-world/" data-id="cjc4iumv900056mavgnuhwv75" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/16/hello-world/" data-id="cjc5p1q7m0006s3avjk4j9zwi" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -590,6 +643,10 @@
       <ul>
         
           <li>
+            <a href="/blog/01/08/micro-payment/">Micropayment</a>
+          </li>
+        
+          <li>
             <a href="/blog/01/07/null-in-solidity/">NULL in Solidity</a>
           </li>
         
@@ -603,10 +660,6 @@
         
           <li>
             <a href="/blog/01/02/LearnSolidity2/">Learn Solidity (2) — Auction</a>
-          </li>
-        
-          <li>
-            <a href="/blog/01/01/Solidity学习笔记(1)/">Learn Solidity (1) — Ballot</a>
           </li>
         
       </ul>

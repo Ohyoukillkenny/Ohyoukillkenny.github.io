@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Micropayment | Lingkun&#39;s Small House</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Smart Contract: Micropayment作者：孔令坤，转载请注明出处 在Solidity的官网上，Micropayment Channel的例子目前暂代开发。于是我决定自己写一个Micropayment的合约。 Background什么是Micropayment? 假设你是一个中国移动用户，正在拨打国际长途电话，然后中国移动会根据你的通话时长来进行收费，每分钟1元钱，并按照满分钟计">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Micropayment">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/01/08/micro-payment/index.html">
+<meta property="og:site_name" content="Lingkun&#39;s Small House">
+<meta property="og:description" content="Smart Contract: Micropayment作者：孔令坤，转载请注明出处 在Solidity的官网上，Micropayment Channel的例子目前暂代开发。于是我决定自己写一个Micropayment的合约。 Background什么是Micropayment? 假设你是一个中国移动用户，正在拨打国际长途电话，然后中国移动会根据你的通话时长来进行收费，每分钟1元钱，并按照满分钟计">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/01/08/micro-payment/1.png">
+<meta property="og:updated_time" content="2018-01-08T04:13:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Micropayment">
+<meta name="twitter:description" content="Smart Contract: Micropayment作者：孔令坤，转载请注明出处 在Solidity的官网上，Micropayment Channel的例子目前暂代开发。于是我决定自己写一个Micropayment的合约。 Background什么是Micropayment? 假设你是一个中国移动用户，正在拨打国际长途电话，然后中国移动会根据你的通话时长来进行收费，每分钟1元钱，并按照满分钟计">
+<meta name="twitter:image" content="https://ohyoukillkenny.github.io/blog/01/08/micro-payment/1.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Lingkun&#39;s Small House" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Lingkun&#39;s Small House</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">In me the tiger sniffs the rose.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-micro-payment" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/08/micro-payment/" class="article-date">
+  <time datetime="2018-01-08T02:11:52.000Z" itemprop="datePublished">2018-01-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Micropayment
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Smart-Contract-Micropayment"><a href="#Smart-Contract-Micropayment" class="headerlink" title="Smart Contract: Micropayment"></a>Smart Contract: Micropayment</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>在Solidity的官网上，<strong>Micropayment Channel</strong>的例子目前暂代开发。于是我决定自己写一个Micropayment的合约。</p>
+<h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><p>什么是Micropayment?</p>
+<p>假设你是一个中国移动用户，正在拨打国际长途电话，然后中国移动会根据你的通话时长来进行收费，每分钟1元钱，并按照满分钟计算（比如打了2分钟20秒，记为3分钟）。这个时候，我们可以通过一个智能合约，进行你与中国移动之间的付款。显然，如果你每分钟都要给中国移动付钱，那么这样就太麻烦了，相当于你每打一分钟电话就要再掏出一分钟的话费。这个时候，我们可以用所谓的Micropayment，来进行一次性的费用支付。</p>
+<img src="/blog/01/08/micro-payment/1.png" title="Overview of Micropayment">
+<p>如上图所示，Alice 通过智能合约向Bob（服务提供者）进行支付。首先，Alice往合约里存100单位的钱，然后获得Bob提供的服务。此后，智能合约开始计算时长。当Alice停止服务后，他将调用合约的函数，进行服务的停止。然后合约会自动结算Bob的服务费，然后将存在合约里的钱分别给到Alice和Bob手里。</p>
+<p>同时，为了防止Alice一直不停止服务，Bob拿不到应该拿到的服务费用，我们应当在合约中提供让Bob终止合约，并拿到所有的钱的选项。这个选项的判定条件应当是Alice已经用完了所有服务的时长。</p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>以下是代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.11</span>;</span><br><span class="line"></span><br><span class="line">contract Micropayment&#123;</span><br><span class="line">    uint public value;</span><br><span class="line">    uint public feePerMinute; <span class="comment">// the fee is counted by wei</span></span><br><span class="line">    uint public startTime;</span><br><span class="line">    uint public endTime;</span><br><span class="line">    address public serviceProvider;</span><br><span class="line">    address public user;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Micropayment</span>(<span class="params">uint fee</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(fee &gt; <span class="number">0</span>);</span><br><span class="line">        serviceProvider = msg.sender;</span><br><span class="line">        feePerMinute = fee;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    modifier condition(bool _condition) &#123;</span><br><span class="line">        <span class="built_in">require</span>(_condition);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyProvider() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == serviceProvider);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyUser() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == user);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event ServiceStarted();</span><br><span class="line">    event ServiceEnded();</span><br><span class="line">    event ForceEnd();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Force end the Micropayment (the service provider),</span></span><br><span class="line">    <span class="comment">/// and get paid,</span></span><br><span class="line">    <span class="comment">/// when user has run out his time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">forcePay</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyProvider</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &gt;= endTime);</span><br><span class="line">        ForceEnd();</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Start service as user.</span></span><br><span class="line">    <span class="comment">/// Give a expected service time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">startService</span>(<span class="params">uint eT</span>) // <span class="title">minutes</span></span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">condition</span>(<span class="params">msg.value &gt;= feePerMinute * eT</span>)</span></span><br><span class="line"><span class="function">        <span class="title">payable</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ServiceStarted();</span><br><span class="line">        user = msg.sender;</span><br><span class="line">        startTime = now;</span><br><span class="line">        endTime = now + eT * <span class="number">1</span> minutes;</span><br><span class="line">        value = msg.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// End the service (the user).</span></span><br><span class="line">    <span class="comment">/// Pay bill to service provider according to using time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">endService</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyUser</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &lt; endTime);</span><br><span class="line">        uint usingTime = (now - startTime) / <span class="number">60</span> + <span class="number">1</span>;</span><br><span class="line">        uint bill = usingTime * feePerMinute;</span><br><span class="line">        user.transfer(value - bill);</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        ServiceEnded();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以在我的github中找到：<a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
+<h4 id="Potential-Improvement"><a href="#Potential-Improvement" class="headerlink" title="Potential Improvement"></a>Potential Improvement</h4><p>目前的micropayment合约有一个比较伤的缺点，就是无法防止service的提供者, i.e., 中国移动耍赖。比如线下的时候明明还没有到服务截止时间，就停止了服务。从合约的角度来讲，目前无法杜绝这种情况的发生。所以和之前的<a href="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/">remote purchase</a>合约一样，需要线下有第三方的监管。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/08/micro-payment/" data-id="cjc5p1q7t000as3avitnbqhq6" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/01/07/null-in-solidity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">NULL in Solidity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/01/08/micro-payment/">Micropayment</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/07/null-in-solidity/">NULL in Solidity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/04/start-solidity/">Start with Solidity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/03/LearnSolidity3/">Learn Solidity (3) — Safe Remote Purchase</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/02/LearnSolidity2/">Learn Solidity (2) — Auction</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Lingkun Kong<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
