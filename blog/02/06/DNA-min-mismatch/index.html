@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Needleman–Wunsch algorithm | Lingkun&#39;s Small House</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionThe Needleman–Wunsch algorithm is an algorithm used in bioinformatics to align protein or nucleotide sequences. It was one of the first applications of dynamic programming to compare biolo">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Needleman–Wunsch algorithm">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/02/06/DNA-min-mismatch/index.html">
+<meta property="og:site_name" content="Lingkun&#39;s Small House">
+<meta property="og:description" content="IntroductionThe Needleman–Wunsch algorithm is an algorithm used in bioinformatics to align protein or nucleotide sequences. It was one of the first applications of dynamic programming to compare biolo">
+<meta property="og:updated_time" content="2018-02-06T03:16:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Needleman–Wunsch algorithm">
+<meta name="twitter:description" content="IntroductionThe Needleman–Wunsch algorithm is an algorithm used in bioinformatics to align protein or nucleotide sequences. It was one of the first applications of dynamic programming to compare biolo">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Lingkun&#39;s Small House" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Lingkun&#39;s Small House</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">In me the tiger sniffs the rose.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DNA-min-mismatch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/02/06/DNA-min-mismatch/" class="article-date">
+  <time datetime="2018-02-06T02:47:55.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Needleman–Wunsch algorithm
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The <strong>Needleman–Wunsch algorithm</strong> is an <a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" rel="noopener">algorithm</a> used in <a href="https://en.wikipedia.org/wiki/Bioinformatics" target="_blank" rel="noopener">bioinformatics</a> to <a href="https://en.wikipedia.org/wiki/Sequence_alignment" target="_blank" rel="noopener">align</a> <a href="https://en.wikipedia.org/wiki/Protein" target="_blank" rel="noopener">protein</a> or <a href="https://en.wikipedia.org/wiki/Nucleotide" target="_blank" rel="noopener">nucleotide</a> sequences. It was one of the first applications of <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank" rel="noopener">dynamic programming</a> to compare biological sequences.</p>
+<p>In this article, we try to use Needleman-Wunsch algorithm to  find the minimum mismatch between two different DNA sequences.</p>
+<h4 id="Definition-of-Mismatches"><a href="#Definition-of-Mismatches" class="headerlink" title="Definition of Mismatches"></a>Definition of Mismatches</h4><p>Here we have two different DNA sequences, i.e., <code>S1</code> and <code>S2</code>, where</p>
+<p><code>S1 = &quot;GCATGCU&quot;</code>,</p>
+<p><code>S2 = &quot;GCTTAGCU&quot;</code>.</p>
+<p>One solution to match these two DNA sequences is listed as below:</p>
+<p><code>S1* = &quot;GCAT-GCU&quot;</code>,</p>
+<p><code>S2* = &quot;GCTTAGCU&quot;</code>,</p>
+<p>in which <code>-</code> is called as “gap”, i.e., in this position the DNA is supposed to be unknown.</p>
+<p><strong>Match</strong>: The two letters are the same, except both two letters are gapped.</p>
+<p><strong>Mismatch</strong>: The two letters are differential or both two letters are gapped.</p>
+<p>By above definition, the solution we find for matching <code>S1</code> and <code>S2</code> has two mismatches — <code>T</code> &amp; <code>A</code> and <code>-</code> &amp; <code>A</code>.</p>
+<h4 id="Codes-for-finding-minimum-mismatches"><a href="#Codes-for-finding-minimum-mismatches" class="headerlink" title="Codes for finding minimum mismatches"></a>Codes for finding minimum mismatches</h4><p>Here I list the python code for finding minimum number of mismatches between two DNA sequences. The insights of codes below can be viewed by supplemental documents <a href="./insights.pdf">here</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">input:</span></span><br><span class="line"><span class="string">    S1 = ['A','B','C','D']</span></span><br><span class="line"><span class="string">    S2 = ['A','B','C']</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">print info:</span></span><br><span class="line"><span class="string">    New S1 is:   ABCD</span></span><br><span class="line"><span class="string">    New S2 is:   ABC-</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MinMismatch</span><span class="params">(S1, S2)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    First of all, we construct matrix for counting maximum length of common subsequence.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    l1, l2 = len(S1), len(S2)</span><br><span class="line">    matrix = [[<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(l2+<span class="number">1</span>)] <span class="keyword">for</span> i <span class="keyword">in</span> range(l1+<span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, l1+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, l2+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> S1[i<span class="number">-1</span>] == S2[j<span class="number">-1</span>]:</span><br><span class="line">                matrix[i][j] = matrix[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                matrix[i][j] = max(matrix[i<span class="number">-1</span>][j<span class="number">-1</span>], matrix[i][j<span class="number">-1</span>], matrix[i<span class="number">-1</span>][j])</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Dynamic programming. Tracing back the matrix and construct two DNA sequences with gaps.</span></span><br><span class="line"><span class="string">    We saved the restructured sequences into A (originally S1) and B (originally S2).</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    left_up, up, left = <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span></span><br><span class="line">    i, j = l1, l2</span><br><span class="line">    A, B = [], []</span><br><span class="line">    <span class="keyword">while</span> (i,j) != (<span class="number">0</span>,<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            i, j = i, j<span class="number">-1</span></span><br><span class="line">            flag = left</span><br><span class="line">        <span class="keyword">elif</span> j == <span class="number">0</span>:</span><br><span class="line">            i, j = i<span class="number">-1</span>, j</span><br><span class="line">            flag = up</span><br><span class="line">        <span class="keyword">elif</span> S1[i<span class="number">-1</span>] == S2[j<span class="number">-1</span>] <span class="keyword">or</span> matrix[i<span class="number">-1</span>][j<span class="number">-1</span>] == max(matrix[i<span class="number">-1</span>][j<span class="number">-1</span>], matrix[i][j<span class="number">-1</span>], matrix[i<span class="number">-1</span>][j]):</span><br><span class="line">            i, j, flag = i<span class="number">-1</span>, j<span class="number">-1</span>, left_up</span><br><span class="line">        <span class="keyword">elif</span> matrix[i<span class="number">-1</span>][j] == max(matrix[i<span class="number">-1</span>][j<span class="number">-1</span>], matrix[i][j<span class="number">-1</span>], matrix[i<span class="number">-1</span>][j]):</span><br><span class="line">            i, j, flag = i<span class="number">-1</span>, j, up</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i, j, flag = i, j<span class="number">-1</span>, left</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> flag == left_up:</span><br><span class="line">            A.append(S1[i])</span><br><span class="line">            B.append(S2[j])</span><br><span class="line">        <span class="keyword">elif</span> flag == up:</span><br><span class="line">            A.append(S1[i])</span><br><span class="line">            B.append(<span class="string">'-'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            A.append(<span class="string">'-'</span>)</span><br><span class="line">            B.append(S2[j])</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Print info about new DNA sequences with minimum number of mismatches.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    A.reverse()</span><br><span class="line">    B.reverse()</span><br><span class="line">    printA, printB = <span class="string">''</span>,<span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(A)):</span><br><span class="line">        printA += A[i]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(B)):</span><br><span class="line">        printB += B[i]</span><br><span class="line">    print(<span class="string">'New S1 is:   '</span>+ printA)</span><br><span class="line">    print(<span class="string">'New S2 is:   '</span>+ printB)</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Calculate the number of mismatches.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    mismatch = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(A)):</span><br><span class="line">        <span class="keyword">if</span> A[i] != B[i] <span class="keyword">or</span> (A[i] == <span class="string">'-'</span> <span class="keyword">and</span> B[i] == <span class="string">'-'</span>):</span><br><span class="line">            mismatch += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> mismatch</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    S1 = list(<span class="string">"GGATCGA"</span>)</span><br><span class="line">    S2 = list(<span class="string">"GAATTCAGTTA"</span>)</span><br><span class="line">    print(MinMismatch(S1,S2))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/DNA-min-mismatch/" data-id="cjdb2lpvk000015av4xbmn9jj" class="article-share-link">Compartir</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/01/08/micro-payment/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">Micropayment</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categorías</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nube de Tags</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archivos</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Posts recientes</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/02/06/DNA-min-mismatch/">Needleman–Wunsch algorithm</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/08/micro-payment/">Micropayment</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/07/null-in-solidity/">NULL in Solidity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/04/start-solidity/">Start with Solidity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/01/03/LearnSolidity3/">Learn Solidity (3) — Safe Remote Purchase</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Lingkun Kong<br>
+      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
