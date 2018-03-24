@@ -52,9 +52,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
@@ -65,10 +65,286 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-start-solidity" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/01/16/hello-world/" class="article-date">
-  <time datetime="2017-01-15T16:00:00.000Z" itemprop="datePublished">2017-01-16</time>
+    <a href="/blog/01/04/start-solidity/" class="article-date">
+  <time datetime="2018-01-04T12:26:02.000Z" itemprop="datePublished">2018-01-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/01/04/start-solidity/">Start with Solidity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Ethereum-and-Solidity环境配置"><a href="#Ethereum-and-Solidity环境配置" class="headerlink" title="Ethereum and Solidity环境配置"></a>Ethereum and Solidity环境配置</h2><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>由于Remix版本的更新，Metamask的更新已经Ethereum rinkeby network对Github账号申请eth的限制，我发现原来的<a href="https://karl.tech/learning-solidity-part-1-deploy-a-contract/" target="_blank" rel="noopener">配置教程</a>其实并不太适用于当前的版本了，所以在这里我简单的介绍一下开发的一些基本配置。在接下来的配置内容中，我借鉴了许多来自<a href="http://www.initc3.org/events/2017-07-13-IC3-Ethereum-Crypto-Boot-Camp-at-Cornell-University.html" target="_blank" rel="noopener">IC3 Ethereum/Cornell Bootcamp</a>的内容，主要对其中Github部分的内容做了更新。</p>
+<h3 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements:"></a>Requirements:</h3><ul>
+<li><a href="https://www.google.com/chrome/index.html" target="_blank" rel="noopener">Google Chrome</a></li>
+<li><a href="https://twitter.com/" target="_blank" rel="noopener">Twitter Account</a></li>
+<li><a href="https://metamask.io/" target="_blank" rel="noopener">Metamask</a></li>
+</ul>
+<h3 id="Introduction-of-Things"><a href="#Introduction-of-Things" class="headerlink" title="Introduction of Things:"></a>Introduction of Things:</h3><h4 id="Ethereum"><a href="#Ethereum" class="headerlink" title="Ethereum"></a><a href="http://ethdocs.org/en/latest/" target="_blank" rel="noopener">Ethereum</a></h4><p>Ethereum is an open-source, public, blockchain-based distributed computing platform featuring smart contract (scripting) functionality.</p>
+<h4 id="Metamask"><a href="#Metamask" class="headerlink" title="Metamask"></a><a href="https://metamask.io/" target="_blank" rel="noopener">Metamask</a></h4><p>MetaMask is a bridge between Google Chrome and the Ethereum blockchain. It allows you to run Ethereum Dapps in your browser without running a full Ethereum node. MetaMask includes a secure identity vault, providing a user interface to manage your identities on different sites and sign blockchain transactions.</p>
+<h4 id="Solidity"><a href="#Solidity" class="headerlink" title="Solidity"></a><a href="https://solidity.readthedocs.io/en/latest/" target="_blank" rel="noopener">Solidity</a></h4><p>Solidity is a programming language used to code smart contracts that are compatible with Ethereum. <a href="https://solidity.readthedocs.io/en/latest/" target="_blank" rel="noopener">The documentation for Solidity is located here</a>. We will be using <a href="https://ethereum.github.io/browser-solidity/" target="_blank" rel="noopener">Remix</a> when developing our smart contracts. Remix is an online development environment that allows you to code, deploy, and test smart contracts on the public Ethereum networks and test Ethereum networks.</p>
+<h4 id="Rinkeby"><a href="#Rinkeby" class="headerlink" title="Rinkeby"></a><a href="https://www.rinkeby.io/" target="_blank" rel="noopener">Rinkeby</a></h4><p>Rinkeby is a public Ethereum test network that is used to deploy and test smart contracts for free. In order to receive Rinkeby ether coins, you will need to visit <a href="https://www.rinkeby.io/" target="_blank" rel="noopener">https://www.rinkeby.io/</a> once you have your Metamask client installed.</p>
+<h3 id="Start-with-Ethereum-and-Solidity"><a href="#Start-with-Ethereum-and-Solidity" class="headerlink" title="Start with Ethereum and Solidity:"></a>Start with Ethereum and Solidity:</h3><p><strong>a. Setting up Metamask</strong></p>
+<ol>
+<li>Install the <a href="https://metamask.io/" target="_blank" rel="noopener">Metamask Chrome plugin</a>.</li>
+<li>Open Metamask (there should be an orange fox icon in your browser toolbar).</li>
+<li>Click through the license agreements.</li>
+<li>Create a new “den” which will house your Ethereum account.</li>
+<li>COPY THE 12 WORDS SOMEWHERE SAFE.</li>
+<li>Click the network selection button on the top left part of the Metmask app. It should say “Ethereum Mainnet” or “Ropsten”. Change that to Rinkeby.</li>
+<li>Copy your Ethereum account address by clicking the “Copy” icon above the “Buy” and “Send” buttons. Mouse over the icons to reveal their label.</li>
+</ol>
+<p><strong>b. Get Rinkeby Testnet Ether</strong></p>
+<ol>
+<li>Login into your <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter account</a>.</li>
+<li>Paste your Ethereum address you copied in step a.7 into the “What’s happening?” content boxs to make a new tweet. The Ethereum address should be a jumble of letters and numbers like this: <code>0x9bcd107A7De7C3cee1be15dFa06B5586672912e9</code></li>
+<li>Click “Tweet” to gennerate a new Tweet.</li>
+<li>Copy the URL of the Tweet. Click the button in the upper right of your tweet and select the option of “Copy link to Tweet”. The link should be similar to this:<code>https://twitter.com/316980786Kong/status/946989538890588161</code></li>
+<li>Visit the <a href="https://www.rinkeby.io/" target="_blank" rel="noopener">Rinkeby website</a> and click “Crypto Faucet”.</li>
+<li>Paste your Tweet URL in the box provided and click “Give me Ether - 3 ethers/8 hours”.</li>
+<li>A box should pop up with with your Twitter icon indicating that your request for testnet ether is being processed.</li>
+<li>Wait 10 seconds.</li>
+<li>Look at your Metamask client and verify that you received 3 Rinkeby testnet ether.</li>
+</ol>
+<p><strong>c. Writing your first smart contract.</strong></p>
+<ol>
+<li>Go to the <a href="https://karl.tech/learning-solidity-part-2-voting/" target="_blank" rel="noopener">Learning Solidity Part 2: Commit-Reveal Voting</a>.</li>
+<li>Walk through the blog and write your first smart contract.</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/04/start-solidity/" data-id="cjf55199a000q6aavrrzpb48v" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-LearnSolidity3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/03/LearnSolidity3/" class="article-date">
+  <time datetime="2018-01-03T05:17:07.000Z" itemprop="datePublished">2018-01-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/01/03/LearnSolidity3/">Learn Solidity (3) — Safe Remote Purchase</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Solidity学习笔记-3-—-Safe-Remote-Purchase"><a href="#Solidity学习笔记-3-—-Safe-Remote-Purchase" class="headerlink" title="Solidity学习笔记(3) — Safe Remote Purchase"></a>Solidity学习笔记(3) — Safe Remote Purchase</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>今天用拍卖合约（Safe Remote Purchase）进行Smart Contract编程的学习。</p>
+<p>今天的这一段代码，有一些比较tricky的地方，所以我的笔记也会比较详细。</p>
+<p>附上官方的学习代码链接：<a href="https://solidity.readthedocs.io/en/latest/solidity-by-example.html#safe-remote-purchase" target="_blank" rel="noopener">https://solidity.readthedocs.io/en/latest/solidity-by-example.html#safe-remote-purchase</a></p>
+<p>另外发现了一个不错的大纲型文档：<a href="https://medium.com/@mattcondon/getting-up-to-speed-on-ethereum-63ed28821bbe" target="_blank" rel="noopener">https://medium.com/@mattcondon/getting-up-to-speed-on-ethereum-63ed28821bbe</a></p>
+<h4 id="1-功能简介"><a href="#1-功能简介" class="headerlink" title="1.功能简介"></a>1.功能简介</h4><p>这个合约作为一个第三方的平台，用于远程购买一个商品时暂存买方付的钱，然后在买方确认交易后将钱付给商家。整体而言这个合约相当于我们用淘宝网购时的淘宝平台，用户购买时将钱先付给淘宝平台，然后商家发货。用户在收到商品后在淘宝上确认付款，这时淘宝会把钱打给商户。</p>
+<p>在使用这个合约时，卖方需要先自己创建(create)合约。整个流程与下图类似：</p>
+<img src="/blog/01/03/LearnSolidity3/overview.png" title="Overview of Safe Remote Purchase Contract">
+<h4 id="2-代码简介"><a href="#2-代码简介" class="headerlink" title="2.代码简介"></a>2.代码简介</h4><p><strong>初始函数</strong>：首先，我们看建立合约的初始函数，根据函数中的<code>payable</code>，说明这里发起协议的seller需要在transaction里面放价格为商品两倍的保证金。这里是整个合约最tricky的地方，即seller放了商品价格两倍的保证金。这样有两个目的，其一可以防止黑心商家，发起协议后不给用户发货，用户在确认后白白损失金额。其二可以让买方积极的去确认收到商品了，因为买方也要交商品价格两倍的保证金，如果不确认收到商品，他们将白白损失钱财。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enum State &#123; Created, Locked, Inactive &#125;</span><br><span class="line">State public state;</span><br><span class="line"><span class="comment">// 这一段用require代码确认seller的value是偶数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Purchase</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">    seller = msg.sender;</span><br><span class="line">    value = msg.value / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">require</span>((<span class="number">2</span> * value) == msg.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实这么写有浪费gas的问题。因为如果不是偶数，之前的语句已经执行过了，<code>require</code>导致函数回退时将会消耗更多的gas。所以我觉得这一段可以改成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Purchase</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">    seller = msg.sender;</span><br><span class="line">    <span class="built_in">require</span>((msg.value % <span class="number">2</span>) == <span class="number">0</span>);</span><br><span class="line">    value = msg.value / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外神奇的是，在创建合约的函数里面，合约并没有写<code>state = State.Created;</code>然而在下面的<code>abort()</code>函数中，<code>inState(State.Created)</code>的判定竟然通过了。经过代码调试，我发现在<code>State public state;</code>这句话的时候，虽然没有直接赋值，但是系统默认state的值为空，在做<code>==</code>判定的时候，默认<code>state = 0</code>了。总之之后编程需要多多小心。PS. 我这里在调试的时候，加了一个<code>enum State { Created, Locked, Inactive }</code>然后创建了一个2eth的合约。于是我永久的丢掉了2eth。</p>
+<p><strong>终止合约：</strong>在终止函数里，我想提一下<code>transfer</code>和<code>send</code>函数的区别。两者都是像地址传递钱，区别在于如果<code>transfer</code>函数运行失败，系统会throw一个错误，而<code>send</code>函数则会返回一个<code>false</code>的布尔值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">abort</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    <span class="title">public</span></span></span><br><span class="line"><span class="function">    <span class="title">onlySeller</span></span></span><br><span class="line"><span class="function">    <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Aborted();</span><br><span class="line">    state = State.Inactive;</span><br><span class="line">  	<span class="comment">// 这里把seller的保证金还给seller，里面应该是2V - gas fee</span></span><br><span class="line">    seller.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>确认支付：</strong> 这个函数由buyer在seller发起的协议基础上访问，会在协议里存两倍商品价格的钱，存完后会将Contract的状态标记为锁定, i,e., <code>Locked</code>。至于为何要付两倍的钱，我认为可能是因为这个协议担心用户会懒得确认到货，所以这么做来使得用户自己能够被</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">confirmPurchase</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    <span class="title">public</span></span></span><br><span class="line"><span class="function">    <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    <span class="title">condition</span>(<span class="params">msg.value == (<span class="number">2</span> * value</span>))</span></span><br><span class="line"><span class="function">    <span class="title">payable</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PurchaseConfirmed();</span><br><span class="line">    buyer = msg.sender;</span><br><span class="line">    state = State.Locked;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>确认收货：</strong> 这个函数由buyer在seller发起的协议基础上访问，buyer确认收到商品，这样之后协议会把钱退回给buyer和seller。需要注意的是，这里官方代码认为所有的交易费用应该由seller承担。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">confirmReceived</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    <span class="title">public</span></span></span><br><span class="line"><span class="function">    <span class="title">onlyBuyer</span></span></span><br><span class="line"><span class="function">    <span class="title">inState</span>(<span class="params">State.Locked</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ItemReceived();</span><br><span class="line">    <span class="comment">// It is important to change the state first because</span></span><br><span class="line">    <span class="comment">// otherwise, the contracts called using `send` below</span></span><br><span class="line">    <span class="comment">// can call in again here.</span></span><br><span class="line">    state = State.Inactive;</span><br><span class="line">	<span class="comment">// 返回用户多余的押金，一倍商品价格</span></span><br><span class="line">    buyer.transfer(value);</span><br><span class="line">    <span class="comment">// 把剩下的 3V - gas fee的钱给商家。</span></span><br><span class="line">    seller.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-一些思考"><a href="#3-一些思考" class="headerlink" title="3.一些思考"></a>3.一些思考</h4><p>在看代码的过程中，我发现这个合约有一个无法解决的问题。</p>
+<p>假如有一些恶意的用户想搞垮商家，于是买了商品后就是不确认，这样用户通过损失等价于一个商品价格的费用（因为用户其实收到了商品），就可以坑掉商家三倍商品价格的钱（商家发出了商品）。</p>
+<p>其实这个问题的本质源于smart contract无法监管商品的运转，即它无法发现假如钱被锁死在了合约里面，是谁干了坏事。所以我觉得就remote purchace这个问题而言，比较理想的状况还是得有一个买卖双方都信的过的第三方机构介入其中。buyer先把钱寄给这个第三方机构，然后由第三方机构作为仲裁方，决定把钱最终交给buyer还是seller。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/" data-id="cjf55198h00036aavhsnyua7c" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-LearnSolidity2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/02/LearnSolidity2/" class="article-date">
+  <time datetime="2018-01-02T06:53:23.000Z" itemprop="datePublished">2018-01-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/01/02/LearnSolidity2/">Learn Solidity (2) — Auction</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Solidity学习笔记-2-—-Auction"><a href="#Solidity学习笔记-2-—-Auction" class="headerlink" title="Solidity学习笔记(2) — Auction"></a>Solidity学习笔记(2) — Auction</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>今天用拍卖合约（Auction Contract）进行Smart Contract编程的学习。</p>
+<p>环境的安装和使用方法这里不做过多的赘述，附上两个链接，大家可以用来参考：</p>
+<p>MetaMask配置：<a href="https://karl.tech/learning-solidity-part-1-deploy-a-contract/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-1-deploy-a-contract/</a></p>
+<p>Solidity配置与运行案例：<a href="https://karl.tech/learning-solidity-part-2-voting/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-2-voting/</a></p>
+<p>另外附上官方的学习代码链接：<a href="https://solidity.readthedocs.io/en/latest/solidity-by-example.html#blind-auction" target="_blank" rel="noopener">https://solidity.readthedocs.io/en/latest/solidity-by-example.html#blind-auction</a></p>
+<p>另外发现了一个不错的大纲型文档：<a href="https://medium.com/@mattcondon/getting-up-to-speed-on-ethereum-63ed28821bbe" target="_blank" rel="noopener">https://medium.com/@mattcondon/getting-up-to-speed-on-ethereum-63ed28821bbe</a></p>
+<h4 id="1-SimpleAuction"><a href="#1-SimpleAuction" class="headerlink" title="1.SimpleAuction"></a>1.SimpleAuction</h4><p>通过智能合约，实现了拍卖中用户们的匿名化。具体而言，在拍卖中，用户们通过调用智能合约进行出价，由智能合约后台经过处理后选出出价最高的用户进行最后交易，并退回其它用户的钱。</p>
+<p>首先，我们来看官方给出第一个例子，<code>contract SimpleAuction{}</code>。在这个例子中，在拍卖结束后，这个合约需要被人为地操作<code>auctionEnd()</code>函数，这样收益人<code>beneficiary</code>才能获得来自出价最高的用户的钱。另外，这个合约中，如果一个用户的报价被接受了，并不意味着这个用户已经可以拍得这个商品，因为有可能只是他出的前是目前而言最高的。如果之后有更高的出价，他需要操作<code>withdraw()</code>函数才能退回自己的金额。</p>
+<p><strong>代码分析</strong>：</p>
+<p><code>payable</code>函数几乎是所有smart contract涉及到金额流动都会有的一个函数，因为涉及交易金额的信息都已经在以太坊的transaction中了，所以<code>payable</code>函数并不需要参数输入。在这个函数中，合约先判断是否还在拍卖截止前，然后看用户提供的拍卖金额是不是当前最高的，如果不是直接退回，如果是的话则存储到<code>pendingReturns</code>中，等待最后拍卖截止后再看是不是最高的价格。另外值得注意的是，由于<code>require(msg.value &gt; highestBid);</code>所以在用户价格相同的时候，会取先出价的用户。</p>
+<p>另外在这段代码中，出现了对event的调用（<code>HighestBidIncreased()</code>），通俗的来说event, i.e., 事件是以太坊EVM提供的一种日志基础设施。事件可以用来做操作记录，存储为日志。也可以用来实现一些交互功能，比如通知UI，返回函数调用结果等。（<a href="http://me.tryblockchain.org/blockchain-solidity-event.html）" target="_blank" rel="noopener">http://me.tryblockchain.org/blockchain-solidity-event.html）</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">event HighestBidIncreased(address bidder, uint amount);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bid</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>(now &lt;= auctionEnd);</span><br><span class="line">    <span class="built_in">require</span>(msg.value &gt; highestBid);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (highestBidder != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// Sending back the money by simply using</span></span><br><span class="line">        <span class="comment">// highestBidder.send(highestBid) is a security risk</span></span><br><span class="line">        <span class="comment">// because it could execute an untrusted contract.</span></span><br><span class="line">        <span class="comment">// It is always safer to let the recipients</span></span><br><span class="line">        <span class="comment">// withdraw their money themselves.</span></span><br><span class="line">        pendingReturns[highestBidder] += highestBid;</span><br><span class="line">    &#125;</span><br><span class="line">    highestBidder = msg.sender;</span><br><span class="line">    highestBid = msg.value;</span><br><span class="line">    HighestBidIncreased(msg.sender, msg.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>withdraw()</code>函数可以说是simple auction中最笨的地方了，这里由于合约无法自动退回一些没有成功达成交易的用户的拍卖投标，用户需要在拍卖结束后自己去调用<code>withdraw()</code>函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">    uint amount = pendingReturns[msg.sender];</span><br><span class="line">    <span class="keyword">if</span> (amount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// It is important to set this to zero because the recipient</span></span><br><span class="line">        <span class="comment">// can call this function again as part of the receiving call</span></span><br><span class="line">        <span class="comment">// before `send` returns.</span></span><br><span class="line">        pendingReturns[msg.sender] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!msg.sender.send(amount)) &#123;</span><br><span class="line">            <span class="comment">// No need to call throw here, just reset the amount owing</span></span><br><span class="line">            pendingReturns[msg.sender] = amount;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在最后的<code>auctionEnd()</code>函数中，合约将最高的金额转移给受益人。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">bool ended;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">auctionEnd</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. Conditions</span></span><br><span class="line">    <span class="built_in">require</span>(now &gt;= auctionEnd); <span class="comment">// auction did not yet end</span></span><br><span class="line">    <span class="built_in">require</span>(!ended); <span class="comment">// this function has already been called</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. Effects</span></span><br><span class="line">    ended = <span class="literal">true</span>;</span><br><span class="line">    AuctionEnded(highestBidder, highestBid);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. Interaction</span></span><br><span class="line">    beneficiary.transfer(highestBid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-Blind-Auction"><a href="#2-Blind-Auction" class="headerlink" title="2.Blind Auction"></a>2.Blind Auction</h4><p>在官方提供的blind auction智能合约中，通过哈希函数的一系列特性，用户可以不直接把自己的拍卖投标放到合约中，而是只用提供自己的投标的哈希值。在拍卖结束后，用户通过提供未被哈希过的值作为依据，交给合约验证，从而判断之前提供的哈希值是有效的 — 确实由本人提交并且金额无误。</p>
+<p><strong>代码分析</strong>：</p>
+<p>由于代码较长，这里我直接通过注释的方式对代码进行说明：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line">contract BlindAuction &#123;</span><br><span class="line">    struct Bid &#123;</span><br><span class="line">        bytes32 blindedBid;</span><br><span class="line">        uint deposit;</span><br><span class="line">    &#125;</span><br><span class="line">    address public beneficiary; </span><br><span class="line">    uint public biddingEnd; <span class="comment">// 投标的截止时间</span></span><br><span class="line">    uint public revealEnd;  <span class="comment">// 确认投标的截止时间</span></span><br><span class="line">    bool public ended;      <span class="comment">// 拍卖截止时间</span></span><br><span class="line">  </span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> Bid[]) public bids;</span><br><span class="line"></span><br><span class="line">    address public highestBidder;</span><br><span class="line">    uint public highestBid;</span><br><span class="line"></span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> uint) pendingReturns;</span><br><span class="line"></span><br><span class="line">    event AuctionEnded(address winner, uint highestBid);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Modifiers 是一种简易的检验输入的方法，_代替旧的函数体</span></span><br><span class="line">    modifier onlyBefore(uint _time) &#123; <span class="built_in">require</span>(now &lt; _time); _; &#125;</span><br><span class="line">    modifier onlyAfter(uint _time) &#123; <span class="built_in">require</span>(now &gt; _time); _; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">BlindAuction</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">        uint _biddingTime,</span></span></span><br><span class="line"><span class="function"><span class="params">        uint _revealTime,</span></span></span><br><span class="line"><span class="function"><span class="params">        address _beneficiary</span></span></span><br><span class="line"><span class="function"><span class="params">    </span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        beneficiary = _beneficiary;</span><br><span class="line">        biddingEnd = now + _biddingTime;</span><br><span class="line">        revealEnd = biddingEnd + _revealTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 盲标 = keccak256(value, fake, secret).</span></span><br><span class="line">  	<span class="comment">// https://emn178.github.io/online-tools/keccak_256.html</span></span><br><span class="line">    <span class="comment">// 一个地址可以下投多个盲标</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bid</span>(<span class="params">bytes32 _blindedBid</span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">payable</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyBefore</span>(<span class="params">biddingEnd</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        bids[msg.sender].push(Bid(&#123;</span><br><span class="line">            blindedBid: _blindedBid,</span><br><span class="line">            deposit: msg.value</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 揭示盲标是否合法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">reveal</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">        uint[] _values,</span></span></span><br><span class="line"><span class="function"><span class="params">        bool[] _fake,</span></span></span><br><span class="line"><span class="function"><span class="params">        bytes32[] _secret</span></span></span><br><span class="line"><span class="function"><span class="params">    </span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyAfter</span>(<span class="params">biddingEnd</span>)</span></span><br><span class="line"><span class="function">        <span class="title">onlyBefore</span>(<span class="params">revealEnd</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="comment">// 这里由于一个地址可以下多个盲标，这里判断是否收到的输入是正确的</span></span><br><span class="line">        uint length = bids[msg.sender].length;</span><br><span class="line">        <span class="built_in">require</span>(_values.length == length);</span><br><span class="line">        <span class="built_in">require</span>(_fake.length == length);</span><br><span class="line">        <span class="built_in">require</span>(_secret.length == length);</span><br><span class="line"></span><br><span class="line">        uint refund;</span><br><span class="line">        <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> bid = bids[msg.sender][i];</span><br><span class="line">            <span class="keyword">var</span> (value, fake, secret) =</span><br><span class="line">                    (_values[i], _fake[i], _secret[i]);</span><br><span class="line">            <span class="keyword">if</span> (bid.blindedBid != keccak256(value, fake, secret)) &#123;</span><br><span class="line">                <span class="comment">// 如果寄过来的信息求哈希后和数据库中存储的不同，则说明揭示失败</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            refund += bid.deposit;</span><br><span class="line">            <span class="keyword">if</span> (!fake &amp;&amp; bid.deposit &gt;= value) &#123;</span><br><span class="line">                <span class="keyword">if</span> (placeBid(msg.sender, value))</span><br><span class="line">                    refund -= value;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 把blindedBid设置为0，防止用户重复揭示盲标</span></span><br><span class="line">            bid.blindedBid = bytes32(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        msg.sender.transfer(refund); <span class="comment">//把fake的投标的钱和真的投标的 deposit - value的钱还给用户</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这是一个"internal"函数，意味着这个函数只能由合约自身来调用</span></span><br><span class="line">    <span class="comment">// 之后的操作与simple auction相类似</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">placeBid</span>(<span class="params">address bidder, uint value</span>) <span class="title">internal</span></span></span><br><span class="line"><span class="function">            <span class="title">returns</span> (<span class="params">bool success</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (value &lt;= highestBid) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (highestBidder != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// Refund the previously highest bidder.</span></span><br><span class="line">            pendingReturns[highestBidder] += highestBid;</span><br><span class="line">        &#125;</span><br><span class="line">        highestBid = value;</span><br><span class="line">        highestBidder = bidder;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        uint amount = pendingReturns[msg.sender];</span><br><span class="line">        <span class="keyword">if</span> (amount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            pendingReturns[msg.sender] = <span class="number">0</span>;</span><br><span class="line">            msg.sender.transfer(amount);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">auctionEnd</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyAfter</span>(<span class="params">revealEnd</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(!ended);</span><br><span class="line">        AuctionEnded(highestBidder, highestBid);</span><br><span class="line">        ended = <span class="literal">true</span>;</span><br><span class="line">        beneficiary.transfer(highestBid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-一些思考与改进"><a href="#3-一些思考与改进" class="headerlink" title="3.一些思考与改进"></a>3.一些思考与改进</h4><p>在看代码的过程中，我发现用户的钱在投标后其实是会把钱直接锁死在了智能合约中。根据本合约的逻辑，最终其实会有很多用户的钱被锁定（因为在用户调用<code>withdraw()</code>函数之前，他们都认为自己下的标是最大的）这其实对用户而言非常的不友好。</p>
+<p>这里，我重新修改了<code>placeBid()</code>函数，当<code>highestBid</code>发生变化时我直接把前一个<code>highestBid</code>的钱退还给了相应的用户。我把我的代码放到了下面的链接里：<a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/02/LearnSolidity2/" data-id="cjf55198600016aav6gqqi98v" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Solidity学习笔记(1)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/01/Solidity学习笔记(1)/" class="article-date">
+  <time datetime="2017-12-31T16:00:00.000Z" itemprop="datePublished">2018-01-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/01/01/Solidity学习笔记(1)/">Learn Solidity (1) — Ballot</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Solidity学习笔记-1-—-Ballot"><a href="#Solidity学习笔记-1-—-Ballot" class="headerlink" title="Solidity学习笔记(1) — Ballot"></a>Solidity学习笔记(1) — Ballot</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>最近开始学习Solidity，开始学习写smart contract。今天开始用一个官方提供的投票合同（Ballot Contract）进行第一步的学习。</p>
+<p>环境的安装和使用方法这里不做过多的赘述，附上两个链接，大家可以用来参考：</p>
+<p>MetaMask配置：<a href="https://karl.tech/learning-solidity-part-1-deploy-a-contract/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-1-deploy-a-contract/</a></p>
+<p>Solidity配置与运行案例：<a href="https://karl.tech/learning-solidity-part-2-voting/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-2-voting/</a></p>
+<p>另外附上官方的学习代码链接：<a href="https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting" target="_blank" rel="noopener">https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting</a></p>
+<h4 id="1-逻辑简介"><a href="#1-逻辑简介" class="headerlink" title="1.逻辑简介"></a>1.逻辑简介</h4><p>如下图所示，整个投票过程中有三个角色，其中ChairMan负责组织投票，而Voters进行投票，Proposals是本次投票中的候选人。其中，Chairman组织投票的方式为指定全部的候选人名单，并逐一赋予候选人们投票的权力。</p>
+<p><img src="http://www.z4a.net/images/2018/01/01/12c442bfea71a1a6f.png" alt="Roles"></p>
+<p>之后，Voters开始进行投票，他们投票有两种方式，第一种简单明了，Voter直接对心仪的Proposal进行投票。</p>
+<p>第二种方式略为复杂，类似于人大代表大会的制度，Voters可以选择信任的Voter(不能是自己)进行委托（delegate），然后由委托人进行再次委托或者直接进行投票，示意图如下图所示。其中白色的字母表示Voter拥有的票数，即官方代码中的<code>weight</code>，而红色的字母是候选人最后获得的票数，即官方代码中的<code>voteCount</code>。</p>
+<p><img src="http://www.z4a.net/images/2018/01/01/ballot-voter.png" alt="Voters"></p>
+<h4 id="2-代码摘要"><a href="#2-代码摘要" class="headerlink" title="2.代码摘要"></a>2.代码摘要</h4><p><strong>指定候选者名单</strong>：chairperson的初始化和指定候选者的名单是在初始化整个合同的过程中同时进行的，这确保了合同的发起人<code>msg.sender</code>就是本次投票的组织者，chairman。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Create a new ballot to choose one of `proposalNames`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ballot</span>(<span class="params">bytes32[] proposalNames</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    chairperson = msg.sender;</span><br><span class="line">    voters[chairperson].weight = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each of the provided proposal names,</span></span><br><span class="line">    <span class="comment">// create a new proposal object and add it</span></span><br><span class="line">    <span class="comment">// to the end of the array.</span></span><br><span class="line">    <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; proposalNames.length; i++) &#123;</span><br><span class="line">        <span class="comment">// `Proposal(&#123;...&#125;)` creates a temporary</span></span><br><span class="line">        <span class="comment">// Proposal object and `proposals.push(...)`</span></span><br><span class="line">        <span class="comment">// appends it to the end of `proposals`.</span></span><br><span class="line">        proposals.push(Proposal(&#123;</span><br><span class="line">            name: proposalNames[i],</span><br><span class="line">            voteCount: <span class="number">0</span></span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>赋予投票者权力</strong>：而在给予Voters投票权力时，合同则是采用了函数。这时，为了确保只有chairperson可以赋予去权力，官方的代码中使用了Solidity特有的<code>require(arg)</code>写法：如果require函数框内的参数输入为真，函数正常运行；如果输入为假，则终止程序的运行并且返回整个函数，e.g.,<code>giveRightToVote()</code>运行前的状态。</p>
+<p>使用require函数的优势在于这样做会比较安全，保证如果程序中某部分运行出错可以退出程序并返回到安全状态，但是同样的，require函数的使用会消耗所有提供的gas。（gas是以太坊中特有的一种概念，用于奖励矿工们对交易进行确认的行为，基本上处理数据量越大的合同，越复杂的合同会消耗越多的gas）</p>
+<p>赋予voter权力的代码如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Give `voter` the right to vote on this ballot.</span></span><br><span class="line"><span class="comment">// May only be called by `chairperson`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">giveRightToVote</span>(<span class="params">address voter</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>((msg.sender == chairperson) &amp;&amp; !voters[voter].voted &amp;&amp;(voters[voter].weight == <span class="number">0</span>));</span><br><span class="line">    voters[voter].weight = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>投票者直接向候选人投票</strong>：这部分的代码逻辑比较简单，但是值得注意的是，官方代码使用了<code>storage</code>变量的声明。Ethereum Virtual Machine有三个地方用于存储，分别是storage, memory和stack，存储开销依次递减。具体的区别可见<a href="https://ethereum.stackexchange.com/questions/1701/what-does-the-keyword-memory-do-exactly" target="_blank" rel="noopener">链接</a>。但是需要注意的是，本地的一些变量如<code>struct</code>, <code>array</code> 或者 <code>mapping</code> 会自动被存储在storage中。在代码中，官方使用storage变量的声明做代码简化，即当用storage申明了<code>sender</code>后，之后对<code>sender</code>各项属性的赋值会直接写入storage中，而不用每次都做<code>voters[msg.sender].voted = true</code>此类操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Give your vote (including votes delegated to you)</span></span><br><span class="line"><span class="comment">/// to proposal `proposals[proposal].name`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">vote</span>(<span class="params">uint proposal</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="comment">// assigns reference</span></span><br><span class="line">    Voter storage sender = voters[msg.sender];</span><br><span class="line">    <span class="built_in">require</span>(!sender.voted);</span><br><span class="line">    sender.voted = <span class="literal">true</span>;</span><br><span class="line">    sender.vote = proposal;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If `proposal` is out of the range of the array,</span></span><br><span class="line">    <span class="comment">// this will throw automatically and revert all</span></span><br><span class="line">    <span class="comment">// changes.</span></span><br><span class="line">    proposals[proposal].voteCount += sender.weight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>投票者通过委托进行投票</strong>：如果你理解了在逻辑简介中图例的思想，这部分的代码很容易看懂。简单来说，Voters通过选择委托人，然后通过while循环一路找到最终的委托人，之后将自己的票给到这个最终的委托人手中，由他进行操作。需要注意的是在Solidity的编程中对while语句的使用一定要小心，防止有长时间的循环导致block中的gas耗尽，程序无法得到执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Delegate your vote to the voter `to`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">delegate</span>(<span class="params">address to</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    Voter storage sender = voters[msg.sender];</span><br><span class="line">    <span class="built_in">require</span>(!sender.voted);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Self-delegation is not allowed.</span></span><br><span class="line">    <span class="built_in">require</span>(to != msg.sender);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (voters[to].delegate != address(<span class="number">0</span>)) &#123;</span><br><span class="line">        to = voters[to].delegate;</span><br><span class="line">        <span class="comment">// We found a loop in the delegation, not allowed.</span></span><br><span class="line">        <span class="built_in">require</span>(to != msg.sender);</span><br><span class="line">    &#125;</span><br><span class="line">    sender.voted = <span class="literal">true</span>;</span><br><span class="line">    sender.delegate = to;</span><br><span class="line">    Voter storage delegate = voters[to];</span><br><span class="line">    <span class="keyword">if</span> (delegate.voted) &#123;</span><br><span class="line">        <span class="comment">// If the delegate already voted,</span></span><br><span class="line">        <span class="comment">// directly add to the number of votes</span></span><br><span class="line">        proposals[delegate.vote].voteCount += sender.weight;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// If the delegate did not vote yet,</span></span><br><span class="line">        <span class="comment">// add to her weight.</span></span><br><span class="line">        delegate.weight += sender.weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>统计胜者</strong>：最后就是简单的对所有候选人的票数进行统计，然后得到最终的胜者。需用注意的是在函数后面跟着一个<code>view</code>，它的用法详见<a href="https://github.com/ethereum/solidity/issues/992" target="_blank" rel="noopener">链接</a>。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// @dev Computes the winning proposal taking all</span></span><br><span class="line"><span class="comment">/// previous votes into account.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">winningProposal</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span></span></span><br><span class="line"><span class="function">        <span class="title">returns</span> (<span class="params">uint winningProposal</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    uint winningVoteCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (uint p = <span class="number">0</span>; p &lt; proposals.length; p++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (proposals[p].voteCount &gt; winningVoteCount) &#123;</span><br><span class="line">            winningVoteCount = proposals[p].voteCount;</span><br><span class="line">            winningProposal = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Calls winningProposal() function to get the index</span></span><br><span class="line"><span class="comment">// of the winner contained in the proposals array and then</span></span><br><span class="line"><span class="comment">// returns the name of the winner</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">winnerName</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span></span></span><br><span class="line"><span class="function">        <span class="title">returns</span> (<span class="params">bytes32 winnerName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    winnerName = proposals[winningProposal()].name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对官方代码的优化"><a href="#对官方代码的优化" class="headerlink" title="对官方代码的优化"></a>对官方代码的优化</h4><p>官方的代码中存有两个值得改进的地方，第一在于并没有设置整个投票过程中的时长，讲道理一个规范的投票需要投票发起人指定一个投票的进行时长，超过这个时间后，就无法进行继续投票。第二在于代码没有考虑平票的情况。基于这两个问题，我对官方的代码进行了简单的优化，优化的结果放在下面的链接中，另外之后我的一些笔记会陆续放到下面的链接中：</p>
+<p><a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjf55198w00096aav9av31j1x" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-打底裤和荷尔蒙" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/28/打底裤和荷尔蒙/" class="article-date">
+  <time datetime="2017-01-27T16:00:00.000Z" itemprop="datePublished">2017-01-28</time>
 </a>
     
   <div class="article-category">
@@ -83,7 +359,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/01/16/hello-world/">Hello World</a>
+      <a class="article-title" href="/blog/01/28/打底裤和荷尔蒙/">打底裤和荷尔蒙</a>
     </h1>
   
 
@@ -91,21 +367,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p><em>In me the cave-man clasps the seer,</em></p>
-<p><em>And garlanded Apollo goes</em></p>
-<p><em>Chanting to Abraham’s deaf ear.</em></p>
-<p><em>In me the tiger sniffs the rose.</em></p>
-</blockquote>
-<p>Hello, my name is Kong Lingkun.</p>
-<p>From long times ago, when lying in bed, I was tortured by a weird feeling that I had to do something about myself, something announcing my existence in the world, both phisically and mentally, otherwise I would be swallowed by the abyss of loneliness and confusion. And soon, I realized that what I should do was to follow the voice from innermost of my body and soul – I had to write something down to avoid burying my thoughts and youth into the dust of time. And that is why this website or blog exists.</p>
-<p>This website mainly records my coding experience and my personal understanding about movies, fictions and music. And actually, I believe most of them will be written in Chinese.</p>
-<p>In this website, I hope I can learn and grow up with all of you.</p>
+        <p><strong>第一篇影评送给Take the Lead中老师教导学生探戈的片段。这也是我心目中所有看过的电影里可以排进前五的一段舞蹈。</strong></p>
+<p>说起电影中的舞蹈的佳作，其实有很多。每一个男人心中，都希望能有一个能和他一起不顾众人目光，纵情跳着兔子舞的米亚；上校牵起佳人的纤手，尽管已经盲目，却在探戈中更能体会佳人的羞涩动人；芳芳对着镜子纵情狂欢，尽显青春的活泼和清纯的魅力；配着爵士乐 －－ Down in Mexico，美女朝大叔跳起贴面舞，微微鼓起的肚囊让人欲罢不能（<a href="https://www.youtube.com/watch?v=T1T8iZn6tzU" target="_blank" rel="noopener">Death Proof</a>，个人也超喜欢这段）；美国往事中，少女在面包的粉尘之中，翩翩起舞，宛若仙女下凡 ……</p>
+<p>然而，我心中的最经典的舞曲，却一直留给Take the ead中这段惊艳了青春的探戈。</p>
+<p>这部电影作为宣扬美国主旋律的青春歌舞片，其实从故事角度而言，电影的情节略显单薄。故事的承起转折，略有些生硬和俗套 －－ 主要讲了一个教师通过教导学生跳交际舞，从而将这些“不良少年”感化，将他们重新拉上了人生的正轨。这些学生都是“街舞少年”，在国内就是大名鼎鼎的“葬爱家族”里的成员。原来他们只喜欢跳街舞，喜欢在Pop和Rap的旋律中乱扭，而认为交际舞特别无聊，一点都不够酷炫。影片中的这段探戈，就是教师用于吸引这些“街舞少年”投入交际舞的怀抱的工具。（确实成功了，反正我看到我也会想去学）</p>
+<p>当时，这个电影片段出现于我高中的音乐课。我记得老师是为了介绍“探戈”这个经典的舞蹈形式，然后放了这部电影给我们看。当时我就震惊了。说实话，就像是电影中的那个黑人小哥看到这段舞时情不自禁的吼出来的 just getting his flirt on。确实，这段舞更像是情人之间的调情，点燃了高中时我们无处安放的荷尔蒙。我印象特别深刻，当时观看这段舞的时候，已经下课了，但是全班的所有人都盯着视频看，没有一个人想要离开，或者发出声音。教室里除了舞曲的鼓点和下课的铃声，恐怕也就只剩下我们咽口水的声音了。</p>
+<p>学习的时间很枯燥，也很漫长。所有人都拼命着压抑着野蛮生长的荷尔蒙，抵挡着各种奇形怪状的思绪带来的干扰，埋头学习，努力地往前冲冲冲。而这段舞蹈却像是一个有魔力的炸弹，点燃了所有人的荷尔蒙。反正我是记得，有人直接放声地说了出来－－“万恶的安全裤”然后一片哄笑，众人面红耳赤，窃窃私语，漏出燥热而意味深长的笑容。</p>
+<p>探戈起源于情人之间的秘密舞蹈。传说中男士跳舞时都佩带着短刀。现在虽已不佩带短刀，但舞蹈者必须表情严肃，提防被人发现的表情。然而这种表情的严肃，配上激情四溢的舞曲动作，更体现出一种反差与冲突之美，恰似在压抑中燃烧的荷尔蒙。（不知道为什么，跳舞跳着，两个人都想把对方吃掉（；￣ェ￣），不敢看）</p>
+<p>需要注意的是，这里其实男主原来并不会跳探戈。导演特意特意请了专业舞蹈演员（女）教导男主学习探戈，并在短短一周内，两人磨合出了这段令人惊艳的舞蹈。（默默吐槽一下，毕竟看男主大家都只看脸）当然这也归功于优秀的摄影和剪辑。明亮的光线从窗外泻入，使得画面简明而动感。摄像机剪辑女舞者婀娜的身姿以及翩飞的舞步，更显探戈抓人的魅力。此外，影片对传统的Asi Se Baila El Tango（著名探戈舞曲）进行了改编，加入了鼓点，钢琴以及人声，使得舞蹈的表现显得更为有力。</p>
+<p>总而言之，这部电影并不是一部剧情感人至深的佳作，影片本身并不能给舞蹈添色。所以很多人眼中可能这段舞蹈并不能摘得心目中影史最佳舞蹈的桂冠。但是，这段舞蹈对于我而言，并不仅仅只是一段舞，或者是一段优秀的电影片段，它还是我压抑里，躁动的青春。</p>
+<p>想要从油管看这个舞蹈，请戳<a href="https://www.youtube.com/watch?v=6lAKlYTQVKY" target="_blank" rel="noopener">我</a>。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/16/hello-world/" data-id="cjdbl9dx20009z7avzka771yw" class="article-share-link">Compartir</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/28/打底裤和荷尔蒙/" data-id="cjf55199e000u6aavsn69us12" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -119,7 +395,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/">&laquo; Previo</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/blog/">&laquo; Précédent</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">Suivant &raquo;</a>
   </nav>
 
 </section>
@@ -128,7 +404,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categorías</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
     </div>
@@ -138,7 +414,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
     </div>
@@ -148,7 +424,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nube de Tags</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
     </div>
@@ -157,9 +433,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archivos</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
     </div>
   </div>
 
@@ -167,9 +443,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Posts recientes</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/03/24/LearnSolidity4/">LearnSolidity4 — CrowdSensing</a>
+          </li>
         
           <li>
             <a href="/blog/02/06/hanoi/">Hanoi in Assembly x86 (NASM)</a>
@@ -187,10 +467,6 @@
             <a href="/blog/01/07/null-in-solidity/">NULL in Solidity</a>
           </li>
         
-          <li>
-            <a href="/blog/01/04/start-solidity/">Start with Solidity</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -204,7 +480,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 Lingkun Kong<br>
-      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé par <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
