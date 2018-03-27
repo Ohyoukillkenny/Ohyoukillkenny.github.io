@@ -52,9 +52,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
@@ -64,6 +64,61 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-null-in-solidity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/07/null-in-solidity/" class="article-date">
+  <time datetime="2018-01-07T07:47:08.000Z" itemprop="datePublished">2018-01-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/01/07/null-in-solidity/">NULL in Solidity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Inexistent-NULL-in-Solidity"><a href="#Inexistent-NULL-in-Solidity" class="headerlink" title="Inexistent NULL in Solidity"></a>Inexistent NULL in Solidity</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。</p>
+<p>比如<a href="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/">之前</a>我遇到的<code>enum</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">enum State &#123; Created, Locked, Inactive &#125;</span><br><span class="line"><span class="comment">// Created = 0, Locked = 1, Inactive = 2</span></span><br></pre></td></tr></table></figure>
+<p>之后，代码在没有对<code>myState</code>变量进行赋值的情况下，直接判断：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(myState == Created.Created);</span><br></pre></td></tr></table></figure>
+<p>所以这个时系统断定判断通过，而且并不会报错。</p>
+<p>那么，如何判断<code>mapping</code>中是否某个键是否”为空”呢？</p>
+<p>比较标准的做法是建立一个专门和value相关的结构体，用一个布尔型变量来看是否这个key所对应的value被赋过值，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">library Library &#123;</span><br><span class="line">  struct data &#123;</span><br><span class="line">     uint val;</span><br><span class="line">     bool isValue;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">contract myContract&#123;</span><br><span class="line">    using Library <span class="keyword">for</span> Library.data;</span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> Library.data) cluster;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ifExist</span>(<span class="params">address id</span>) <span class="title">returns</span>(<span class="params">bool</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cluster[id].isValue) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> flase; </span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="function"><span class="keyword">function</span> <span class="title">addCluster</span>(<span class="params">address id</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cluster[id].isValue) <span class="keyword">throw</span>; <span class="comment">// duplicate key</span></span><br><span class="line">        <span class="comment">// add ...</span></span><br><span class="line">      	cluster[id].isValue = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，我们也可以简单的来看一下value所对应的length来判断这个值是否被赋值过（零值无法判断！）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mapping(<span class="function"><span class="params">address</span> =&gt;</span> uint) public deposits;</span><br><span class="line"><span class="keyword">if</span>(deposits[msg.sender].length == <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="comment">// deposit[msg.sender] is empty, do your thing</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们不用判断某个变量是否为赋过值后的零值时，我建议用第二种通过length来判断的方法，因为后者将大大减少合约gas的消耗。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/07/null-in-solidity/" data-id="cjf9tq3rv000jxsavczrr5bi8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-start-solidity" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -133,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/04/start-solidity/" data-id="cjf55199a000q6aavrrzpb48v" class="article-share-link">Partager</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/04/start-solidity/" data-id="cjf9tq3s0000nxsavb0em17in" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -197,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/" data-id="cjf55198h00036aavhsnyua7c" class="article-share-link">Partager</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/" data-id="cjf9tq3u60011xsavlos8qtqv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -262,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/02/LearnSolidity2/" data-id="cjf55198600016aav6gqqi98v" class="article-share-link">Partager</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/02/LearnSolidity2/" data-id="cjf9tq3q80001xsavrk3i3d0e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -329,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjf55198w00096aav9av31j1x" class="article-share-link">Partager</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjf9tq3qw0005xsavx52d4j3g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -341,61 +396,11 @@
 
 
   
-    <article id="post-打底裤和荷尔蒙" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/01/28/打底裤和荷尔蒙/" class="article-date">
-  <time datetime="2017-01-27T16:00:00.000Z" itemprop="datePublished">2017-01-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/articles/">articles</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/01/28/打底裤和荷尔蒙/">打底裤和荷尔蒙</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>第一篇影评送给Take the Lead中老师教导学生探戈的片段。这也是我心目中所有看过的电影里可以排进前五的一段舞蹈。</strong></p>
-<p>说起电影中的舞蹈的佳作，其实有很多。每一个男人心中，都希望能有一个能和他一起不顾众人目光，纵情跳着兔子舞的米亚；上校牵起佳人的纤手，尽管已经盲目，却在探戈中更能体会佳人的羞涩动人；芳芳对着镜子纵情狂欢，尽显青春的活泼和清纯的魅力；配着爵士乐 －－ Down in Mexico，美女朝大叔跳起贴面舞，微微鼓起的肚囊让人欲罢不能（<a href="https://www.youtube.com/watch?v=T1T8iZn6tzU" target="_blank" rel="noopener">Death Proof</a>，个人也超喜欢这段）；美国往事中，少女在面包的粉尘之中，翩翩起舞，宛若仙女下凡 ……</p>
-<p>然而，我心中的最经典的舞曲，却一直留给Take the ead中这段惊艳了青春的探戈。</p>
-<p>这部电影作为宣扬美国主旋律的青春歌舞片，其实从故事角度而言，电影的情节略显单薄。故事的承起转折，略有些生硬和俗套 －－ 主要讲了一个教师通过教导学生跳交际舞，从而将这些“不良少年”感化，将他们重新拉上了人生的正轨。这些学生都是“街舞少年”，在国内就是大名鼎鼎的“葬爱家族”里的成员。原来他们只喜欢跳街舞，喜欢在Pop和Rap的旋律中乱扭，而认为交际舞特别无聊，一点都不够酷炫。影片中的这段探戈，就是教师用于吸引这些“街舞少年”投入交际舞的怀抱的工具。（确实成功了，反正我看到我也会想去学）</p>
-<p>当时，这个电影片段出现于我高中的音乐课。我记得老师是为了介绍“探戈”这个经典的舞蹈形式，然后放了这部电影给我们看。当时我就震惊了。说实话，就像是电影中的那个黑人小哥看到这段舞时情不自禁的吼出来的 just getting his flirt on。确实，这段舞更像是情人之间的调情，点燃了高中时我们无处安放的荷尔蒙。我印象特别深刻，当时观看这段舞的时候，已经下课了，但是全班的所有人都盯着视频看，没有一个人想要离开，或者发出声音。教室里除了舞曲的鼓点和下课的铃声，恐怕也就只剩下我们咽口水的声音了。</p>
-<p>学习的时间很枯燥，也很漫长。所有人都拼命着压抑着野蛮生长的荷尔蒙，抵挡着各种奇形怪状的思绪带来的干扰，埋头学习，努力地往前冲冲冲。而这段舞蹈却像是一个有魔力的炸弹，点燃了所有人的荷尔蒙。反正我是记得，有人直接放声地说了出来－－“万恶的安全裤”然后一片哄笑，众人面红耳赤，窃窃私语，漏出燥热而意味深长的笑容。</p>
-<p>探戈起源于情人之间的秘密舞蹈。传说中男士跳舞时都佩带着短刀。现在虽已不佩带短刀，但舞蹈者必须表情严肃，提防被人发现的表情。然而这种表情的严肃，配上激情四溢的舞曲动作，更体现出一种反差与冲突之美，恰似在压抑中燃烧的荷尔蒙。（不知道为什么，跳舞跳着，两个人都想把对方吃掉（；￣ェ￣），不敢看）</p>
-<p>需要注意的是，这里其实男主原来并不会跳探戈。导演特意特意请了专业舞蹈演员（女）教导男主学习探戈，并在短短一周内，两人磨合出了这段令人惊艳的舞蹈。（默默吐槽一下，毕竟看男主大家都只看脸）当然这也归功于优秀的摄影和剪辑。明亮的光线从窗外泻入，使得画面简明而动感。摄像机剪辑女舞者婀娜的身姿以及翩飞的舞步，更显探戈抓人的魅力。此外，影片对传统的Asi Se Baila El Tango（著名探戈舞曲）进行了改编，加入了鼓点，钢琴以及人声，使得舞蹈的表现显得更为有力。</p>
-<p>总而言之，这部电影并不是一部剧情感人至深的佳作，影片本身并不能给舞蹈添色。所以很多人眼中可能这段舞蹈并不能摘得心目中影史最佳舞蹈的桂冠。但是，这段舞蹈对于我而言，并不仅仅只是一段舞，或者是一段优秀的电影片段，它还是我压抑里，躁动的青春。</p>
-<p>想要从油管看这个舞蹈，请戳<a href="https://www.youtube.com/watch?v=6lAKlYTQVKY" target="_blank" rel="noopener">我</a>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/28/打底裤和荷尔蒙/" data-id="cjf55199e000u6aavsn69us12" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/">&laquo; Précédent</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">Suivant &raquo;</a>
+    <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -404,7 +409,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Catégories</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
     </div>
@@ -414,7 +419,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
     </div>
@@ -424,7 +429,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
     </div>
@@ -443,9 +448,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/03/27/Web3-Solidity/">Web3-Solidity</a>
+          </li>
         
           <li>
             <a href="/blog/03/24/LearnSolidity4/">LearnSolidity4 — CrowdSensing</a>
@@ -463,10 +472,6 @@
             <a href="/blog/01/08/micro-payment/">Micropayment</a>
           </li>
         
-          <li>
-            <a href="/blog/01/07/null-in-solidity/">NULL in Solidity</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -480,7 +485,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 Lingkun Kong<br>
-      Propulsé par <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
