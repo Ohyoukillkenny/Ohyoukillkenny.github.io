@@ -54,7 +54,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
@@ -64,6 +64,73 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Solidity学习笔记(1)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/01/01/Solidity学习笔记(1)/" class="article-date">
+  <time datetime="2017-12-31T16:00:00.000Z" itemprop="datePublished">2018-01-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/01/01/Solidity学习笔记(1)/">Learn Solidity (1) — Ballot</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Solidity学习笔记-1-—-Ballot"><a href="#Solidity学习笔记-1-—-Ballot" class="headerlink" title="Solidity学习笔记(1) — Ballot"></a>Solidity学习笔记(1) — Ballot</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>最近开始学习Solidity，开始学习写smart contract。今天开始用一个官方提供的投票合同（Ballot Contract）进行第一步的学习。</p>
+<p>环境的安装和使用方法这里不做过多的赘述，附上两个链接，大家可以用来参考：</p>
+<p>MetaMask配置：<a href="https://karl.tech/learning-solidity-part-1-deploy-a-contract/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-1-deploy-a-contract/</a></p>
+<p>Solidity配置与运行案例：<a href="https://karl.tech/learning-solidity-part-2-voting/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-2-voting/</a></p>
+<p>另外附上官方的学习代码链接：<a href="https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting" target="_blank" rel="noopener">https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting</a></p>
+<h4 id="1-逻辑简介"><a href="#1-逻辑简介" class="headerlink" title="1.逻辑简介"></a>1.逻辑简介</h4><p>如下图所示，整个投票过程中有三个角色，其中ChairMan负责组织投票，而Voters进行投票，Proposals是本次投票中的候选人。其中，Chairman组织投票的方式为指定全部的候选人名单，并逐一赋予候选人们投票的权力。</p>
+<p><img src="http://www.z4a.net/images/2018/01/01/12c442bfea71a1a6f.png" alt="Roles"></p>
+<p>之后，Voters开始进行投票，他们投票有两种方式，第一种简单明了，Voter直接对心仪的Proposal进行投票。</p>
+<p>第二种方式略为复杂，类似于人大代表大会的制度，Voters可以选择信任的Voter(不能是自己)进行委托（delegate），然后由委托人进行再次委托或者直接进行投票，示意图如下图所示。其中白色的字母表示Voter拥有的票数，即官方代码中的<code>weight</code>，而红色的字母是候选人最后获得的票数，即官方代码中的<code>voteCount</code>。</p>
+<p><img src="http://www.z4a.net/images/2018/01/01/ballot-voter.png" alt="Voters"></p>
+<h4 id="2-代码摘要"><a href="#2-代码摘要" class="headerlink" title="2.代码摘要"></a>2.代码摘要</h4><p><strong>指定候选者名单</strong>：chairperson的初始化和指定候选者的名单是在初始化整个合同的过程中同时进行的，这确保了合同的发起人<code>msg.sender</code>就是本次投票的组织者，chairman。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Create a new ballot to choose one of `proposalNames`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ballot</span>(<span class="params">bytes32[] proposalNames</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    chairperson = msg.sender;</span><br><span class="line">    voters[chairperson].weight = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each of the provided proposal names,</span></span><br><span class="line">    <span class="comment">// create a new proposal object and add it</span></span><br><span class="line">    <span class="comment">// to the end of the array.</span></span><br><span class="line">    <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; proposalNames.length; i++) &#123;</span><br><span class="line">        <span class="comment">// `Proposal(&#123;...&#125;)` creates a temporary</span></span><br><span class="line">        <span class="comment">// Proposal object and `proposals.push(...)`</span></span><br><span class="line">        <span class="comment">// appends it to the end of `proposals`.</span></span><br><span class="line">        proposals.push(Proposal(&#123;</span><br><span class="line">            name: proposalNames[i],</span><br><span class="line">            voteCount: <span class="number">0</span></span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>赋予投票者权力</strong>：而在给予Voters投票权力时，合同则是采用了函数。这时，为了确保只有chairperson可以赋予去权力，官方的代码中使用了Solidity特有的<code>require(arg)</code>写法：如果require函数框内的参数输入为真，函数正常运行；如果输入为假，则终止程序的运行并且返回整个函数，e.g.,<code>giveRightToVote()</code>运行前的状态。</p>
+<p>使用require函数的优势在于这样做会比较安全，保证如果程序中某部分运行出错可以退出程序并返回到安全状态，但是同样的，require函数的使用会消耗所有提供的gas。（gas是以太坊中特有的一种概念，用于奖励矿工们对交易进行确认的行为，基本上处理数据量越大的合同，越复杂的合同会消耗越多的gas）</p>
+<p>赋予voter权力的代码如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Give `voter` the right to vote on this ballot.</span></span><br><span class="line"><span class="comment">// May only be called by `chairperson`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">giveRightToVote</span>(<span class="params">address voter</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>((msg.sender == chairperson) &amp;&amp; !voters[voter].voted &amp;&amp;(voters[voter].weight == <span class="number">0</span>));</span><br><span class="line">    voters[voter].weight = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>投票者直接向候选人投票</strong>：这部分的代码逻辑比较简单，但是值得注意的是，官方代码使用了<code>storage</code>变量的声明。Ethereum Virtual Machine有三个地方用于存储，分别是storage, memory和stack，存储开销依次递减。具体的区别可见<a href="https://ethereum.stackexchange.com/questions/1701/what-does-the-keyword-memory-do-exactly" target="_blank" rel="noopener">链接</a>。但是需要注意的是，本地的一些变量如<code>struct</code>, <code>array</code> 或者 <code>mapping</code> 会自动被存储在storage中。在代码中，官方使用storage变量的声明做代码简化，即当用storage申明了<code>sender</code>后，之后对<code>sender</code>各项属性的赋值会直接写入storage中，而不用每次都做<code>voters[msg.sender].voted = true</code>此类操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Give your vote (including votes delegated to you)</span></span><br><span class="line"><span class="comment">/// to proposal `proposals[proposal].name`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">vote</span>(<span class="params">uint proposal</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="comment">// assigns reference</span></span><br><span class="line">    Voter storage sender = voters[msg.sender];</span><br><span class="line">    <span class="built_in">require</span>(!sender.voted);</span><br><span class="line">    sender.voted = <span class="literal">true</span>;</span><br><span class="line">    sender.vote = proposal;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If `proposal` is out of the range of the array,</span></span><br><span class="line">    <span class="comment">// this will throw automatically and revert all</span></span><br><span class="line">    <span class="comment">// changes.</span></span><br><span class="line">    proposals[proposal].voteCount += sender.weight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>投票者通过委托进行投票</strong>：如果你理解了在逻辑简介中图例的思想，这部分的代码很容易看懂。简单来说，Voters通过选择委托人，然后通过while循环一路找到最终的委托人，之后将自己的票给到这个最终的委托人手中，由他进行操作。需要注意的是在Solidity的编程中对while语句的使用一定要小心，防止有长时间的循环导致block中的gas耗尽，程序无法得到执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Delegate your vote to the voter `to`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">delegate</span>(<span class="params">address to</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    Voter storage sender = voters[msg.sender];</span><br><span class="line">    <span class="built_in">require</span>(!sender.voted);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Self-delegation is not allowed.</span></span><br><span class="line">    <span class="built_in">require</span>(to != msg.sender);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (voters[to].delegate != address(<span class="number">0</span>)) &#123;</span><br><span class="line">        to = voters[to].delegate;</span><br><span class="line">        <span class="comment">// We found a loop in the delegation, not allowed.</span></span><br><span class="line">        <span class="built_in">require</span>(to != msg.sender);</span><br><span class="line">    &#125;</span><br><span class="line">    sender.voted = <span class="literal">true</span>;</span><br><span class="line">    sender.delegate = to;</span><br><span class="line">    Voter storage delegate = voters[to];</span><br><span class="line">    <span class="keyword">if</span> (delegate.voted) &#123;</span><br><span class="line">        <span class="comment">// If the delegate already voted,</span></span><br><span class="line">        <span class="comment">// directly add to the number of votes</span></span><br><span class="line">        proposals[delegate.vote].voteCount += sender.weight;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// If the delegate did not vote yet,</span></span><br><span class="line">        <span class="comment">// add to her weight.</span></span><br><span class="line">        delegate.weight += sender.weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>统计胜者</strong>：最后就是简单的对所有候选人的票数进行统计，然后得到最终的胜者。需用注意的是在函数后面跟着一个<code>view</code>，它的用法详见<a href="https://github.com/ethereum/solidity/issues/992" target="_blank" rel="noopener">链接</a>。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// @dev Computes the winning proposal taking all</span></span><br><span class="line"><span class="comment">/// previous votes into account.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">winningProposal</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span></span></span><br><span class="line"><span class="function">        <span class="title">returns</span> (<span class="params">uint winningProposal</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    uint winningVoteCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (uint p = <span class="number">0</span>; p &lt; proposals.length; p++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (proposals[p].voteCount &gt; winningVoteCount) &#123;</span><br><span class="line">            winningVoteCount = proposals[p].voteCount;</span><br><span class="line">            winningProposal = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Calls winningProposal() function to get the index</span></span><br><span class="line"><span class="comment">// of the winner contained in the proposals array and then</span></span><br><span class="line"><span class="comment">// returns the name of the winner</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">winnerName</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span></span></span><br><span class="line"><span class="function">        <span class="title">returns</span> (<span class="params">bytes32 winnerName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    winnerName = proposals[winningProposal()].name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对官方代码的优化"><a href="#对官方代码的优化" class="headerlink" title="对官方代码的优化"></a>对官方代码的优化</h4><p>官方的代码中存有两个值得改进的地方，第一在于并没有设置整个投票过程中的时长，讲道理一个规范的投票需要投票发起人指定一个投票的进行时长，超过这个时间后，就无法进行继续投票。第二在于代码没有考虑平票的情况。基于这两个问题，我对官方的代码进行了简单的优化，优化的结果放在下面的链接中，另外之后我的一些笔记会陆续放到下面的链接中：</p>
+<p><a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/" data-id="cjficgnlv00061gavegke1iwj" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-打底裤和荷尔蒙" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -105,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/28/打底裤和荷尔蒙/" data-id="cjf9tq3tw000zxsavc9r37u9w" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/28/打底裤和荷尔蒙/" data-id="cjficgnmn00111gavnu3ca2gk" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -145,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/27/silly-lottery/" data-id="cjf9tq3rr000fxsavk1d04y7p" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/27/silly-lottery/" data-id="cjficgnmc000q1gavblyv4mwi" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
@@ -197,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/16/hello-world/" data-id="cjf9tq3rk000cxsavou1qvbbd" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/01/16/hello-world/" data-id="cjficgnm2000c1gav65jdxrb2" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -211,7 +278,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/page/2/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/blog/page/2/">&laquo; zurück</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 
 </section>
@@ -220,9 +287,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Algorithms/">Algorithms</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
     </div>
   </div>
 
@@ -232,7 +299,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Code/">Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
     </div>
   </div>
 
@@ -242,16 +309,16 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
+      <a href="/blog/tags/Code/" style="font-size: 10px;">Code</a> <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
     </div>
   </div>
 
@@ -259,9 +326,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/04/02/boyfriend/">boyfriend</a>
+          </li>
         
           <li>
             <a href="/blog/03/27/Web3-Solidity/">Web3-Solidity</a>
@@ -277,10 +348,6 @@
         
           <li>
             <a href="/blog/02/06/DNA-min-mismatch/">Needleman–Wunsch algorithm</a>
-          </li>
-        
-          <li>
-            <a href="/blog/01/08/micro-payment/">Micropayment</a>
           </li>
         
       </ul>

@@ -54,7 +54,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
@@ -64,6 +64,68 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-boyfriend" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/04/02/boyfriend/" class="article-date">
+  <time datetime="2018-04-02T14:41:06.000Z" itemprop="datePublished">2018-04-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Algorithms/">Algorithms</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/04/02/boyfriend/">boyfriend</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="How-to-find-the-Mr-Right"><a href="#How-to-find-the-Mr-Right" class="headerlink" title="How to find the Mr. Right"></a>How to find the Mr. Right</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>青春苦短，一个女性的青春假设为18到28岁，在10年期间内每半年假设可以找到一个男友，那么在这20次尝试的过程中应当采取怎样的策略才能从理论上找到Mr. Right呢？</p>
+<h4 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h4><ol>
+<li>好马不吃回头草，优秀的妹子才不和前任继续往来。</li>
+<li>每找到一个新的男友后，妹子可以根据其综合表现进行评分。</li>
+</ol>
+<h4 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h4><p>假设尝试次数为n，妹子们可以在找完k个男友后，抛弃掉他们，然后选取这k个人中最高的综合评分，记为bestScore。</p>
+<p>在之后的找男友大作战中，只要有人的综合评分大于bestScore，妹子就可以赶紧选择他。</p>
+<p>接下来，我们需要从概率学的角度来计算，k取何值时，妹子可以在第k+1次选取中最大概率地选到n次尝试机会里分数最高的男友，即在k+1次时找到人群中最优秀的男友。</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># this function returns the index of the MrRight when having n shots</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findMrRight</span><span class="params">(k,n)</span>:</span></span><br><span class="line">  bestScore = <span class="number">-1</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">    <span class="keyword">if</span> score(i) &gt; bestScore:</span><br><span class="line">      bestScore = score(i)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(k,n):</span><br><span class="line">    <span class="keyword">if</span> score(i) &gt; bestScore:</span><br><span class="line">      <span class="keyword">return</span> i</span><br><span class="line">  <span class="keyword">return</span> n</span><br></pre></td></tr></table></figure>
+<h4 id="概率分析"><a href="#概率分析" class="headerlink" title="概率分析"></a>概率分析</h4><p>记$S$为妹子成功的选择到了Mr. Right的事件，$S_i$表示Mr. Right是第$i$个男友时成功的事件，即$k&lt;i\leq n$时妹子找到了Mr. Right。由于不同的$S<em>i$不相交，于是我们有：<br>$$<br>\text{Pr}(S) = \sum</em>{i=k+1}^{n}\text{Pr}(S_i)<br>$$<br>接下来我们来计算$\text{Pr}(S_i)$。为了使在第$i$个男友时找到Mr. Right，有两件事情必须发生：</p>
+<ol>
+<li>Mr. Right必须在第$i$次被找到，即所有$n$个男性中分数最高的男性在妹子的第$i$次尝试中被发现——记此事件为$A_i$。</li>
+<li>妹子不能选择在第$k+1$到第$i-1$次尝试中的男友，即在第1次到第$i-1$次尝试中，综合评分最高的男友需要出现在前$k$次中——记此事件为$B_i$。</li>
+</ol>
+<p>对于事件$A_i$，其相当于$n$个男性中分数最高的男性落在了第$i$个位置上，概率有$\text{Pr}(A_i)=\frac{1}{n}$。</p>
+<p>对于事件$B_i$，其相当于$i-1$个男性中分数最高的男性落在了位置$1,2,…,k-1,k$中的某个位置，概率满足$\text{Pr}(B_i)=\frac{k}{i-1}$。</p>
+<p>由于事件$A_i$、事件$B<em>i$相互独立，我们发现：<br>$$<br>\begin{align}<br>\text{Pr}(S) &amp; = \sum</em>{i=k+1}^{n}\text{Pr}(S<em>i) = \sum</em>{i=k+1}^{n}\text{Pr}(A_i \cap B<em>i) \<br>&amp;=\sum</em>{i=k+1}^{n}\text{Pr}(A_i) \text{Pr}(B<em>i)\<br>&amp;=\sum</em>{i=k+1}^{n}\frac{k}{n(i-1)}\<br>&amp;=\frac{k}{n}\sum<em>{i=k}^{n-1}\frac{1}{i}\<br>\end{align}<br>$$<br>根据放缩公式，我们可以得到：<br>$$<br>\int</em>{k}^{n}\frac{1}{x}\mathbf{d}x \le \frac{k}{n}\sum<em>{i=k}^{n-1}\frac{1}{i} \le \int</em>{k-1}^{n-1}\frac{1}{x}\mathbf{d}x.<br>$$<br>从而，我们解这个定积分，可以得到：<br>$$<br>\frac{k}{n}(\mathbf{ln}n - \mathbf{ln}k) \le \text{Pr}(S) \le \frac{k}{n}(\mathbf{ln}(n-1) - \mathbf{ln}(k-1)).<br>$$<br>其中，等式左边为妹子在第$i$个男友时找到Mr. Right的概率的下界。由于我们希望最大化成功的概率，我们希望能够最大化这个下界。因此，我们将下界表达式$\frac{k}{n}(\mathbf{ln}n - \mathbf{ln}k)$对$k$求导，得：<br>$$<br>\frac{1}{n}(\mathbf{ln}n - \mathbf{ln}k -1)<br>$$<br>在对$k$导函数单调递减的情况下，令此导数等于0，我们可以得到:<br>$$<br>\begin{align}<br>&amp;\mathbf{ln}k = \mathbf{ln}n -1 = \mathbf{ln}\frac{n}{e}\<br>\Leftrightarrow \text{            } &amp;k=\frac{n}{e},<br>\end{align}<br>$$<br>即当$k=\frac{n}{e}$时，概率的下界最大化为$\frac{1}{e}$。换句话说，假如一共可以尝试去和$n$个男性交往，妹子们可以选择交往过$k=\frac{n}{e}$男友来积累经验，然后遇到更好的人就从了。因为这样，妹子们有最大的几率——超过$\frac{1}{e}$会找到人群中最优质的男性。</p>
+<p>以之前所说的20个理论中交男友的机会为例，妹子们可以先通过之前的$\frac{20}{e} \approx 7$ 个男友来积攒经验，并在之后如果遇到比前七个男友都优秀的男性就从了，将会有高于$36.7\%$的几率找到属于自己的Mr. Right.</p>
+<p>以上皆为扯淡之谈。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/04/02/boyfriend/" data-id="cjficgnma000m1gavc19zj1uq" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Code/">Code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Web3-Solidity" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -148,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/03/27/Web3-Solidity/" data-id="cjf9tq3r60006xsav021nnfrg" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/03/27/Web3-Solidity/" data-id="cjficgnly00091gavjf2y2x10" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -201,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/03/24/LearnSolidity4/" data-id="cjf9tq3qq0003xsavwv4px2ui" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/03/24/LearnSolidity4/" data-id="cjficgnlq00051gavxcdoguyp" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -244,7 +306,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/hanoi/" data-id="cjf9tq3tz0010xsav42dryrd1" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/hanoi/" data-id="cjficgnm5000f1gavdzyd7ukd" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -296,65 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/DNA-min-mismatch/" data-id="cjf9tq3px0000xsav6y2gpowl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-micro-payment" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/01/08/micro-payment/" class="article-date">
-  <time datetime="2018-01-08T02:11:52.000Z" itemprop="datePublished">2018-01-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/01/08/micro-payment/">Micropayment</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Smart-Contract-Micropayment"><a href="#Smart-Contract-Micropayment" class="headerlink" title="Smart Contract: Micropayment"></a>Smart Contract: Micropayment</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
-<p>在Solidity的官网上，<strong>Micropayment Channel</strong>的例子目前暂待开发。于是我决定自己写一个Micropayment的合约。</p>
-<h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><p>什么是Micropayment?</p>
-<p>假设你是一个中国移动用户，正在拨打国际长途电话，然后中国移动会根据你的通话时长来进行收费，每分钟1元钱，并按照满分钟计算（比如打了2分钟20秒，记为3分钟）。这个时候，我们可以通过一个智能合约，进行你与中国移动之间的付款。显然，如果你每分钟都要给中国移动付钱，那么这样就太麻烦了，相当于你每打一分钟电话就要再掏出一分钟的话费。这个时候，我们可以用所谓的Micropayment，来进行一次性的费用支付。</p>
-<img src="/blog/01/08/micro-payment/1.png" title="Overview of Micropayment">
-<p>如上图所示，Alice 通过智能合约向Bob（服务提供者）进行支付。首先，Alice往合约里存100单位的钱，然后获得Bob提供的服务。此后，智能合约开始计算时长。当Alice停止服务后，他将调用合约的函数，进行服务的停止。然后合约会自动结算Bob的服务费，然后将存在合约里的钱分别给到Alice和Bob手里。</p>
-<p>同时，为了防止Alice一直不停止服务，Bob拿不到应该拿到的服务费用，我们应当在合约中提供让Bob终止合约，并拿到所有的钱的选项。这个选项的判定条件应当是Alice已经用完了所有服务的时长。</p>
-<h4 id="Code-1："><a href="#Code-1：" class="headerlink" title="Code 1："></a>Code 1：</h4><p>以下是第一段代码，需要注意的是这里我在code中并没有像传统的Micropayment Channel一样使用multi-sig。但是事实上，由于remix特殊的编程环境，user需要在service provider发起的合约的地址下<code>At Address</code>进行<code>startService</code>函数的使用。因此，其实从某种一样上，这个合约里也存在着用户与服务提供方对协议的共识。此代码remix亲测可用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.11</span>;</span><br><span class="line"></span><br><span class="line">contract Micropayment&#123;</span><br><span class="line">    uint public value;</span><br><span class="line">    uint public feePerMinute; <span class="comment">// the fee is counted by wei</span></span><br><span class="line">    uint public startTime;</span><br><span class="line">    uint public endTime;</span><br><span class="line">    address public serviceProvider;</span><br><span class="line">    address public user;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Micropayment</span>(<span class="params">uint fee</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(fee &gt; <span class="number">0</span>);</span><br><span class="line">        serviceProvider = msg.sender;</span><br><span class="line">        feePerMinute = fee;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    modifier condition(bool _condition) &#123;</span><br><span class="line">        <span class="built_in">require</span>(_condition);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyProvider() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == serviceProvider);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyUser() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == user);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event ServiceStarted();</span><br><span class="line">    event ServiceEnded();</span><br><span class="line">    event ForceEnd();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Force end the Micropayment (the service provider),</span></span><br><span class="line">    <span class="comment">/// and get paid,</span></span><br><span class="line">    <span class="comment">/// when user has run out his time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">forcePay</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyProvider</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &gt;= endTime);</span><br><span class="line">        ForceEnd();</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Start service as user.</span></span><br><span class="line">    <span class="comment">/// Give a expected service time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">startService</span>(<span class="params">uint eT</span>) // <span class="title">minutes</span></span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">condition</span>(<span class="params">msg.value &gt;= feePerMinute * eT</span>)</span></span><br><span class="line"><span class="function">        <span class="title">payable</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ServiceStarted();</span><br><span class="line">        user = msg.sender;</span><br><span class="line">        startTime = now;</span><br><span class="line">        endTime = now + eT * <span class="number">1</span> minutes;</span><br><span class="line">        value = msg.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// End the service (the user).</span></span><br><span class="line">    <span class="comment">/// Pay bill to service provider according to using time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">endService</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyUser</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &lt; endTime);</span><br><span class="line">        uint usingTime = (now - startTime) / <span class="number">60</span> + <span class="number">1</span>;</span><br><span class="line">        uint bill = usingTime * feePerMinute;</span><br><span class="line">        user.transfer(value - bill);</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        ServiceEnded();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也可以在我的github中找到：<a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
-<h4 id="Potential-Improvement"><a href="#Potential-Improvement" class="headerlink" title="Potential Improvement"></a>Potential Improvement</h4><p>目前的micropayment合约有一个比较伤的缺点，就是无法防止service的提供者, i.e., 中国移动耍赖。比如线下的时候明明还没有到服务截止时间，就停止了服务。从合约的角度来讲，目前无法杜绝这种情况的发生。所以和之前的<a href="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/">remote purchase</a>合约一样，需要线下有第三方的监管。</p>
-<h4 id="Code-2"><a href="#Code-2" class="headerlink" title="Code 2:"></a>Code 2:</h4><p>在与他人的交流中，有一位大佬觉得Code 1中的合约其实不是传统意义上的Micropayment Channel，所以这里我又写了一段代码，加入了传统的multi-sig，使得合约更加贴近通常意义上的Micropayment Channel。</p>
-<p>这里我假设Bob, i.e., <code>worker</code>是给Alice, i.e., <code>moneyProvider</code>干活的人。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.11</span>;</span><br><span class="line"></span><br><span class="line">contract Channel &#123;</span><br><span class="line"></span><br><span class="line">    address public moneyProvider;</span><br><span class="line">    address public worker;</span><br><span class="line">    uint public startTime;</span><br><span class="line">    uint public timeOut;</span><br><span class="line">    mapping (<span class="function"><span class="params">bytes32</span> =&gt;</span> address) signatures;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Channel</span>(<span class="params">address to, uint t</span>) <span class="title">payable</span> </span>&#123;</span><br><span class="line">        worker = to;</span><br><span class="line">        moneyProvider = msg.sender;</span><br><span class="line">        startTime = now;</span><br><span class="line">        timeOut = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// this function can be both called by moneyProvider and worker,</span></span><br><span class="line">    <span class="comment">// we use sha3 as hash function in this case.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">CloseChannel</span>(<span class="params">bytes32 h, uint8 v, bytes32 r, bytes32 s, uint value</span>)</span>&#123;</span><br><span class="line">        address signer;</span><br><span class="line">        bytes32 proof;</span><br><span class="line">        <span class="comment">// get signer from signature</span></span><br><span class="line">        signer = ecrecover(h, v, r, s);</span><br><span class="line">        <span class="comment">// signature is invalid, throw</span></span><br><span class="line">        <span class="built_in">require</span> (signer == moneyProvider || signer == worker);</span><br><span class="line">        proof = sha3(<span class="keyword">this</span>, value);</span><br><span class="line">        <span class="comment">// signature also needs to match the data provided</span></span><br><span class="line">        <span class="built_in">require</span> (proof == h);</span><br><span class="line">        <span class="keyword">if</span> (signatures[proof] == <span class="number">0</span>)</span><br><span class="line">            signatures[proof] = signer;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (signatures[proof] != signer)&#123;</span><br><span class="line">            <span class="comment">// channel completed, both signatures provided</span></span><br><span class="line">            worker.transfer(value);</span><br><span class="line">            selfdestruct(moneyProvider);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// this function is called by moneyProvider, when worker is malicious.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">moneyBack</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">require</span> (startTime + timeOut &gt; now &amp;&amp; msg.sender == moneyProvider);</span><br><span class="line">        selfdestruct(moneyProvider);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>总体而言，传统的写法对后端执行的要求更多，需要涉及哈希和签名的处理，另外支付的金额也是在后台进行计算的。此外由于有比较长的数据包要被smart contract多次处理，所以会消耗相对而言多得多的gas。</p>
-<p>另外在code 2的逻辑中，同样无法避免的是moneyProvider耍赖的情况，因为最后是由moneyProvider决定最后给worker发多少钱, i.e., <code>value</code>，假如moneyProvider发的钱和之前说好的不一样，合约也无法对其进行制裁。所以我们仍然需要第三方进行监管。但是由于应当支付的钱不断被worker用<code>closeChannel</code>函数作为transaction写到block里面去，所以相对而言，最后moneyProvider要发多少是被记录下来的，是有迹可循的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/08/micro-payment/" data-id="cjf9tq3rf0009xsavj5gx03ej" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/DNA-min-mismatch/" data-id="cjficgnl500001gavv6ag7e2e" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -370,7 +374,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/2/">weiter &raquo;</a>
   </nav>
 
 </section>
@@ -379,9 +383,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Algorithms/">Algorithms</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
     </div>
   </div>
 
@@ -391,7 +395,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Code/">Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
     </div>
   </div>
 
@@ -401,16 +405,16 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
+      <a href="/blog/tags/Code/" style="font-size: 10px;">Code</a> <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
     </div>
   </div>
 
@@ -418,9 +422,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/04/02/boyfriend/">boyfriend</a>
+          </li>
         
           <li>
             <a href="/blog/03/27/Web3-Solidity/">Web3-Solidity</a>
@@ -436,10 +444,6 @@
         
           <li>
             <a href="/blog/02/06/DNA-min-mismatch/">Needleman–Wunsch algorithm</a>
-          </li>
-        
-          <li>
-            <a href="/blog/01/08/micro-payment/">Micropayment</a>
           </li>
         
       </ul>
