@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://ohyoukillkenny.github.io/blog/04/11/LearnSolidity5/requesterInterface.png">
 <meta property="og:image" content="https://ohyoukillkenny.github.io/blog/04/11/LearnSolidity5/workerview.png">
 <meta property="og:image" content="https://ohyoukillkenny.github.io/blog/04/11/LearnSolidity5/workersubmit.png">
-<meta property="og:updated_time" content="2018-04-11T10:27:44.000Z">
+<meta property="og:updated_time" content="2018-04-11T15:53:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Project — Building a Simple Blockchain-based Crowdsensing System">
 <meta name="twitter:description" content="Project — Building a Simple Blockchain-based Crowdsensing SystemAuthor: Lingkun Kong, Linghe Kong,  Please indicate the source for reproduction. AbstractMotivated by constructing a crowd-sensing syste">
@@ -66,7 +66,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
@@ -155,6 +155,7 @@
 <p><strong>Financial Efficiency:</strong></p>
 <p>The minimum cost of requesters for each data largely depends on the cost of transaction fee workers need to pay. This is because if the reward for each data cannot cover the transaction fee workers need to pay for submitting the data, no one will be willing to work for the requester.</p>
 <p>Therefore, using the wifi-sensing task as an instance, we use the table below to briefly count the average cost of transaction fees workers need to pay by lauching experiments of the participation of 1000 workers.</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -173,11 +174,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>Due to the violent fluctuation of the price of ETH, it is hard to evaluate the value of 0.00052 ETH in real-world market. Here we use the exchange rate between USD and ETH in 04/11/2018 [28] to roughly estimate the the value of 0.00052 ETH as 0.217 USD, which means that requesters need to pay each wifi-sensing data for at least 0.217 USD.</p>
 <p>This value might be too high for a simple wifi-sensing task. However, when the data the requester attempts to collect are essentially sensitive and require high anonymity, e.g., personal income, medical history and etc., this price might be totally acceptable. After all, the key advantage of decentralized crowdsensing system is to break the control of centralized data manage system as well as the monopoly price of data-sensing task. We hope our blockchain-based crowd-sensing system can offer users an another option when try to participate in crowd-sensing tasks.</p>
 <h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>To sum up, in this article, we propose building a blockchain-based crowd-sensing to make up for the paucity of decentralized crowd-sensing systems with security and low services fee. Since we are still in the early stage of blockchain technology, this project will be of importance to research in distributed systems by providing a concrete blockchain-based solution for a known scientific problem, i.e., crowd-sensing management.</p>
-<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><blockquote>
-<p>[1] Ma, H., Zhao,D., &amp; Yuan, P. (2014). Opportunities in mobile crowd sensing. IEEECommunications Magazine, 52(8), 29-35.</p>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p>[1] Ma, H., Zhao,D., &amp; Yuan, P. (2014). Opportunities in mobile crowd sensing. IEEECommunications Magazine, 52(8), 29-35.</p>
 <p>[2] Zhang, X.,Yang, Z., Sun, W., Liu, Y., Tang, S., Xing, K., &amp; Mao, X. (2016).Incentives for mobile crowd sensing: A survey. IEEE Communications Surveys&amp; Tutorials, 18(1), 54-67.</p>
 <p>[3]Vergara-Laurens, I. J., Jaimes, L. G., &amp; Labrador, M. A. (2016).Privacy-preserving mechanisms for crowdsensing: Survey and researchchallenges. IEEE Internet of Things Journal.</p>
 <p>[4] Pournajaf, L.,Xiong, L., Garcia-Ulloa, D. A., &amp; Sunderam, V. (2014). A survey on privacyin mobile crowd sensing task management. Tech. Rep. TR-2014–002.</p>
@@ -200,15 +201,14 @@
 <p>[21] <a href="https://motherboard.vice.com/en_us/article/aek3za/bitcoin-could-consume-as-much-electricity-as-denmark-by-2020" target="_blank" rel="noopener">https://motherboard.vice.com/en_us/article/aek3za/bitcoin-could-consume-as-much-electricity-as-denmark-by-2020</a></p>
 <p>[22] Miller, A.,Juels, A., Shi, E., Parno, B., &amp; Katz, J. (2014, May). Permacoin:Repurposing bitcoin work for data preservation. In Security and Privacy(SP), 2014 IEEE Symposium on (pp. 475-490). IEEE.</p>
 <p>[23] Dill, K. A.,&amp; MacCallum, J. L. (2012). The protein-folding problem, 50 yearson. science, 338(6110), 1042-1046.</p>
-<p>[24] Ron Rivest,<br>Leonard Adleman, and Michael L. Dertouzos. On data banks and privacy<br>homomorphisms. Foundations of Secure Computation, 1978.<br>[25] Craig Gentry. Fully homomorphic encryption using ideal lattices. STOC<br>\2009. Also, see “A fully homomorphic encryption scheme”, PhD thesis, Stanford<br>University, 2009.<br>[26] Jake Loftus, Alexander May, Nigel P. Smart, and Frederik Vercauteren. On<br>CCA-Secure Fully Homomorphic Encryption. Cryptology ePrint Archive 2010/560.</p>
+<p>[24] Ron Rivest, Leonard Adleman, and Michael L. Dertouzos. On data banks and privacy homomorphisms. Foundations of Secure Computation, 1978.<br>[25] Craig Gentry. Fully homomorphic encryption using ideal lattices. STOC \2009. Also, see “A fully homomorphic encryption scheme”, PhD thesis, Stanford University, 2009.<br>[26] Jake Loftus, Alexander May, Nigel P. Smart, and Frederik Vercauteren. On CCA-Secure Fully Homomorphic Encryption. Cryptology ePrint Archive 2010/560.</p>
 <p>[27] <a href="https://hackernoon.com/front-running-bancor-in-150-lines-of-python-with-ethereum-api-d5e2bfd0d798" target="_blank" rel="noopener">https://hackernoon.com/front-running-bancor-in-150-lines-of-python-with-ethereum-api-d5e2bfd0d798</a></p>
 <p>[28] <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">https://coinmarketcap.com/</a></p>
-</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/04/11/LearnSolidity5/" data-id="cjfuybrzr0006c7avbmacuyz4" class="article-share-link">Share</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/04/11/LearnSolidity5/" data-id="cjfva1a5r0004xiavdnkuczbq" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/projects-code/">projects, code</a></li></ul>
@@ -221,7 +221,7 @@
   
   
     <a href="/blog/04/02/boyfriend/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Älter</strong>
       <div class="article-nav-title">How to find the Mr. Right</div>
     </a>
   
@@ -236,7 +236,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Algorithms/">Algorithms</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
     </div>
@@ -265,7 +265,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
     </div>
@@ -275,7 +275,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
