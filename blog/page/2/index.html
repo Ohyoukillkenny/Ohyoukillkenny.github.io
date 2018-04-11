@@ -54,7 +54,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://ohyoukillkenny.github.io/blog"></form>
@@ -64,6 +64,59 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-LearnSolidity4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/03/24/LearnSolidity4/" class="article-date">
+  <time datetime="2018-03-24T08:10:15.000Z" itemprop="datePublished">2018-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/03/24/LearnSolidity4/">LearnSolidity4 — CrowdSensing</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Solidity学习笔记-4-—-Crowdsensing"><a href="#Solidity学习笔记-4-—-Crowdsensing" class="headerlink" title="Solidity学习笔记(4) — Crowdsensing"></a>Solidity学习笔记(4) — Crowdsensing</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>在本文中，我开发了一个使用区块链来做群智感知系统的智能合约。其中，区块链代替了传统的集中式第三方机构，给用户们提供了一个更加安全，更加经济的发布群智感知任务的平台。</p>
+<h4 id="1-背景介绍"><a href="#1-背景介绍" class="headerlink" title="1.背景介绍"></a>1.背景介绍</h4><p>群智感知即利用目前普及化的移动设备有效地收集数据，在近年来已经引起了人们的广泛兴趣并出现了大量的工程应用。</p>
+<p>然而，大多数现有的群智感知系统都依赖于中央服务器，这些服务器受传统基于信任模型的缺陷的影响，容易发生单点故障和隐私泄露的问题。另外，在考虑到恶意用户存在的情况下，这些系统容易遭受分布式拒绝服务（DDoS）和Sybil攻击。此外，群智感知平台收取的高额服务费可能会阻碍这项技术的发展。如何解决这些潜在问题仍然是一个巨大的挑战。</p>
+<img src="/blog/03/24/LearnSolidity4/tradi.png" title="The system model of traditional crowd-sensing.">
+<p>本文提出了一种基于区块链的群智感知应用方案。我们希望借助区块链的科技，将存储、处理数据的数据平台去中心化，提供一种更加安全，并且更加经济的选择。具体而言，我们希望能借助区块链系统，让矿工代替中心化的数据管理平台，并帮助处理来自数据提供方的信息，从而确保用户信息的安全性。同时，由于这个时候数据需求者仅仅需要给矿工和用户提供相应的挖矿和上传数据的报酬，不需经过中心化数据管理平台，从而在经济上有了更多的选择，也避免了由于中心化数据管理平台的垄断而被索取高额的数据提供费用。</p>
+<h4 id="2-具体实现"><a href="#2-具体实现" class="headerlink" title="2.具体实现"></a>2.具体实现</h4><p>在实际的工程应用中，我们使用智能合约（smart contract）开发出了基于区块链的群智感知系统的框架。</p>
+<img src="/blog/03/24/LearnSolidity4/smart.png" title="在智能合约里的去中心化群智感知平台">
+<p>如上图所示，图中的数字标号简单记录了在一次大数据分享任务中整个框架的流程顺序。其中流程标号2*代表此流程2*可以与流程2同步进行，而流程标号x表示此流程可以在流程2后的任意时刻执行。另外，图中的实线代表了必然会发生的流程，而虚线代表了可能在框架流程执行中并不会被执行的流程。</p>
+<h4 id="3-核心代码"><a href="#3-核心代码" class="headerlink" title="3.核心代码"></a>3.核心代码</h4><p>本文利用一个感知学校wifi信号强度的例子来介绍如何开发类似的群智感知智能合约。</p>
+<p>需要注意的是，这里我对核心代码进行了大量的化简，比如忽略了数据提供方对原始数据的加密以及数据需求方广播程序的代码。所以，以下的代码仅仅是一个帮助学习smart contract的例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.21</span>;</span><br><span class="line"></span><br><span class="line">contract SensingWifi&#123;</span><br><span class="line">    uint public rewardUnit;</span><br><span class="line">    uint public rewardNum;</span><br><span class="line">    uint public dataCount;</span><br><span class="line">    bytes32 public wifiName;</span><br><span class="line">    address public requester;</span><br><span class="line">    enum State &#123;Uncreated, Created, Inactive&#125;</span><br><span class="line">    State public state;</span><br><span class="line"></span><br><span class="line">    mapping(<span class="function"><span class="params">bytes32</span> =&gt;</span> string) dataStatuses; <span class="comment">// Either '' or 'Committed'</span></span><br><span class="line"></span><br><span class="line">    modifier condition(bool _condition) &#123;</span><br><span class="line">        <span class="built_in">require</span>(_condition);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyRequester() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == requester);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier inState(State _state) &#123;</span><br><span class="line">        <span class="built_in">require</span>(state == _state);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event Aborted();</span><br><span class="line">    event TaskInited();</span><br><span class="line">    event DataCommited(bytes32 l, bytes32 w, int s);</span><br><span class="line">    event TaskDone();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The requester initiates the task.</span></span><br><span class="line">    <span class="comment">// He needs to set the value of rewards for each sensing data,</span></span><br><span class="line">    <span class="comment">// as well as the maximum number of data he requires.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">initTask</span>(<span class="params">uint _rewardUnit, uint _rewardNum, bytes32 _wifiName</span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Uncreated</span>)</span></span><br><span class="line"><span class="function">        <span class="title">condition</span>(<span class="params">msg.value &gt;= _rewardUnit * _rewardNum</span>)</span></span><br><span class="line"><span class="function">        <span class="title">payable</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        requester = msg.sender;</span><br><span class="line">        rewardUnit = _rewardUnit; <span class="comment">// wei</span></span><br><span class="line">        rewardNum = _rewardNum;</span><br><span class="line">        wifiName = _wifiName;</span><br><span class="line">        state = State.Created;</span><br><span class="line">        emit TaskInited();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Abort the Task and reclaim the ether,</span></span><br><span class="line">    <span class="comment">// Can only be called by the requester.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">abort</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyRequester</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(dataCount &lt;= rewardNum);</span><br><span class="line">        state = State.Inactive;</span><br><span class="line">        requester.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        emit Aborted();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The worker undertakes the task by obtaining and sending his sensing data,</span></span><br><span class="line">    <span class="comment">// such as &#123;"Student Dorm 13", "SJTU", -51&#125;</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">commitTask</span>(<span class="params">bytes32 _location, bytes32 _wifiName, int _signalDegree</span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(dataCount &lt; rewardNum);</span><br><span class="line">        bytes memory sensingDataCommit = bytes(dataStatuses[_location]);</span><br><span class="line">        <span class="comment">// The requester wants to get data from different location.</span></span><br><span class="line">        <span class="built_in">require</span>(sensingDataCommit.length == <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Make sure that the wifi signal sensed is exactly what requester wants.</span></span><br><span class="line">        <span class="built_in">require</span>(wifiName == _wifiName);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// The theoretical maximum value of signal strength is -30 dBm.</span></span><br><span class="line">        <span class="built_in">require</span>(_signalDegree &lt; <span class="number">-30</span>);</span><br><span class="line">  </span><br><span class="line">        dataStatuses[_location] = <span class="string">"Committed"</span>;</span><br><span class="line">        </span><br><span class="line">        dataCount += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(dataCount == rewardNum)&#123;</span><br><span class="line">            state = State.Inactive;</span><br><span class="line">            requester.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">            emit TaskDone();</span><br><span class="line">        &#125;</span><br><span class="line">        msg.sender.transfer(rewardUnit);</span><br><span class="line">      </span><br><span class="line">       <span class="comment">// The requster collects sensing data by </span></span><br><span class="line">       <span class="comment">// listening the log info of DataCommited.</span></span><br><span class="line">        emit DataCommited(_location, _wifiName, _signalDegree);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ohyoukillkenny.github.io/blog/03/24/LearnSolidity4/" data-id="cjfuybrzj0005c7av8ljpqj2a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-hanoi" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -96,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/hanoi/" data-id="cjficgnm5000f1gavdzyd7ukd" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/hanoi/" data-id="cjfuybs1l0010c7avidxsclo2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -148,65 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/DNA-min-mismatch/" data-id="cjficgnl500001gavv6ag7e2e" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-micro-payment" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/01/08/micro-payment/" class="article-date">
-  <time datetime="2018-01-08T02:11:52.000Z" itemprop="datePublished">2018-01-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/01/08/micro-payment/">Micropayment</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Smart-Contract-Micropayment"><a href="#Smart-Contract-Micropayment" class="headerlink" title="Smart Contract: Micropayment"></a>Smart Contract: Micropayment</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
-<p>在Solidity的官网上，<strong>Micropayment Channel</strong>的例子目前暂待开发。于是我决定自己写一个Micropayment的合约。</p>
-<h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><p>什么是Micropayment?</p>
-<p>假设你是一个中国移动用户，正在拨打国际长途电话，然后中国移动会根据你的通话时长来进行收费，每分钟1元钱，并按照满分钟计算（比如打了2分钟20秒，记为3分钟）。这个时候，我们可以通过一个智能合约，进行你与中国移动之间的付款。显然，如果你每分钟都要给中国移动付钱，那么这样就太麻烦了，相当于你每打一分钟电话就要再掏出一分钟的话费。这个时候，我们可以用所谓的Micropayment，来进行一次性的费用支付。</p>
-<img src="/blog/01/08/micro-payment/1.png" title="Overview of Micropayment">
-<p>如上图所示，Alice 通过智能合约向Bob（服务提供者）进行支付。首先，Alice往合约里存100单位的钱，然后获得Bob提供的服务。此后，智能合约开始计算时长。当Alice停止服务后，他将调用合约的函数，进行服务的停止。然后合约会自动结算Bob的服务费，然后将存在合约里的钱分别给到Alice和Bob手里。</p>
-<p>同时，为了防止Alice一直不停止服务，Bob拿不到应该拿到的服务费用，我们应当在合约中提供让Bob终止合约，并拿到所有的钱的选项。这个选项的判定条件应当是Alice已经用完了所有服务的时长。</p>
-<h4 id="Code-1："><a href="#Code-1：" class="headerlink" title="Code 1："></a>Code 1：</h4><p>以下是第一段代码，需要注意的是这里我在code中并没有像传统的Micropayment Channel一样使用multi-sig。但是事实上，由于remix特殊的编程环境，user需要在service provider发起的合约的地址下<code>At Address</code>进行<code>startService</code>函数的使用。因此，其实从某种一样上，这个合约里也存在着用户与服务提供方对协议的共识。此代码remix亲测可用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.11</span>;</span><br><span class="line"></span><br><span class="line">contract Micropayment&#123;</span><br><span class="line">    uint public value;</span><br><span class="line">    uint public feePerMinute; <span class="comment">// the fee is counted by wei</span></span><br><span class="line">    uint public startTime;</span><br><span class="line">    uint public endTime;</span><br><span class="line">    address public serviceProvider;</span><br><span class="line">    address public user;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Micropayment</span>(<span class="params">uint fee</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(fee &gt; <span class="number">0</span>);</span><br><span class="line">        serviceProvider = msg.sender;</span><br><span class="line">        feePerMinute = fee;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    modifier condition(bool _condition) &#123;</span><br><span class="line">        <span class="built_in">require</span>(_condition);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyProvider() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == serviceProvider);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyUser() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == user);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event ServiceStarted();</span><br><span class="line">    event ServiceEnded();</span><br><span class="line">    event ForceEnd();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Force end the Micropayment (the service provider),</span></span><br><span class="line">    <span class="comment">/// and get paid,</span></span><br><span class="line">    <span class="comment">/// when user has run out his time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">forcePay</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyProvider</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &gt;= endTime);</span><br><span class="line">        ForceEnd();</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Start service as user.</span></span><br><span class="line">    <span class="comment">/// Give a expected service time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">startService</span>(<span class="params">uint eT</span>) // <span class="title">minutes</span></span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">condition</span>(<span class="params">msg.value &gt;= feePerMinute * eT</span>)</span></span><br><span class="line"><span class="function">        <span class="title">payable</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ServiceStarted();</span><br><span class="line">        user = msg.sender;</span><br><span class="line">        startTime = now;</span><br><span class="line">        endTime = now + eT * <span class="number">1</span> minutes;</span><br><span class="line">        value = msg.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// End the service (the user).</span></span><br><span class="line">    <span class="comment">/// Pay bill to service provider according to using time.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">endService</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyUser</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(now &lt; endTime);</span><br><span class="line">        uint usingTime = (now - startTime) / <span class="number">60</span> + <span class="number">1</span>;</span><br><span class="line">        uint bill = usingTime * feePerMinute;</span><br><span class="line">        user.transfer(value - bill);</span><br><span class="line">        serviceProvider.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        ServiceEnded();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也可以在我的github中找到：<a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
-<h4 id="Potential-Improvement"><a href="#Potential-Improvement" class="headerlink" title="Potential Improvement"></a>Potential Improvement</h4><p>目前的micropayment合约有一个比较伤的缺点，就是无法防止service的提供者, i.e., 中国移动耍赖。比如线下的时候明明还没有到服务截止时间，就停止了服务。从合约的角度来讲，目前无法杜绝这种情况的发生。所以和之前的<a href="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/">remote purchase</a>合约一样，需要线下有第三方的监管。</p>
-<h4 id="Code-2"><a href="#Code-2" class="headerlink" title="Code 2:"></a>Code 2:</h4><p>在与他人的交流中，有一位大佬觉得Code 1中的合约其实不是传统意义上的Micropayment Channel，所以这里我又写了一段代码，加入了传统的multi-sig，使得合约更加贴近通常意义上的Micropayment Channel。</p>
-<p>这里我假设Bob, i.e., <code>worker</code>是给Alice, i.e., <code>moneyProvider</code>干活的人。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.11</span>;</span><br><span class="line"></span><br><span class="line">contract Channel &#123;</span><br><span class="line"></span><br><span class="line">    address public moneyProvider;</span><br><span class="line">    address public worker;</span><br><span class="line">    uint public startTime;</span><br><span class="line">    uint public timeOut;</span><br><span class="line">    mapping (<span class="function"><span class="params">bytes32</span> =&gt;</span> address) signatures;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Channel</span>(<span class="params">address to, uint t</span>) <span class="title">payable</span> </span>&#123;</span><br><span class="line">        worker = to;</span><br><span class="line">        moneyProvider = msg.sender;</span><br><span class="line">        startTime = now;</span><br><span class="line">        timeOut = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// this function can be both called by moneyProvider and worker,</span></span><br><span class="line">    <span class="comment">// we use sha3 as hash function in this case.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">CloseChannel</span>(<span class="params">bytes32 h, uint8 v, bytes32 r, bytes32 s, uint value</span>)</span>&#123;</span><br><span class="line">        address signer;</span><br><span class="line">        bytes32 proof;</span><br><span class="line">        <span class="comment">// get signer from signature</span></span><br><span class="line">        signer = ecrecover(h, v, r, s);</span><br><span class="line">        <span class="comment">// signature is invalid, throw</span></span><br><span class="line">        <span class="built_in">require</span> (signer == moneyProvider || signer == worker);</span><br><span class="line">        proof = sha3(<span class="keyword">this</span>, value);</span><br><span class="line">        <span class="comment">// signature also needs to match the data provided</span></span><br><span class="line">        <span class="built_in">require</span> (proof == h);</span><br><span class="line">        <span class="keyword">if</span> (signatures[proof] == <span class="number">0</span>)</span><br><span class="line">            signatures[proof] = signer;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (signatures[proof] != signer)&#123;</span><br><span class="line">            <span class="comment">// channel completed, both signatures provided</span></span><br><span class="line">            worker.transfer(value);</span><br><span class="line">            selfdestruct(moneyProvider);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// this function is called by moneyProvider, when worker is malicious.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">moneyBack</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">require</span> (startTime + timeOut &gt; now &amp;&amp; msg.sender == moneyProvider);</span><br><span class="line">        selfdestruct(moneyProvider);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>总体而言，传统的写法对后端执行的要求更多，需要涉及哈希和签名的处理，另外支付的金额也是在后台进行计算的。此外由于有比较长的数据包要被smart contract多次处理，所以会消耗相对而言多得多的gas。</p>
-<p>另外在code 2的逻辑中，同样无法避免的是moneyProvider耍赖的情况，因为最后是由moneyProvider决定最后给worker发多少钱, i.e., <code>value</code>，假如moneyProvider发的钱和之前说好的不一样，合约也无法对其进行制裁。所以我们仍然需要第三方进行监管。但是由于应当支付的钱不断被worker用<code>closeChannel</code>函数作为transaction写到block里面去，所以相对而言，最后moneyProvider要发多少是被记录下来的，是有迹可循的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://ohyoukillkenny.github.io/blog/01/08/micro-payment/" data-id="cjficgnm8000j1gav75wd4wgz" class="article-share-link">Teilen</a>
+      <a data-url="https://ohyoukillkenny.github.io/blog/02/06/DNA-min-mismatch/" data-id="cjfuybrzf0004c7avbtqubrzy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/code/">code</a></li></ul>
@@ -222,7 +217,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/">&laquo; zurück</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><a class="extend next" rel="next" href="/blog/page/3/">weiter &raquo;</a>
+    <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -231,7 +226,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Algorithms/">Algorithms</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Learn-Solidity/">Learn Solidity</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/articles/">articles</a></li></ul>
     </div>
@@ -243,7 +238,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Code/">Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Code/">Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/code-tools/">code tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/projects-code/">projects, code</a></li></ul>
     </div>
   </div>
 
@@ -253,14 +248,14 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/Code/" style="font-size: 10px;">Code</a> <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a>
+      <a href="/blog/tags/Code/" style="font-size: 10px;">Code</a> <a href="/blog/tags/code/" style="font-size: 20px;">code</a> <a href="/blog/tags/code-tools/" style="font-size: 10px;">code tools</a> <a href="/blog/tags/projects-code/" style="font-size: 10px;">projects, code</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li></ul>
     </div>
@@ -270,9 +265,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/04/11/LearnSolidity5/">Project — Building a Simple Blockchain-based Crowdsensing System</a>
+          </li>
         
           <li>
             <a href="/blog/04/02/boyfriend/">How to find the Mr. Right</a>
@@ -288,10 +287,6 @@
         
           <li>
             <a href="/blog/02/06/hanoi/">Hanoi in Assembly x86 (NASM)</a>
-          </li>
-        
-          <li>
-            <a href="/blog/02/06/DNA-min-mismatch/">Needleman–Wunsch algorithm</a>
           </li>
         
       </ul>
