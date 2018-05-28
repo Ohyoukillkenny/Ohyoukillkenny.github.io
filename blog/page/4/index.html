@@ -99,25 +99,20 @@
 
 
 
-  <meta name="description" content="Inexistent NULL in Solidity作者：孔令坤，转载请注明出处 在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。 比如之前我遇到的enum： 12enum State &amp;#123; Created, Locked, Inactive &amp;#125;// Created = 0, Locked = 1, In">
-<meta name="keywords" content="code">
-<meta property="og:type" content="article">
-<meta property="og:title" content="NULL in Solidity">
-<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/2018/01/07/null-in-solidity/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Lingkun&#39;s Small House">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/page/4/index.html">
 <meta property="og:site_name" content="Lingkun&#39;s Small House">
-<meta property="og:description" content="Inexistent NULL in Solidity作者：孔令坤，转载请注明出处 在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。 比如之前我遇到的enum： 12enum State &amp;#123; Created, Locked, Inactive &amp;#125;// Created = 0, Locked = 1, In">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-07T08:32:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NULL in Solidity">
-<meta name="twitter:description" content="Inexistent NULL in Solidity作者：孔令坤，转载请注明出处 在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。 比如之前我遇到的enum： 12enum State &amp;#123; Created, Locked, Inactive &amp;#125;// Created = 0, Locked = 1, In">
+<meta name="twitter:title" content="Lingkun&#39;s Small House">
 
 
 
 
 
 
-  <link rel="canonical" href="https://ohyoukillkenny.github.io/blog/2018/01/07/null-in-solidity/"/>
+  <link rel="canonical" href="https://ohyoukillkenny.github.io/blog/page/4/"/>
 
 
 
@@ -127,7 +122,7 @@
   };
 </script>
 
-  <title>NULL in Solidity | Lingkun's Small House</title>
+  <title>Lingkun's Small House</title>
   
 
 
@@ -174,7 +169,8 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,9 +254,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -275,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2018/01/07/null-in-solidity/">
+    <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2017/01/16/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lingkun Kong">
@@ -292,7 +288,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">NULL in Solidity
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2017/01/16/hello-world/" itemprop="url">
+                  Hello World
+                </a>
               
             
           </h1>
@@ -311,7 +311,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-07T15:47:08+08:00">2018-01-07</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-16T00:00:00+08:00">2017-01-16</time>
             
 
             
@@ -332,7 +332,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Learn-Solidity/" itemprop="url" rel="index"><span itemprop="name">Learn Solidity</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/articles/" itemprop="url" rel="index"><span itemprop="name">articles</span></a></span>
 
                 
                 
@@ -366,20 +366,21 @@
       
 
       
-        <h3 id="Inexistent-NULL-in-Solidity"><a href="#Inexistent-NULL-in-Solidity" class="headerlink" title="Inexistent NULL in Solidity"></a>Inexistent NULL in Solidity</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
-<p>在Solidity中，并没有Null值的存在。所有的变量在初始化后都会被默认为0值。这导致我们在写代码的时候需要多加注意。</p>
-<p>比如<a href="https://ohyoukillkenny.github.io/blog/01/03/LearnSolidity3/">之前</a>我遇到的<code>enum</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">enum State &#123; Created, Locked, Inactive &#125;</span><br><span class="line"><span class="comment">// Created = 0, Locked = 1, Inactive = 2</span></span><br></pre></td></tr></table></figure>
-<p>之后，代码在没有对<code>myState</code>变量进行赋值的情况下，直接判断：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(myState == Created.Created);</span><br></pre></td></tr></table></figure>
-<p>所以这个时系统断定判断通过，而且并不会报错。</p>
-<p>那么，如何判断<code>mapping</code>中是否某个键是否”为空”呢？</p>
-<p>比较标准的做法是建立一个专门和value相关的结构体，用一个布尔型变量来看是否这个key所对应的value被赋过值，代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">library Library &#123;</span><br><span class="line">  struct data &#123;</span><br><span class="line">     uint val;</span><br><span class="line">     bool isValue;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">contract myContract&#123;</span><br><span class="line">    using Library <span class="keyword">for</span> Library.data;</span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> Library.data) cluster;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ifExist</span>(<span class="params">address id</span>) <span class="title">returns</span>(<span class="params">bool</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cluster[id].isValue) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> flase; </span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="function"><span class="keyword">function</span> <span class="title">addCluster</span>(<span class="params">address id</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cluster[id].isValue) <span class="keyword">throw</span>; <span class="comment">// duplicate key</span></span><br><span class="line">        <span class="comment">// add ...</span></span><br><span class="line">      	cluster[id].isValue = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此外，我们也可以简单的来看一下value所对应的length来判断这个值是否被赋值过（零值无法判断！）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mapping(<span class="function"><span class="params">address</span> =&gt;</span> uint) public deposits;</span><br><span class="line"><span class="keyword">if</span>(deposits[msg.sender].length == <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="comment">// deposit[msg.sender] is empty, do your thing</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果我们不用判断某个变量是否为赋过值后的零值时，我建议用第二种通过length来判断的方法，因为后者将大大减少合约gas的消耗。</p>
+        
+          
+            <blockquote>
+<p><em>In me the cave-man clasps the seer,</em></p>
+<p><em>And garlanded Apollo goes</em></p>
+<p><em>Chanting to Abraham’s deaf ear.</em></p>
+<p><em>In me the tiger sniffs the rose.</em></p>
+</blockquote>
+<p>Hello, my name is Kong Lingkun.</p>
+<p>From long times ago, when lying in bed, I was tortured by a weird feeling that I had to do something about myself, something announcing my existence in the world, both phisically and mentally, otherwise I would be swallowed by the abyss of loneliness and confusion. And soon, I realized that what I should do was to follow the voice from innermost of my body and soul – I had to write something down to avoid burying my thoughts and youth into the dust of time. And that is why this website or blog exists.</p>
+<p>This website mainly records my coding experience and my personal understanding about movies, fictions and music. And actually, I believe most of them will be written in Chinese.</p>
+<p>In this website, I hope I can learn and grow up with all of you.</p>
 
+          
+        
       
     </div>
 
@@ -397,40 +398,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/blog/tags/code/" rel="tag"># code</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2018/01/04/start-solidity/" rel="next" title="Start with Solidity">
-                <i class="fa fa-chevron-left"></i> Start with Solidity
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/01/08/micro-payment/" rel="prev" title="Micropayment">
-                Micropayment <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -440,19 +415,18 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-
-
 
         </div>
         
@@ -473,17 +447,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -564,22 +529,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inexistent-NULL-in-Solidity"><span class="nav-number">1.</span> <span class="nav-text">Inexistent NULL in Solidity</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -707,10 +656,6 @@
   
 
   
-  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=6.1.0"></script>
-<script type="text/javascript" src="/blog/js/src/post-details.js?v=6.1.0"></script>
-
-
 
   
 

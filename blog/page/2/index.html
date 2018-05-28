@@ -271,6 +271,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2018/02/06/hanoi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lingkun Kong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lingkun's Small House">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/02/06/hanoi/" itemprop="url">
+                  Hanoi in Assembly x86 (NASM)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+                
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-06T19:38:06+08:00">2018-02-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Hanoi-in-NASM-—-如何正确学习汇编"><a href="#Hanoi-in-NASM-—-如何正确学习汇编" class="headerlink" title="Hanoi in NASM — 如何正确学习汇编"></a>Hanoi in NASM — 如何正确学习汇编</h3><p>曾经的嵌入式课程令人头皮发麻，教材是一本老师们随意拼凑在一起的书，里面的东西毫无学习的逻辑可言。汇编语言的教学更加令人无语，老师说，你们看看书，自己多写写就会了（但是书写的很差，也不适合初学者上手）。</p>
+<p>然而最近在看<a href="http://pacman128.github.io/" target="_blank" rel="noopener">Paul Carter</a>教授编写的<a href="http://pacman128.github.io/pcasm/" target="_blank" rel="noopener">PC Assembly Language</a>一书，我猛然悟道了，之前许多一知半解的知识在书中都得到了比较完善的讲解。所以大家学习汇编也可以多看看他写的这本书，确实会对大家理解计算机比较偏底层的知识非常有帮助，毕竟汇编可以说是离硬件最近的一门语言。而且在学完汇编后，你会发现你对C语言的理解也更上了一个台阶。</p>
+<p>曾经在嵌入式课上，老师建议我们可以用汇编写一下汉诺塔，但是当时我对汇编中函数调用时寄存器的分配，存储空间的操作一头雾水，并没能自己独立写好。现在，我回过头来重新写这个作业（曾经的bonus作业），也算是给自己补了补课。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">; int main(int argc, const char * argv[]) &#123;  </span><br><span class="line">;     printf(&quot;Please input the number of plates: &quot;);  </span><br><span class="line">;     int n;  </span><br><span class="line">;     scanf(&quot;%d&quot;,&amp;n);  </span><br><span class="line">;     hanoi(n, 1, 2, 3);  </span><br><span class="line">;     return 0;  </span><br><span class="line">; &#125;</span><br><span class="line"></span><br><span class="line">%include &quot;asm_io.inc&quot;</span><br><span class="line"></span><br><span class="line">; init data</span><br><span class="line">segment .data</span><br><span class="line">prompt1  db     &quot;Please input the number of plates: &quot;, 0</span><br><span class="line"></span><br><span class="line">; uninit data</span><br><span class="line">segment .bss</span><br><span class="line"></span><br><span class="line">segment .text</span><br><span class="line">    GLOBAL asm_main</span><br><span class="line">asm_main:</span><br><span class="line">    enter   0, 0 ; start to run</span><br><span class="line">    pusha</span><br><span class="line"></span><br><span class="line">    mov     eax, prompt1</span><br><span class="line">    call    print_string</span><br><span class="line">    call    read_int</span><br><span class="line">    call    print_nl</span><br><span class="line">    </span><br><span class="line">    push    eax</span><br><span class="line">    mov     dword ebx, 1</span><br><span class="line">    push    ebx</span><br><span class="line">    mov     dword ecx, 2</span><br><span class="line">    push    ecx</span><br><span class="line">    mov     dword edx, 3</span><br><span class="line">    push    edx</span><br><span class="line"></span><br><span class="line">    call    hanoi</span><br><span class="line"></span><br><span class="line">    add     esp, 16</span><br><span class="line"></span><br><span class="line">    popa</span><br><span class="line">    mov     eax, 0; back to C/C++</span><br><span class="line">    leave</span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">; void hanoi(int n,int a,int b,int c)  </span><br><span class="line">; &#123;  </span><br><span class="line">;     if(n==1)  </span><br><span class="line">;     &#123;  </span><br><span class="line">;         printf: a --&gt; c \n </span><br><span class="line">;     &#125;  </span><br><span class="line">;     else&#123;  </span><br><span class="line">;         hanoi(n-1,a, c, b);  </span><br><span class="line">;         printf: a --&gt; c \n </span><br><span class="line">;         hanoi(n-1, b, a, c);  </span><br><span class="line">;     &#125;  </span><br><span class="line">; &#125;  </span><br><span class="line"></span><br><span class="line">segment .data</span><br><span class="line">arrow   db  &quot; --&gt; &quot;, 0 </span><br><span class="line"></span><br><span class="line">    ; -------  High</span><br><span class="line">    ; n</span><br><span class="line">    ; -------</span><br><span class="line">    ; plate 1</span><br><span class="line">    ; -------</span><br><span class="line">    ; plate 2</span><br><span class="line">    ; -------</span><br><span class="line">    ; plate 3</span><br><span class="line">    ; -------  Low</span><br><span class="line"></span><br><span class="line">segment .text</span><br><span class="line">    GLOBAL hanoi</span><br><span class="line">hanoi:</span><br><span class="line">    enter   16 , 0          ; 4 parameters: n, plate1, plate2, plate3</span><br><span class="line"></span><br><span class="line">    mov     eax, [ebp + 20]</span><br><span class="line">    cmp     eax, 1</span><br><span class="line">    jne     elseif          </span><br><span class="line">    mov     eax, [ebp + 16] ; print plate1 --&gt; plate3</span><br><span class="line">    call    print_int</span><br><span class="line">    mov     eax, arrow</span><br><span class="line">    call    print_string</span><br><span class="line">    mov     eax, [ebp + 8]   </span><br><span class="line">    call    print_int</span><br><span class="line">    call    print_nl</span><br><span class="line">    jmp     quit</span><br><span class="line"></span><br><span class="line">elseif:</span><br><span class="line">    mov     eax, [ebp + 20]  ; hanoi(n-1, p1, p3, p2)</span><br><span class="line">    dec     eax</span><br><span class="line">    push    eax</span><br><span class="line">    mov     ebx, [ebp + 16]</span><br><span class="line">    push    ebx</span><br><span class="line">    mov     ecx, [ebp + 8]</span><br><span class="line">    push    ecx</span><br><span class="line">    mov     edx, [ebp + 12]</span><br><span class="line">    push    edx</span><br><span class="line">    call    hanoi</span><br><span class="line">    add     esp, 16</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    mov     eax, [ebp + 16] ; print plate1 --&gt; plate3</span><br><span class="line">    call    print_int</span><br><span class="line">    mov     eax, arrow</span><br><span class="line">    call    print_string</span><br><span class="line">    mov     eax, [ebp + 8]   </span><br><span class="line">    call    print_int</span><br><span class="line">    call    print_nl</span><br><span class="line"></span><br><span class="line">    mov     eax, [ebp + 20]  ; hanoi(n-1, p2, p1, p3)</span><br><span class="line">    dec     eax</span><br><span class="line">    push    eax</span><br><span class="line">    mov     ebx, [ebp + 12]</span><br><span class="line">    push    ebx</span><br><span class="line">    mov     ecx, [ebp + 16]</span><br><span class="line">    push    ecx</span><br><span class="line">    mov     edx, [ebp + 8]</span><br><span class="line">    push    edx</span><br><span class="line">    call    hanoi</span><br><span class="line">    add     esp, 16</span><br><span class="line">    jmp     quit</span><br><span class="line">quit:</span><br><span class="line">    leave</span><br><span class="line">    ret</span><br></pre></td></tr></table></figure>
+<p>更加完整的<a href="https://github.com/Ohyoukillkenny/hanoi" target="_blank" rel="noopener">文档</a>我放到了我自己的github上（包括如何编译的说明），大家如果有兴趣可以自行下载。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2018/02/06/DNA-min-mismatch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -919,183 +1056,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2018/01/03/LearnSolidity3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lingkun Kong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lingkun's Small House">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/01/03/LearnSolidity3/" itemprop="url">
-                  Learn Solidity (3) — Safe Remote Purchase
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-                
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-03T13:17:07+08:00">2018-01-03</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Learn-Solidity/" itemprop="url" rel="index"><span itemprop="name">Learn Solidity</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Solidity学习笔记-3-—-Safe-Remote-Purchase"><a href="#Solidity学习笔记-3-—-Safe-Remote-Purchase" class="headerlink" title="Solidity学习笔记(3) — Safe Remote Purchase"></a>Solidity学习笔记(3) — Safe Remote Purchase</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
-<p>今天用拍卖合约（Safe Remote Purchase）进行Smart Contract编程的学习。</p>
-<p>今天的这一段代码，有一些比较tricky的地方，所以我的笔记也会比较详细。</p>
-<p>附上官方的学习代码链接：<a href="https://solidity.readthedocs.io/en/latest/solidity-by-example.html#safe-remote-purchase" target="_blank" rel="noopener">https://solidity.readthedocs.io/en/latest/solidity-by-example.html#safe-remote-purchase</a></p>
-<p>另外发现了一个不错的大纲型文档：<a href="https://medium.com/@mattcondon/getting-up-to-speed-on-ethereum-63ed28821bbe" target="_blank" rel="noopener">https://medium.com/@mattcondon/getting-up-to-speed-on-ethereum-63ed28821bbe</a></p>
-<h4 id="1-功能简介"><a href="#1-功能简介" class="headerlink" title="1.功能简介"></a>1.功能简介</h4><p>这个合约作为一个第三方的平台，用于远程购买一个商品时暂存买方付的钱，然后在买方确认交易后将钱付给商家。整体而言这个合约相当于我们用淘宝网购时的淘宝平台，用户购买时将钱先付给淘宝平台，然后商家发货。用户在收到商品后在淘宝上确认付款，这时淘宝会把钱打给商户。</p>
-<p>在使用这个合约时，卖方需要先自己创建(create)合约。整个流程与下图类似：</p>
-<img src="/blog/2018/01/03/LearnSolidity3/overview.png" title="Overview of Safe Remote Purchase Contract">
-<h4 id="2-代码简介"><a href="#2-代码简介" class="headerlink" title="2.代码简介"></a>2.代码简介</h4><p><strong>初始函数</strong>：首先，我们看建立合约的初始函数，根据函数中的<code>payable</code>，说明这里发起协议的seller需要在transaction里面放价格为商品两倍的保证金。这里是整个合约最tricky的地方，即seller放了商品价格两倍的保证金。这样有两个目的，其一可以防止黑心商家，发起协议后不给用户发货，用户在确认后白白损失金额。其二可以让买方积极的去确认收到商品了，因为买方也要交商品价格两倍的保证金，如果不确认收到商品，他们将白白损失钱财。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enum State &#123; Created, Locked, Inactive &#125;</span><br><span class="line">State public state;</span><br><span class="line"><span class="comment">// 这一段用require代码确认seller的value是偶数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Purchase</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">    seller = msg.sender;</span><br><span class="line">    value = msg.value / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">require</span>((<span class="number">2</span> * value) == msg.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其实这么写有浪费gas的问题。因为如果不是偶数，之前的语句已经执行过了，<code>require</code>导致函数回退时将会消耗更多的gas。所以我觉得这一段可以改成：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Purchase</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">    seller = msg.sender;</span><br><span class="line">    <span class="built_in">require</span>((msg.value % <span class="number">2</span>) == <span class="number">0</span>);</span><br><span class="line">    value = msg.value / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另外神奇的是，在创建合约的函数里面，合约并没有写<code>state = State.Created;</code>然而在下面的<code>abort()</code>函数中，<code>inState(State.Created)</code>的判定竟然通过了。经过代码调试，我发现在<code>State public state;</code>这句话的时候，虽然没有直接赋值，但是系统默认state的值为空，在做<code>==</code>判定的时候，默认<code>state = 0</code>了。总之之后编程需要多多小心。PS. 我这里在调试的时候，加了一个<code>enum State { Created, Locked, Inactive }</code>然后创建了一个2eth的合约。于是我永久的丢掉了2eth。</p>
-<p><strong>终止合约：</strong>在终止函数里，我想提一下<code>transfer</code>和<code>send</code>函数的区别。两者都是像地址传递钱，区别在于如果<code>transfer</code>函数运行失败，系统会throw一个错误，而<code>send</code>函数则会返回一个<code>false</code>的布尔值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">abort</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    <span class="title">public</span></span></span><br><span class="line"><span class="function">    <span class="title">onlySeller</span></span></span><br><span class="line"><span class="function">    <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Aborted();</span><br><span class="line">    state = State.Inactive;</span><br><span class="line">  	<span class="comment">// 这里把seller的保证金还给seller，里面应该是2V - gas fee</span></span><br><span class="line">    seller.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>确认支付：</strong> 这个函数由buyer在seller发起的协议基础上访问，会在协议里存两倍商品价格的钱，存完后会将Contract的状态标记为锁定, i,e., <code>Locked</code>。至于为何要付两倍的钱，我认为可能是因为这个协议担心用户会懒得确认到货，所以这么做来使得用户自己能够被</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">confirmPurchase</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    <span class="title">public</span></span></span><br><span class="line"><span class="function">    <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    <span class="title">condition</span>(<span class="params">msg.value == (<span class="number">2</span> * value</span>))</span></span><br><span class="line"><span class="function">    <span class="title">payable</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PurchaseConfirmed();</span><br><span class="line">    buyer = msg.sender;</span><br><span class="line">    state = State.Locked;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>确认收货：</strong> 这个函数由buyer在seller发起的协议基础上访问，buyer确认收到商品，这样之后协议会把钱退回给buyer和seller。需要注意的是，这里官方代码认为所有的交易费用应该由seller承担。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">confirmReceived</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    <span class="title">public</span></span></span><br><span class="line"><span class="function">    <span class="title">onlyBuyer</span></span></span><br><span class="line"><span class="function">    <span class="title">inState</span>(<span class="params">State.Locked</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ItemReceived();</span><br><span class="line">    <span class="comment">// It is important to change the state first because</span></span><br><span class="line">    <span class="comment">// otherwise, the contracts called using `send` below</span></span><br><span class="line">    <span class="comment">// can call in again here.</span></span><br><span class="line">    state = State.Inactive;</span><br><span class="line">	<span class="comment">// 返回用户多余的押金，一倍商品价格</span></span><br><span class="line">    buyer.transfer(value);</span><br><span class="line">    <span class="comment">// 把剩下的 3V - gas fee的钱给商家。</span></span><br><span class="line">    seller.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-一些思考"><a href="#3-一些思考" class="headerlink" title="3.一些思考"></a>3.一些思考</h4><p>在看代码的过程中，我发现这个合约有一个无法解决的问题。</p>
-<p>假如有一些恶意的用户想搞垮商家，于是买了商品后就是不确认，这样用户通过损失等价于一个商品价格的费用（因为用户其实收到了商品），就可以坑掉商家三倍商品价格的钱（商家发出了商品）。</p>
-<p>其实这个问题的本质源于smart contract无法监管商品的运转，即它无法发现假如钱被锁死在了合约里面，是谁干了坏事。所以我觉得就remote purchace这个问题而言，比较理想的状况还是得有一个买卖双方都信的过的第三方机构介入其中。buyer先把钱寄给这个第三方机构，然后由第三方机构作为仲裁方，决定把钱最终交给buyer还是seller。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1138,7 +1103,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
