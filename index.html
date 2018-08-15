@@ -48,8 +48,8 @@
           </td>
           <td width="60%" valign="middle">
             <p align="center"><name>Lingkun Kong</name></p>
-            <p>Hi, my name is Lingkun Kong. You can also call me Kenny. I am now a senior student at Department of Computer Science, <a href="http://en.sjtu.edu.cn/">Shanghai Jiao Tong University</a>. Also, I am a member of Zhiyuan Department in Shanghai Jiao Tong University, and participated in <a href="http://zhiyuan.sjtu.edu.cn/" target="_blank">Technology and Engineering Honor Class</a> in my first college year motivated by the interest about scientific research.</p>
-            <p>Currently, I am working at Prof. <a href="http://www.cs.sjtu.edu.cn/~wang-xb/" target="_blank" ,="" rel="nofollow">Xinbing Wang</a>'s <a href="http://acemap.sjtu.edu.cn/" target="_blank" ,="" rel="nofollow">Acemap Group</a>. Recently, I have just finished my summer internship at Cornell University. I was fortunate to work under the supervision of Prof. <a href="http://www.cs.cornell.edu/people/egs/">Emin Gun Sirer</a>.</p>
+            <p>Hi, my name is Lingkun Kong. I am now a Ph.D. student at Department of Computer Science, Rice University.</p>
+            <p>Before I joined Rice, I got my bachelor degree from Shanghai Jiao Tong University, and was a member of Zhiyuan College.</p>
             <p align="center">
               <a href="source/Lingkun_CV.pdf">CV</a> &nbsp;/&nbsp;
               <a href="blog/index.html">Blogs</a> &nbsp;/&nbsp;
@@ -71,15 +71,15 @@
                 <tr>
                   <td style="vertical-align: top;"><b>Email</b></td>
                   <td style="padding-left: 50px;">
-                    klk316980786[at]sjtu.edu.cn<br>
+                    klk[at]rice.edu<br>
                   </td>
                 </tr>
                 <tr>
                   <td style="vertical-align: top;"><b>Address</b></td>
                   <td style="padding-left: 50px;">
-                    SEIEE Buildings 1-441,
-                    800 Dongchuan Road,
-                    Shanghai, 200240 China.
+                    Duncan Hall 3011,
+                    6100 Main St. MS-132,
+                    Houston, TX, 77005.
                   </td>
                 </tr>
               </tbody>
@@ -94,6 +94,10 @@
         <tbody><tr>
           <td width="100%" valign="middle">
             <heading>Education</heading>
+            <p>
+              <strong>Rice University</strong>, USA, from Aug. 2018 until now<br>
+              , Department of Computer Science
+            </p>
             <p>
               <strong>Shanghai Jiao Tong University</strong>, China, from Sep. 2014 to Jun. 2018<br>
               B.Sc., Department of Computer Science & Zhiyuan College
@@ -111,11 +115,32 @@
         <tbody><tr>
           <td width="100%" valign="middle">
             <heading>Research</heading>
-            <p>I am adept at coding and keen on building fantastic software system. My current research interest focuses on:</p>
+            <p>I am keen on building fantastic systems. My current research interest focuses on:</p>
             <ul>
             <li>Distributed System</li>
-            <li>Theoretical Networking or Big-scale Network Analysis</li>
+            <li>Networking System</li>
             </ul>
+          </td>
+        </tr>
+        </tbody></table>
+
+        <!-- Publication -->
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%" valign="middle">
+            <heading>Publication</heading>
+            <p>
+              L. Fu, S. Ma, <strong>L. Kong</strong>, S. Shi, X. Wang, "FINE: A Framework for Distributed Learning on Incomplete Observations for Heterogeneous Crowdsensing Networks", in IEEE/ACM Transactions on Networking, Vo. 26, No. 3, pp. 1092-1109, June 2018.
+            </p>
+          </td>
+        </tr>
+        </tbody></table>
+
+        <!-- Project -->
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%" valign="middle">
+            <heading>Project</heading>
           </td>
         </tr>
         </tbody></table>
@@ -127,15 +152,13 @@
           <p>
             <a href="https://github.com/Ohyoukillkenny/Bancor-Simulator"><strong>A Simulator for Market Analysis Under Bancor Protocol</strong></a>
             <br>
-            <strong>Kenny Kong</strong>, Emin Gun Sirer, Jul. 2017 <br>
+            <strong>Lingkun Kong</strong>, Emin Gun Sirer, Jul. 2017 <br>
             </p><p><br>
             This work is advised by Prof. <a href="http://www.cs.cornell.edu/people/egs/">Emin Gun Sirer</a>.
             <br>
               <a href="https://www.bancor.network/">Bancor</a> holds the record for the biggest crowd-funding, ever, in the history of mankind. However, the robustness and efficiency of Bancor remain to be explored. Bancor also has several flaws due to its design principle.
             <br>
-              Therefore, we build a simulator which monitors market performance under Bancor protocol and assists in showing whether Bancor protocol is efficient and safe enough for a market with massive customers who launch huge amount of transaction orders simultaneously.
-            <br>
-              After conducting experiments in multiple circumstances and data analyzing as well, results show that Bancor protocol is flawed in three aspects: 
+              Therefore, we build a simulator, and leveraging which, we find that Bancor protocol is flawed in three aspects: 
             <ul>
               <li>The existence of problem about <a href="https://www.bancor.network/whitepaper">"Double Coincidence of Wants"</a> Bancor wants to solve is unsubstantiated in real world. Even assuming this problem does exist, Bancor protocol cannot ensure its superiority to classic market.</li>
               <li>The price of smart token, i.e. currency in Bancor protocol could fluctuate significantly, since Bancor neglects potential human behavior. </li>
@@ -162,21 +185,11 @@
               Many realistic social networks can be presented by evolving bipartite graphs, in which dynamically added elements are divided into two entities and connected by links through these two entities, such as followees and followers in Twitter networks, authors and scientific topics in scholarly networks, users and items in recommendation networks, and etc. However, when adding weights of edges, i.e., connections between elements, how to mathematically model such evolving social networks, along with quantitative characterizations, remains unexplored.
             <br>
               Motivated by this, we develop a novel evolving bipartite model (EBM), which, based on empirically validated power-law distribution within multiple realistic social networks, discloses that the distribution of total weights given or received by each element in networks is determined by the weighting scale and bounded by certain ceilings and floors.
-            <br>
-              Here, we summarize contributions of EBM by three aspects:
-            <ul>
-              <li>Weights Incorporated: EBM originally incorporates the weights of edges in bipartite graphs into the model construction of social networks.</li>
-              <li>Mathematical Justified: EBM offers detailed mathematical proof to consolidate the reasonability of itself. </li>
-              <li>Experiment Validated: EBM's third contribution relies on extensive experimental validations in the context of recommending networks.</li>
-            </ul>
-            <br>
             </p>
           <p></p>
           </td>
         </tr>
         </tbody></table>
-
-
 
         <table width="100%" align="center" border="0" cellpadding="20">
         <tbody><tr>
@@ -190,47 +203,10 @@
             </p><p><br>
             This work is advised both by Prof. <a href="http://www.cs.sjtu.edu.cn/~fu-ly/index.html">Luoyi Fu</a> and <a href="http://www.cs.sjtu.edu.cn/~wang-xb/" target="_blank">Xinbing Wang</a>.
             <br>
-            Scholarly networks contain massive scholarly information that can be mainly categorized into three entities, i.e., paper, author and topic, which exhibit a co-evolution over time. 
+            Scholarly networks contain massive scholarly information that can be mainly categorized into three entities, i.e., paper, author and topic, which exhibit a co-evolution over time. <br>
             Though scholarly networks have attracted much attention over the past years, most works focus on single dimension of the network, e.g. citation, collaboration or topic network; while few of them incorporate different kinds of entities into an entirety to generate a systematic understanding of scholarly networks at scale. We bridge this gap by proposing a multi-entity scholarly model (MSM) with succinct theoretical foundation, which amalgamates entities of paper, author and topic into one single framework to simulate interactions among different entities, and thus presenting the co-evolution within scholarly networks.
-            <ul>
-              <li>We originally explore comprehensive properties in scholarly networks with the concern of mutiple entities, i.e., paper, author and topic. Based on scholarly datasets <a href="http://acemap.sjtu.edu.cn/acenap/index.php/datasets.html">Microsoft Academic Graph</a>, which contain about 126 million papers, we use data-mining and other big-data analyzing approaches to observe patterns in the growth of the scholarly network.</li>
-              <li>Given empirical observations, we first time establish a comprehensive modeling of evolving scholarly networks. Combining entities of paper, author and topic in singe fabric, the proposed model captures both the inter-correlation and intra-correlation of the three entities during the evolving process.</li>
-              <li>Based on the constructing methods of random arrival, preferential attachment, edge copying and the assumption of the affiliation relationship inside entities, we provide strong theoretical guarantees.</li>
-            </ul>
             </p>
           <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/icdm.png" width="160" height="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="source/Wandering-Between-Close-and-Apart.pdf"><strong>Wandering Between Close and Apart: Are Scholarly Domains Crossable?</strong></a>
-            <br>
-            <strong>Lingkun Kong</strong>, Bo Wang, Jiaqi Liu, Luoyi Fu, Xinbing Wang, Jun. 2017 <br>
-            </p><p><br>
-              This work is advised both by Prof. <a href="http://www.cs.sjtu.edu.cn/~fu-ly/index.html">Luoyi Fu</a> and <a href="http://www.cs.sjtu.edu.cn/~wang-xb/" target="_blank">Xinbing Wang</a>.
-            <br>
-              Interdisciplinary (scholarly cross-domain) collaborations have generated huge impact to society, and have been previously proved to exhibit <a href="http://keg.cs.tsinghua.edu.cn/jietang/publications/KDD12-Tang-et-al-Cross-Domain-Collaboration-Recommendation.pdf">domain skewness</a>.
-            <br>
-              This viewpoint, however, is limited by the paucity of experimental verification as well as the support of evaluation methods. Given this limitation, we address a question to determine the possible existence of scholarly cross-domain collaborations, namely: <strong>"Are scholarly domains crossable?"</strong>
-            <br>
-              In this work, we take the initiative to formalize a "crossability" quantification problem, where the "crossability" serves as an index that aims to evaluate the ability of two scientific domains to establish collaborations. Based on algorithm modeling and machine learning methods, we analyze diverse "crossabilities" which exist between different scientific domains.
-            <br>
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <!-- Project -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>Project</heading>
           </td>
         </tr>
         </tbody></table>
@@ -242,9 +218,9 @@
           <p>
             <a href="http://acemap.sjtu.edu.cn/"><strong>Acemap: Academic Map System</strong></a>
             <br>
-            <strong>Lingkun Kong</strong>, advised by Prof. <a href="http://www.cs.sjtu.edu.cn/~wang-xb/">Xinbing Wang</a>, Jun. 2015 - now <br>
+            <strong>Lingkun Kong</strong>, advised by Prof. <a href="http://www.cs.sjtu.edu.cn/~wang-xb/">Xinbing Wang</a>, 2015 - 2017 <br>
             </p><p><br>
-              I joined the Acemap group in my sophoremore year. Now I am a team leader in Acemap. By undertaking research projects in Acemap, I learn how to build a complete search engine as well as a comprehensive big data system. My major work in this group focuses on:
+              I joined the Acemap group in 2015. My major work in this group focused on:
               <ul>
               <li>Develop visualizing applications for scholarly information networks and presentation approaches.</li>
               <li>Implement the recommending algorithm for papers in Acemap, and present the result on website.</li>
@@ -256,91 +232,7 @@
         </tr>
         </tbody></table>
 
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/papertree.png" width="160" height="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="http://acemap.sjtu.edu.cn/author/page?AuthorID=7E0DFF97"><strong>Paper-forest Map: Graphic Tracker for Scholar's Publications</strong></a>
-            <br>
-            <strong>Lingkun Kong</strong>, advised by Prof. <a href="http://www.cs.sjtu.edu.cn/~wang-xb/">Xinbing Wang</a>, Sept. 2017<br>
-            </p><p><br>
-              Paper-forest Map is one of the visualization applications in Acemap, which aims to provide users with direct access of connections between one scholar's publications. Therefore, if users want to track series in one certain researcher's publications, they can refer to this map and quickly obtain cliqued publications written by this researcher. They can also glean the sketch about the relationship between this researcher's publications. Details about this map are listed below:
-              <ul>
-              <li>Nodes in the graph represent one scholar's publications, whose sizes indicates their citations' numbers -- larger size means bigger number of citations.</li>
-              <li>The link between nodes in the graph represents the reference of scholar's one publication to his/her another publication.</li>
-              <li>The color of node indicates the publishing year of scholar's publications.</li>
-              <li>Singletons, i.e., nodes with no connections with others, indicate separate works of this author.</li>
-              </ul>
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/kernel.png" width="160" height="150"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="https://github.com/Ohyoukillkenny/CS356-Operating-System-Project"><strong>Linux Kernel Applications Development</strong></a>
-            <br>
-            <strong>Lingkun Kong</strong>, in <a href="http://www.cs.sjtu.edu.cn/~fwu/teaching.html">CS356</a>, advised by Prof. <a href="http://www.cs.sjtu.edu.cn/~fwu/index.html">Fan Wu</a>, Spring. 2016<br>
-            </p><p><br>
-              This project aims to get understanding of how operating system works by developing Linux Kernel applications. Adittionally, I developed Android testing applications for this project.
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
         
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/CPU.png" width="160" height="100"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="https://github.com/Ohyoukillkenny/CPU-in-Verilog"><strong>CPU Design on MIPS Architecture in Verilog</strong></a>
-            <br>
-            <strong>Lingkun Kong</strong>, in CS334, advised by <a href="http://www.cs.sjtu.edu.cn/PeopleDetail.aspx?id=35">Li Wang</a>, Spring 2016<br>
-            </p><p><br>
-              This project aims to build a simple pipelining CPU by Verilog coding under MIPS architecture. After this project, I became the TA of this course.
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/CG.png" width="160" height="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="https://github.com/Ohyoukillkenny/CNN-Saliency-GUI"><strong>Visualization for Machine Vision Understanding based on Saliency Prediction Problem</strong></a>
-            <br>
-            <strong>Lingkun Kong</strong>, Ruiji Wang, Zhenchao Zhou, in <a href="http://www.cs.sjtu.edu.cn/~shengbin/course/cg/home.html">CS337</a>, advised by Prof. <a href="http://www.cs.sjtu.edu.cn/en/PeopleDetail.aspx?id=149">Bin Sheng</a>, Fall 2016<br>
-            </p><p><br>
-              This project implements idea of paper <a href="https://arxiv.org/abs/1603.00845">"Shallow and Deep Convolutional Networks for Saliency Prediction"</a> to make a Saliency Prediction GUI, which helps people get better understanding of how Saliency Detection works under CNN framework.
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/SE.png" width="160" height="100"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="https://github.com/Ohyoukillkenny/Captcha-Hunter"><strong>Using ConvNets to Recognize Captcha Digits</strong></a>
-            <br>
-            <strong>Lingkun Kong</strong>, Ruiji Wang, Zhenchao Zhou, in <a href="http://www.cs.sjtu.edu.cn/~shengbin/course/SE/sesite/home.html">EE312</a>, advised by Prof. <a href="http://www.cs.sjtu.edu.cn/en/PeopleDetail.aspx?id=149">Bin Sheng</a>, Fall 2016<br>
-            </p><p><br>
-              This project implements idea of paper <a href="http://ieeexplore.ieee.org/document/6460867/?arnumber=6460867">"Convolutional Neural Networks Applied to House Numbers Digit Classification"</a> to make a Captcha Digits recognizing GUI.
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
         
 
         <!-- Teaching -->
@@ -369,12 +261,10 @@
           <td width="100%" valign="middle">
             <heading>Scholarships</heading>
             <p>
-              <strong>National Scholarship</strong>, Ministry of Education of China, 2015 and 2017<br>
-              Highest honor for undergraduates in China, awarded to <strong> top 0.2%</strong> students.
+              <strong>National Scholarship</strong>, Ministry of Education of China, 2015 and 2017
             </p>
             <p>
-              <strong>Scholarship of Outstanding Undergraduates</strong>, Shanghai Jiao Tong University, 2017<br>
-              Awarded to <strong> < top 1%</strong> undergraduates in Shanghai Jiao Tong University, founded for encouraging scientific research.
+              <strong>Scholarship of Outstanding Undergraduates</strong>, Shanghai Jiao Tong University, 2017
             </p>
             <p>
               <strong>Zhiyuan Honorary Scholarship</strong>, Shanghai Jiao Tong University, 2015, 2016 and 2017
@@ -389,17 +279,10 @@
           <td width="100%" valign="middle">
             <heading>Awards</heading>
             <p>
-              <strong>Junzheng Scholar</strong>, Shanghai Jiao Tong University, 2017<br>
-              Awarded to top 30 undergraduate scholars in Shanghai Jiao Tong University.<br>
+              <strong>Junzheng Scholar</strong>, Shanghai Jiao Tong University, 2017
             </p>
             <p>
-              <strong>Merit Student of Shanghai Jiao Tong University</strong>, Shanghai Jiao Tong University, 2015<br>
-              In Chinese, the "Merit Student" is also called "San Hao Student", which is awarded to top10 students for their comprehensive performance.
-            </p>
-            <p>
-              <strong>First Prize in RoboMasters Competition (East China)</strong>, Ministry of Education of China, Jun. 2015<br>
-              <strong>Second Prize in RoboMasters Competition (China)</strong>, Ministry of Education of China, Jul. 2015<br>
-              <a href="https://www.robomaster.com/en-US">RoboMasters</a> is an annual robotics competition for teams of aspiring engineers to design and build next-generation robots for completing difficult tasks and hand-to-hand combat.
+              <strong>Merit Student of Shanghai Jiao Tong University</strong>, Shanghai Jiao Tong University, 2015
             </p>
           </td>
         </tr>
@@ -412,37 +295,14 @@
           <td width="100%" valign="middle">
             <heading>More About Me</heading>
             <p>
-              I am a table tennis master-level athlete in Shanghai Jiao Tong University. In Nov. 2014, I represented our school and won first runner-up of national college students' table tennis competition in our schools history. In Oct. 2016, I helped our school to win her first championship in Shanghai.
+              I used to be a table tennis athlete. In 2016, I helped my undergraduate university to win her first championship in Shanghai.
             </p>
             <p>
-              Besides, I am a crazy NBA basketball fan. Playing basketball is also one of my hobbies. Actually, I am a member in my class basketball team. I helped our team to win three successive championships in 2015, 2016 and 2017.
+              I am a crazy NBA basketball fan. Playing basketball is also one of my hobbies.
             </p>
           </td>
         </tr>
         </tbody></table>
-
-         <!-- What's New -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>What's New!</heading>
-            <p>
-              The paper <I>"FINE: A Framework for Distributed Learning on Incomplete Observations for Heterogeneous Crowdsensing Networks"</I>, authored by Luoyi fu, Songjun Ma, <strong>Lingkun Kong</strong>, Shiyu Liang and Xinbing Wang is accepted by the IEEE/ACM Transactions on Networking.  (2018-03-01)
-            </p>
-            <p>
-              Our group have just updated <a href="http://acemap.sjtu.edu.cn/"><strong>Acemap</strong></a> website and developed many fancy tools.
-            </p>
-            <p>
-              I have submitted a paper to IEEE/ACM Transactions on Networking.
-            </p>
-            <p>
-              I have just finished my work of <a href="https://github.com/Ohyoukillkenny/EBM"><strong>EBM</strong></a> and submitted this work to MobiHoc2018.
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
-
-
 
 
       </td>
