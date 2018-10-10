@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html lang="">
+<head prefix="og: http://ogp.me/ns#">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <title>Learn Solidity (1) — Ballot | Lingkun&#39;s Small House</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="Solidity&amp;#x5B66;&amp;#x4E60;&amp;#x7B14;&amp;#x8BB0;(1) &amp;#x2014; Ballot&amp;#x4F5C;&amp;#x8005;&amp;#xFF1A;&amp;#x5B54;&amp;#x4EE4;&amp;#x5764;&amp;#xFF0C;&amp;#x8F6C;&amp;#x8F7D;&amp;#x8BF7;&amp;#x6CE8;&amp;#x660E;&amp;#x51FA;&amp;#x5904; &amp;#x6700;&amp;#x8FD1;&amp;#x5F00;&amp;#x5">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learn Solidity (1) — Ballot">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/01/01/Solidity学习笔记(1)/index.html">
+<meta property="og:site_name" content="Lingkun&#39;s Small House">
+<meta property="og:description" content="Solidity&amp;#x5B66;&amp;#x4E60;&amp;#x7B14;&amp;#x8BB0;(1) &amp;#x2014; Ballot&amp;#x4F5C;&amp;#x8005;&amp;#xFF1A;&amp;#x5B54;&amp;#x4EE4;&amp;#x5764;&amp;#xFF0C;&amp;#x8F6C;&amp;#x8F7D;&amp;#x8BF7;&amp;#x6CE8;&amp;#x660E;&amp;#x51FA;&amp;#x5904; &amp;#x6700;&amp;#x8FD1;&amp;#x5F00;&amp;#x5">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.z4a.net/images/2018/01/01/12c442bfea71a1a6f.png">
+<meta property="og:image" content="http://www.z4a.net/images/2018/01/01/ballot-voter.png">
+<meta property="og:updated_time" content="2018-01-03T02:31:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learn Solidity (1) — Ballot">
+<meta name="twitter:description" content="Solidity&amp;#x5B66;&amp;#x4E60;&amp;#x7B14;&amp;#x8BB0;(1) &amp;#x2014; Ballot&amp;#x4F5C;&amp;#x8005;&amp;#xFF1A;&amp;#x5B54;&amp;#x4EE4;&amp;#x5764;&amp;#xFF0C;&amp;#x8F6C;&amp;#x8F7D;&amp;#x8BF7;&amp;#x6CE8;&amp;#x660E;&amp;#x51FA;&amp;#x5904; &amp;#x6700;&amp;#x8FD1;&amp;#x5F00;&amp;#x5">
+<meta name="twitter:image" content="http://www.z4a.net/images/2018/01/01/12c442bfea71a1a6f.png">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "Lingkun Kong",
+  "url": "https://ohyoukillkenny.github.io/blog"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/blog/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>Lingkun&#39;s Small House</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/blog/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">Lingkun Kong</a>
+                    
+                        <div class="meta">
+                            Programmer / Basketball Fan / Pingpong Player
+                        </div>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        <div class="item">
+                            <i class="marker icon" style="float: left"></i>
+                            <div class="content">Shanghai</div>
+                        </div>
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+
+                                <a href="https://github.com/Ohyoukillkenny"><i class="large github icon" style="float: left"></i></a>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-Solidity学习笔记(1)" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Learn Solidity (1) — Ballot
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h3 id="Solidity&#x5B66;&#x4E60;&#x7B14;&#x8BB0;-1-&#x2014;-Ballot"><a href="#Solidity&#x5B66;&#x4E60;&#x7B14;&#x8BB0;-1-&#x2014;-Ballot" class="headerlink" title="Solidity&#x5B66;&#x4E60;&#x7B14;&#x8BB0;(1) &#x2014; Ballot"></a>Solidity&#x5B66;&#x4E60;&#x7B14;&#x8BB0;(1) &#x2014; Ballot</h3><p><strong>&#x4F5C;&#x8005;</strong>&#xFF1A;&#x5B54;&#x4EE4;&#x5764;&#xFF0C;<strong>&#x8F6C;&#x8F7D;&#x8BF7;&#x6CE8;&#x660E;&#x51FA;&#x5904;</strong></p>
+<p>&#x6700;&#x8FD1;&#x5F00;&#x59CB;&#x5B66;&#x4E60;Solidity&#xFF0C;&#x5F00;&#x59CB;&#x5B66;&#x4E60;&#x5199;smart contract&#x3002;&#x4ECA;&#x5929;&#x5F00;&#x59CB;&#x7528;&#x4E00;&#x4E2A;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x7684;&#x6295;&#x7968;&#x5408;&#x540C;&#xFF08;Ballot Contract&#xFF09;&#x8FDB;&#x884C;&#x7B2C;&#x4E00;&#x6B65;&#x7684;&#x5B66;&#x4E60;&#x3002;</p>
+<p>&#x73AF;&#x5883;&#x7684;&#x5B89;&#x88C5;&#x548C;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x8FD9;&#x91CC;&#x4E0D;&#x505A;&#x8FC7;&#x591A;&#x7684;&#x8D58;&#x8FF0;&#xFF0C;&#x9644;&#x4E0A;&#x4E24;&#x4E2A;&#x94FE;&#x63A5;&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x53C2;&#x8003;&#xFF1A;</p>
+<p>MetaMask&#x914D;&#x7F6E;&#xFF1A;<a href="https://karl.tech/learning-solidity-part-1-deploy-a-contract/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-1-deploy-a-contract/</a></p>
+<p>Solidity&#x914D;&#x7F6E;&#x4E0E;&#x8FD0;&#x884C;&#x6848;&#x4F8B;&#xFF1A;<a href="https://karl.tech/learning-solidity-part-2-voting/" target="_blank" rel="noopener">https://karl.tech/learning-solidity-part-2-voting/</a></p>
+<p>&#x53E6;&#x5916;&#x9644;&#x4E0A;&#x5B98;&#x65B9;&#x7684;&#x5B66;&#x4E60;&#x4EE3;&#x7801;&#x94FE;&#x63A5;&#xFF1A;<a href="https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting" target="_blank" rel="noopener">https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting</a></p>
+<h4 id="1-&#x903B;&#x8F91;&#x7B80;&#x4ECB;"><a href="#1-&#x903B;&#x8F91;&#x7B80;&#x4ECB;" class="headerlink" title="1.&#x903B;&#x8F91;&#x7B80;&#x4ECB;"></a>1.&#x903B;&#x8F91;&#x7B80;&#x4ECB;</h4><p>&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF0C;&#x6574;&#x4E2A;&#x6295;&#x7968;&#x8FC7;&#x7A0B;&#x4E2D;&#x6709;&#x4E09;&#x4E2A;&#x89D2;&#x8272;&#xFF0C;&#x5176;&#x4E2D;ChairMan&#x8D1F;&#x8D23;&#x7EC4;&#x7EC7;&#x6295;&#x7968;&#xFF0C;&#x800C;Voters&#x8FDB;&#x884C;&#x6295;&#x7968;&#xFF0C;Proposals&#x662F;&#x672C;&#x6B21;&#x6295;&#x7968;&#x4E2D;&#x7684;&#x5019;&#x9009;&#x4EBA;&#x3002;&#x5176;&#x4E2D;&#xFF0C;Chairman&#x7EC4;&#x7EC7;&#x6295;&#x7968;&#x7684;&#x65B9;&#x5F0F;&#x4E3A;&#x6307;&#x5B9A;&#x5168;&#x90E8;&#x7684;&#x5019;&#x9009;&#x4EBA;&#x540D;&#x5355;&#xFF0C;&#x5E76;&#x9010;&#x4E00;&#x8D4B;&#x4E88;&#x5019;&#x9009;&#x4EBA;&#x4EEC;&#x6295;&#x7968;&#x7684;&#x6743;&#x529B;&#x3002;</p>
+<p><a class="magnific-img" href="http://www.z4a.net/images/2018/01/01/12c442bfea71a1a6f.png"><img src="http://www.z4a.net/images/2018/01/01/12c442bfea71a1a6f.png" alt="Roles" class="ui centered image"></a></p>
+<p>&#x4E4B;&#x540E;&#xFF0C;Voters&#x5F00;&#x59CB;&#x8FDB;&#x884C;&#x6295;&#x7968;&#xFF0C;&#x4ED6;&#x4EEC;&#x6295;&#x7968;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x7B2C;&#x4E00;&#x79CD;&#x7B80;&#x5355;&#x660E;&#x4E86;&#xFF0C;Voter&#x76F4;&#x63A5;&#x5BF9;&#x5FC3;&#x4EEA;&#x7684;Proposal&#x8FDB;&#x884C;&#x6295;&#x7968;&#x3002;</p>
+<p>&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#x7565;&#x4E3A;&#x590D;&#x6742;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E;&#x4EBA;&#x5927;&#x4EE3;&#x8868;&#x5927;&#x4F1A;&#x7684;&#x5236;&#x5EA6;&#xFF0C;Voters&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x4FE1;&#x4EFB;&#x7684;Voter(&#x4E0D;&#x80FD;&#x662F;&#x81EA;&#x5DF1;)&#x8FDB;&#x884C;&#x59D4;&#x6258;&#xFF08;delegate&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x7531;&#x59D4;&#x6258;&#x4EBA;&#x8FDB;&#x884C;&#x518D;&#x6B21;&#x59D4;&#x6258;&#x6216;&#x8005;&#x76F4;&#x63A5;&#x8FDB;&#x884C;&#x6295;&#x7968;&#xFF0C;&#x793A;&#x610F;&#x56FE;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#x3002;&#x5176;&#x4E2D;&#x767D;&#x8272;&#x7684;&#x5B57;&#x6BCD;&#x8868;&#x793A;Voter&#x62E5;&#x6709;&#x7684;&#x7968;&#x6570;&#xFF0C;&#x5373;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x4E2D;&#x7684;<code>weight</code>&#xFF0C;&#x800C;&#x7EA2;&#x8272;&#x7684;&#x5B57;&#x6BCD;&#x662F;&#x5019;&#x9009;&#x4EBA;&#x6700;&#x540E;&#x83B7;&#x5F97;&#x7684;&#x7968;&#x6570;&#xFF0C;&#x5373;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x4E2D;&#x7684;<code>voteCount</code>&#x3002;</p>
+<p><a class="magnific-img" href="http://www.z4a.net/images/2018/01/01/ballot-voter.png"><img src="http://www.z4a.net/images/2018/01/01/ballot-voter.png" alt="Voters" class="ui centered image"></a></p>
+<h4 id="2-&#x4EE3;&#x7801;&#x6458;&#x8981;"><a href="#2-&#x4EE3;&#x7801;&#x6458;&#x8981;" class="headerlink" title="2.&#x4EE3;&#x7801;&#x6458;&#x8981;"></a>2.&#x4EE3;&#x7801;&#x6458;&#x8981;</h4><p><strong>&#x6307;&#x5B9A;&#x5019;&#x9009;&#x8005;&#x540D;&#x5355;</strong>&#xFF1A;chairperson&#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x6307;&#x5B9A;&#x5019;&#x9009;&#x8005;&#x7684;&#x540D;&#x5355;&#x662F;&#x5728;&#x521D;&#x59CB;&#x5316;&#x6574;&#x4E2A;&#x5408;&#x540C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x540C;&#x65F6;&#x8FDB;&#x884C;&#x7684;&#xFF0C;&#x8FD9;&#x786E;&#x4FDD;&#x4E86;&#x5408;&#x540C;&#x7684;&#x53D1;&#x8D77;&#x4EBA;<code>msg.sender</code>&#x5C31;&#x662F;&#x672C;&#x6B21;&#x6295;&#x7968;&#x7684;&#x7EC4;&#x7EC7;&#x8005;&#xFF0C;chairman&#x3002;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Create a new ballot to choose one of `proposalNames`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ballot</span>(<span class="params">bytes32[] proposalNames</span>) <span class="title">public</span> </span>{</span><br><span class="line">    chairperson = msg.sender;</span><br><span class="line">    voters[chairperson].weight = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each of the provided proposal names,</span></span><br><span class="line">    <span class="comment">// create a new proposal object and add it</span></span><br><span class="line">    <span class="comment">// to the end of the array.</span></span><br><span class="line">    <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; proposalNames.length; i++) {</span><br><span class="line">        <span class="comment">// `Proposal({...})` creates a temporary</span></span><br><span class="line">        <span class="comment">// Proposal object and `proposals.push(...)`</span></span><br><span class="line">        <span class="comment">// appends it to the end of `proposals`.</span></span><br><span class="line">        proposals.push(Proposal({</span><br><span class="line">            name: proposalNames[i],</span><br><span class="line">            voteCount: <span class="number">0</span></span><br><span class="line">        }));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><strong>&#x8D4B;&#x4E88;&#x6295;&#x7968;&#x8005;&#x6743;&#x529B;</strong>&#xFF1A;&#x800C;&#x5728;&#x7ED9;&#x4E88;Voters&#x6295;&#x7968;&#x6743;&#x529B;&#x65F6;&#xFF0C;&#x5408;&#x540C;&#x5219;&#x662F;&#x91C7;&#x7528;&#x4E86;&#x51FD;&#x6570;&#x3002;&#x8FD9;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x53EA;&#x6709;chairperson&#x53EF;&#x4EE5;&#x8D4B;&#x4E88;&#x53BB;&#x6743;&#x529B;&#xFF0C;&#x5B98;&#x65B9;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;Solidity&#x7279;&#x6709;&#x7684;<code>require(arg)</code>&#x5199;&#x6CD5;&#xFF1A;&#x5982;&#x679C;require&#x51FD;&#x6570;&#x6846;&#x5185;&#x7684;&#x53C2;&#x6570;&#x8F93;&#x5165;&#x4E3A;&#x771F;&#xFF0C;&#x51FD;&#x6570;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#xFF1B;&#x5982;&#x679C;&#x8F93;&#x5165;&#x4E3A;&#x5047;&#xFF0C;&#x5219;&#x7EC8;&#x6B62;&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x5E76;&#x4E14;&#x8FD4;&#x56DE;&#x6574;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;e.g.,<code>giveRightToVote()</code>&#x8FD0;&#x884C;&#x524D;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x4F7F;&#x7528;require&#x51FD;&#x6570;&#x7684;&#x4F18;&#x52BF;&#x5728;&#x4E8E;&#x8FD9;&#x6837;&#x505A;&#x4F1A;&#x6BD4;&#x8F83;&#x5B89;&#x5168;&#xFF0C;&#x4FDD;&#x8BC1;&#x5982;&#x679C;&#x7A0B;&#x5E8F;&#x4E2D;&#x67D0;&#x90E8;&#x5206;&#x8FD0;&#x884C;&#x51FA;&#x9519;&#x53EF;&#x4EE5;&#x9000;&#x51FA;&#x7A0B;&#x5E8F;&#x5E76;&#x8FD4;&#x56DE;&#x5230;&#x5B89;&#x5168;&#x72B6;&#x6001;&#xFF0C;&#x4F46;&#x662F;&#x540C;&#x6837;&#x7684;&#xFF0C;require&#x51FD;&#x6570;&#x7684;&#x4F7F;&#x7528;&#x4F1A;&#x6D88;&#x8017;&#x6240;&#x6709;&#x63D0;&#x4F9B;&#x7684;gas&#x3002;&#xFF08;gas&#x662F;&#x4EE5;&#x592A;&#x574A;&#x4E2D;&#x7279;&#x6709;&#x7684;&#x4E00;&#x79CD;&#x6982;&#x5FF5;&#xFF0C;&#x7528;&#x4E8E;&#x5956;&#x52B1;&#x77FF;&#x5DE5;&#x4EEC;&#x5BF9;&#x4EA4;&#x6613;&#x8FDB;&#x884C;&#x786E;&#x8BA4;&#x7684;&#x884C;&#x4E3A;&#xFF0C;&#x57FA;&#x672C;&#x4E0A;&#x5904;&#x7406;&#x6570;&#x636E;&#x91CF;&#x8D8A;&#x5927;&#x7684;&#x5408;&#x540C;&#xFF0C;&#x8D8A;&#x590D;&#x6742;&#x7684;&#x5408;&#x540C;&#x4F1A;&#x6D88;&#x8017;&#x8D8A;&#x591A;&#x7684;gas&#xFF09;</p>
+<p>&#x8D4B;&#x4E88;voter&#x6743;&#x529B;&#x7684;&#x4EE3;&#x7801;&#x5982;&#x4E0B;:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Give `voter` the right to vote on this ballot.</span></span><br><span class="line"><span class="comment">// May only be called by `chairperson`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">giveRightToVote</span>(<span class="params">address voter</span>) <span class="title">public</span> </span>{</span><br><span class="line">    <span class="built_in">require</span>((msg.sender == chairperson) &amp;&amp; !voters[voter].voted &amp;&amp;(voters[voter].weight == <span class="number">0</span>));</span><br><span class="line">    voters[voter].weight = <span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><strong>&#x6295;&#x7968;&#x8005;&#x76F4;&#x63A5;&#x5411;&#x5019;&#x9009;&#x4EBA;&#x6295;&#x7968;</strong>&#xFF1A;&#x8FD9;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x903B;&#x8F91;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x662F;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x4F7F;&#x7528;&#x4E86;<code>storage</code>&#x53D8;&#x91CF;&#x7684;&#x58F0;&#x660E;&#x3002;Ethereum Virtual Machine&#x6709;&#x4E09;&#x4E2A;&#x5730;&#x65B9;&#x7528;&#x4E8E;&#x5B58;&#x50A8;&#xFF0C;&#x5206;&#x522B;&#x662F;storage, memory&#x548C;stack&#xFF0C;&#x5B58;&#x50A8;&#x5F00;&#x9500;&#x4F9D;&#x6B21;&#x9012;&#x51CF;&#x3002;&#x5177;&#x4F53;&#x7684;&#x533A;&#x522B;&#x53EF;&#x89C1;<a href="https://ethereum.stackexchange.com/questions/1701/what-does-the-keyword-memory-do-exactly" target="_blank" rel="noopener">&#x94FE;&#x63A5;</a>&#x3002;&#x4F46;&#x662F;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x672C;&#x5730;&#x7684;&#x4E00;&#x4E9B;&#x53D8;&#x91CF;&#x5982;<code>struct</code>, <code>array</code> &#x6216;&#x8005; <code>mapping</code> &#x4F1A;&#x81EA;&#x52A8;&#x88AB;&#x5B58;&#x50A8;&#x5728;storage&#x4E2D;&#x3002;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x5B98;&#x65B9;&#x4F7F;&#x7528;storage&#x53D8;&#x91CF;&#x7684;&#x58F0;&#x660E;&#x505A;&#x4EE3;&#x7801;&#x7B80;&#x5316;&#xFF0C;&#x5373;&#x5F53;&#x7528;storage&#x7533;&#x660E;&#x4E86;<code>sender</code>&#x540E;&#xFF0C;&#x4E4B;&#x540E;&#x5BF9;<code>sender</code>&#x5404;&#x9879;&#x5C5E;&#x6027;&#x7684;&#x8D4B;&#x503C;&#x4F1A;&#x76F4;&#x63A5;&#x5199;&#x5165;storage&#x4E2D;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x6BCF;&#x6B21;&#x90FD;&#x505A;<code>voters[msg.sender].voted = true</code>&#x6B64;&#x7C7B;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Give your vote (including votes delegated to you)</span></span><br><span class="line"><span class="comment">/// to proposal `proposals[proposal].name`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">vote</span>(<span class="params">uint proposal</span>) <span class="title">public</span> </span>{</span><br><span class="line">    <span class="comment">// assigns reference</span></span><br><span class="line">    Voter storage sender = voters[msg.sender];</span><br><span class="line">    <span class="built_in">require</span>(!sender.voted);</span><br><span class="line">    sender.voted = <span class="literal">true</span>;</span><br><span class="line">    sender.vote = proposal;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If `proposal` is out of the range of the array,</span></span><br><span class="line">    <span class="comment">// this will throw automatically and revert all</span></span><br><span class="line">    <span class="comment">// changes.</span></span><br><span class="line">    proposals[proposal].voteCount += sender.weight;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><strong>&#x6295;&#x7968;&#x8005;&#x901A;&#x8FC7;&#x59D4;&#x6258;&#x8FDB;&#x884C;&#x6295;&#x7968;</strong>&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x7406;&#x89E3;&#x4E86;&#x5728;&#x903B;&#x8F91;&#x7B80;&#x4ECB;&#x4E2D;&#x56FE;&#x4F8B;&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x5F88;&#x5BB9;&#x6613;&#x770B;&#x61C2;&#x3002;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;Voters&#x901A;&#x8FC7;&#x9009;&#x62E9;&#x59D4;&#x6258;&#x4EBA;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;while&#x5FAA;&#x73AF;&#x4E00;&#x8DEF;&#x627E;&#x5230;&#x6700;&#x7EC8;&#x7684;&#x59D4;&#x6258;&#x4EBA;&#xFF0C;&#x4E4B;&#x540E;&#x5C06;&#x81EA;&#x5DF1;&#x7684;&#x7968;&#x7ED9;&#x5230;&#x8FD9;&#x4E2A;&#x6700;&#x7EC8;&#x7684;&#x59D4;&#x6258;&#x4EBA;&#x624B;&#x4E2D;&#xFF0C;&#x7531;&#x4ED6;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x5728;Solidity&#x7684;&#x7F16;&#x7A0B;&#x4E2D;&#x5BF9;while&#x8BED;&#x53E5;&#x7684;&#x4F7F;&#x7528;&#x4E00;&#x5B9A;&#x8981;&#x5C0F;&#x5FC3;&#xFF0C;&#x9632;&#x6B62;&#x6709;&#x957F;&#x65F6;&#x95F4;&#x7684;&#x5FAA;&#x73AF;&#x5BFC;&#x81F4;block&#x4E2D;&#x7684;gas&#x8017;&#x5C3D;&#xFF0C;&#x7A0B;&#x5E8F;&#x65E0;&#x6CD5;&#x5F97;&#x5230;&#x6267;&#x884C;&#x3002;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Delegate your vote to the voter `to`.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">delegate</span>(<span class="params">address to</span>) <span class="title">public</span> </span>{</span><br><span class="line">    Voter storage sender = voters[msg.sender];</span><br><span class="line">    <span class="built_in">require</span>(!sender.voted);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Self-delegation is not allowed.</span></span><br><span class="line">    <span class="built_in">require</span>(to != msg.sender);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (voters[to].delegate != address(<span class="number">0</span>)) {</span><br><span class="line">        to = voters[to].delegate;</span><br><span class="line">        <span class="comment">// We found a loop in the delegation, not allowed.</span></span><br><span class="line">        <span class="built_in">require</span>(to != msg.sender);</span><br><span class="line">    }</span><br><span class="line">    sender.voted = <span class="literal">true</span>;</span><br><span class="line">    sender.delegate = to;</span><br><span class="line">    Voter storage delegate = voters[to];</span><br><span class="line">    <span class="keyword">if</span> (delegate.voted) {</span><br><span class="line">        <span class="comment">// If the delegate already voted,</span></span><br><span class="line">        <span class="comment">// directly add to the number of votes</span></span><br><span class="line">        proposals[delegate.vote].voteCount += sender.weight;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">// If the delegate did not vote yet,</span></span><br><span class="line">        <span class="comment">// add to her weight.</span></span><br><span class="line">        delegate.weight += sender.weight;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><strong>&#x7EDF;&#x8BA1;&#x80DC;&#x8005;</strong>&#xFF1A;&#x6700;&#x540E;&#x5C31;&#x662F;&#x7B80;&#x5355;&#x7684;&#x5BF9;&#x6240;&#x6709;&#x5019;&#x9009;&#x4EBA;&#x7684;&#x7968;&#x6570;&#x8FDB;&#x884C;&#x7EDF;&#x8BA1;&#xFF0C;&#x7136;&#x540E;&#x5F97;&#x5230;&#x6700;&#x7EC8;&#x7684;&#x80DC;&#x8005;&#x3002;&#x9700;&#x7528;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x5728;&#x51FD;&#x6570;&#x540E;&#x9762;&#x8DDF;&#x7740;&#x4E00;&#x4E2A;<code>view</code>&#xFF0C;&#x5B83;&#x7684;&#x7528;&#x6CD5;&#x8BE6;&#x89C1;<a href="https://github.com/ethereum/solidity/issues/992" target="_blank" rel="noopener">&#x94FE;&#x63A5;</a>&#x3002;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// @dev Computes the winning proposal taking all</span></span><br><span class="line"><span class="comment">/// previous votes into account.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">winningProposal</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span></span></span><br><span class="line"><span class="function">        <span class="title">returns</span> (<span class="params">uint winningProposal</span>)</span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    uint winningVoteCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (uint p = <span class="number">0</span>; p &lt; proposals.length; p++) {</span><br><span class="line">        <span class="keyword">if</span> (proposals[p].voteCount &gt; winningVoteCount) {</span><br><span class="line">            winningVoteCount = proposals[p].voteCount;</span><br><span class="line">            winningProposal = p;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">// Calls winningProposal() function to get the index</span></span><br><span class="line"><span class="comment">// of the winner contained in the proposals array and then</span></span><br><span class="line"><span class="comment">// returns the name of the winner</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">winnerName</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span></span></span><br><span class="line"><span class="function">        <span class="title">returns</span> (<span class="params">bytes32 winnerName</span>)</span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    winnerName = proposals[winningProposal()].name;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h4 id="&#x5BF9;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x7684;&#x4F18;&#x5316;"><a href="#&#x5BF9;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x7684;&#x4F18;&#x5316;" class="headerlink" title="&#x5BF9;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x7684;&#x4F18;&#x5316;"></a>&#x5BF9;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x7684;&#x4F18;&#x5316;</h4><p>&#x5B98;&#x65B9;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x5B58;&#x6709;&#x4E24;&#x4E2A;&#x503C;&#x5F97;&#x6539;&#x8FDB;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x7B2C;&#x4E00;&#x5728;&#x4E8E;&#x5E76;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x6574;&#x4E2A;&#x6295;&#x7968;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x65F6;&#x957F;&#xFF0C;&#x8BB2;&#x9053;&#x7406;&#x4E00;&#x4E2A;&#x89C4;&#x8303;&#x7684;&#x6295;&#x7968;&#x9700;&#x8981;&#x6295;&#x7968;&#x53D1;&#x8D77;&#x4EBA;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x6295;&#x7968;&#x7684;&#x8FDB;&#x884C;&#x65F6;&#x957F;&#xFF0C;&#x8D85;&#x8FC7;&#x8FD9;&#x4E2A;&#x65F6;&#x95F4;&#x540E;&#xFF0C;&#x5C31;&#x65E0;&#x6CD5;&#x8FDB;&#x884C;&#x7EE7;&#x7EED;&#x6295;&#x7968;&#x3002;&#x7B2C;&#x4E8C;&#x5728;&#x4E8E;&#x4EE3;&#x7801;&#x6CA1;&#x6709;&#x8003;&#x8651;&#x5E73;&#x7968;&#x7684;&#x60C5;&#x51B5;&#x3002;&#x57FA;&#x4E8E;&#x8FD9;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x5BF9;&#x5B98;&#x65B9;&#x7684;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x4E86;&#x7B80;&#x5355;&#x7684;&#x4F18;&#x5316;&#xFF0C;&#x4F18;&#x5316;&#x7684;&#x7ED3;&#x679C;&#x653E;&#x5728;&#x4E0B;&#x9762;&#x7684;&#x94FE;&#x63A5;&#x4E2D;&#xFF0C;&#x53E6;&#x5916;&#x4E4B;&#x540E;&#x6211;&#x7684;&#x4E00;&#x4E9B;&#x7B14;&#x8BB0;&#x4F1A;&#x9646;&#x7EED;&#x653E;&#x5230;&#x4E0B;&#x9762;&#x7684;&#x94FE;&#x63A5;&#x4E2D;&#xFF1A;</p>
+<p><a href="https://github.com/Ohyoukillkenny/Learn-Solidity" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/Learn-Solidity</a></p>
+
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2017-12-31T16:00:00.000Z" itemprop="datePublished">2018-01-01</time>
+
+    </span>
+    <span class="post-description-item">
+        
+
+    <span>
+        <i class="tags icon"></i>
+    </span>
+
+    
+    <span class="ui tiny label">
+        <a href="/blog/tags/code/">code</a>
+    </span>
+
+    
+
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/blog/01/02/LearnSolidity2/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    Learn Solidity (2) — Auction
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/blog/01/28/打底裤和荷尔蒙/" class="ui tiny button">
+                    
+                    打底裤和荷尔蒙
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#Solidity学习笔记-1-—-Ballot"><span>Solidity学习笔记(1) — Ballot</span></a><ol><li><a href="#1-逻辑简介"><span>1.逻辑简介</span></a></li><li><a href="#2-代码摘要"><span>2.代码摘要</span></a></li><li><a href="#对官方代码的优化"><span>对官方代码的优化</span></a></li></ol></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2018 <a href="/">Lingkun Kong</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
+                href="http://hexo.io/" target="_blank">Hexo</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/blog/js/semantic-ui-algolia.js"></script>
+
+<script src="/blog/js/aloha-events.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
