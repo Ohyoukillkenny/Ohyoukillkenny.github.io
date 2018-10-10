@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Solidity学习笔记(5) — 使用Web3.js实现与Smart Contract的交互作者：孔令坤，转载请注明出处 Web3官方API：https://github.com/ethereum/wiki/wiki/JavaScript-API Youtube环境搭配视频：https://coursetro.com/courses/20/Developing-Ethereum-Smart-Co">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web3-Solidity">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/2018/03/27/Web3-Solidity/index.html">
+<meta property="og:site_name" content="Lingkun&#39;s Small House">
+<meta property="og:description" content="Solidity学习笔记(5) — 使用Web3.js实现与Smart Contract的交互作者：孔令坤，转载请注明出处 Web3官方API：https://github.com/ethereum/wiki/wiki/JavaScript-API Youtube环境搭配视频：https://coursetro.com/courses/20/Developing-Ethereum-Smart-Co">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/2018/03/27/Web3-Solidity/web.png">
+<meta property="og:updated_time" content="2018-03-27T15:35:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web3-Solidity">
+<meta name="twitter:description" content="Solidity学习笔记(5) — 使用Web3.js实现与Smart Contract的交互作者：孔令坤，转载请注明出处 Web3官方API：https://github.com/ethereum/wiki/wiki/JavaScript-API Youtube环境搭配视频：https://coursetro.com/courses/20/Developing-Ethereum-Smart-Co">
+<meta name="twitter:image" content="https://ohyoukillkenny.github.io/blog/2018/03/27/Web3-Solidity/web.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://ohyoukillkenny.github.io/blog/2018/03/27/Web3-Solidity/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Web3-Solidity | Lingkun's Small House</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lingkun's Small House</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Youth is not a time of life, it is a state of mind.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2018/03/27/Web3-Solidity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lingkun Kong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lingkun's Small House">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web3-Solidity
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+                
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-27T08:17:16-05:00">2018-03-27</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Learn-Solidity/" itemprop="url" rel="index"><span itemprop="name">Learn Solidity</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Solidity学习笔记-5-—-使用Web3-js实现与Smart-Contract的交互"><a href="#Solidity学习笔记-5-—-使用Web3-js实现与Smart-Contract的交互" class="headerlink" title="Solidity学习笔记(5) — 使用Web3.js实现与Smart Contract的交互"></a>Solidity学习笔记(5) — 使用Web3.js实现与Smart Contract的交互</h3><p><strong>作者</strong>：孔令坤，<strong>转载请注明出处</strong></p>
+<p>Web3官方API：<a href="https://github.com/ethereum/wiki/wiki/JavaScript-API" target="_blank" rel="noopener">https://github.com/ethereum/wiki/wiki/JavaScript-API</a></p>
+<p>Youtube环境搭配视频：<a href="https://coursetro.com/courses/20/Developing-Ethereum-Smart-Contracts-for-Beginners" target="_blank" rel="noopener">https://coursetro.com/courses/20/Developing-Ethereum-Smart-Contracts-for-Beginners</a></p>
+<p>在本文中，我写了一个很简单的存取钱的智能合约，并借助web3.js提供的接口写了一个非常简单 的网页，来实现用户通过网页与smart contract的交互。</p>
+<h4 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1.环境配置"></a>1.环境配置</h4><p>首先，用户需要在google chrome中配置<a href="https://karl.tech/learning-solidity-part-1-deploy-a-contract/" target="_blank" rel="noopener">MetaMask</a>。</p>
+<p>之后，用户需要安装web3.js，具体安装方式见<a href="https://github.com/ethereum/wiki/wiki/JavaScript-API" target="_blank" rel="noopener">官方安装文档</a>。</p>
+<p>接下来，为了能在本地端实现web3.js与metamask中的账号以及smart contract的交互，我们需要在本地为网页文件创造一个虚拟的服务器环境。这里，我们使用lite-server来帮助我们实现这个需求。具体安装方法如下：</p>
+<ol>
+<li>在装好web.js的文件夹目录下输入command line code：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; npm install lite-server --save-dev</span><br></pre></td></tr></table></figure>
+<p>如果用户之前是全局安装web.js的话，需要先输入<code>npm init</code>。</p>
+<ol start="2">
+<li>打开目录中的 <strong>package.json</strong>文件，在其中的<code>scripts</code>中添加：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;    </span><br><span class="line">    &quot;dev&quot;: &quot;lite-server&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在目录中已有index.html文件的前提下，输入如下语句即可正常运行网页中的js脚本：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; npm run dev</span><br></pre></td></tr></table></figure>
+<p>可能这里我讲得有点粗糙，但是不用担心。有人已经在youtube上提供了非常详细的安装流程，见<a href="https://coursetro.com/posts/code/103/Solidity-Inheritance-and-Deploying-an-Ethereum-Smart-Contract" target="_blank" rel="noopener">Youtube环境搭配视频</a>。</p>
+<h4 id="2-smart-contract开发"><a href="#2-smart-contract开发" class="headerlink" title="2.smart contract开发"></a>2.smart contract开发</h4><p>如果大家已经看过了我之前的博客，相信这一部分对于大家而言将不存在任何理解上的困难。</p>
+<p>所以这里我简单的直接放上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.21</span>;</span><br><span class="line"></span><br><span class="line">contract SaveMoney&#123;</span><br><span class="line">	address public user;</span><br><span class="line">	string public userName;</span><br><span class="line">	uint public deposits;</span><br><span class="line"></span><br><span class="line">	enum State &#123;Unoccupied, Occupied&#125;</span><br><span class="line">	State public state;</span><br><span class="line"></span><br><span class="line">	event accountInited(uint m, string name);</span><br><span class="line">	event moneyWithdrawed();</span><br><span class="line"></span><br><span class="line">	modifier condition(bool _condition) &#123;</span><br><span class="line">	    <span class="built_in">require</span>(_condition);</span><br><span class="line">	    _;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	modifier onlyUser() &#123;</span><br><span class="line">	    <span class="built_in">require</span>(msg.sender == user);</span><br><span class="line">	    _;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	modifier inState(State _state) &#123;</span><br><span class="line">	    <span class="built_in">require</span>(state == _state);</span><br><span class="line">	    _;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// initiate an account</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">initAccount</span>(<span class="params">uint _money, string _userName</span>)</span></span><br><span class="line"><span class="function">	    <span class="title">public</span></span></span><br><span class="line"><span class="function">	    <span class="title">inState</span>(<span class="params">State.Unoccupied</span>)</span></span><br><span class="line"><span class="function">	    <span class="title">condition</span>(<span class="params">msg.value &gt; _money</span>) // <span class="title">since</span> <span class="title">initiation</span> <span class="title">costs</span> <span class="title">some</span> <span class="title">gas</span></span></span><br><span class="line"><span class="function">	    <span class="title">payable</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">	    user = msg.sender;</span><br><span class="line">	    userName = _userName;</span><br><span class="line">	    deposits = _money;</span><br><span class="line">        state = State.Occupied;</span><br><span class="line">        user.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        emit accountInited(_money, _userName);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// withdraw the money from the contract</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">withDraw</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	    <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Occupied</span>)</span></span><br><span class="line"><span class="function">        <span class="title">onlyUser</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        deposits = <span class="number">0</span>;</span><br><span class="line">        user.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        state = State.Unoccupied;</span><br><span class="line">        emit moneyWithdrawed();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-网页开发与js脚本编写"><a href="#3-网页开发与js脚本编写" class="headerlink" title="3.网页开发与js脚本编写"></a>3.网页开发与js脚本编写</h4><p>首先，我放出网页的主体框架与css文件，其中大量借鉴了<a href="https://coursetro.com/courses/20/Developing-Ethereum-Smart-Contracts-for-Beginners" target="_blank" rel="noopener">Developing-Ethereum-Smart-Contracts-for-Beginners</a>中的框架。整体比较粗糙，但是非常便于大家理解代码。</p>
+<p><strong>main.css</strong>文件：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>:<span class="number">#F0F0F0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">2em</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">'Raleway'</span>,<span class="string">'Source Sans Pro'</span>, <span class="string">'Arial'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">label</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>:block;</span><br><span class="line">    <span class="attribute">margin-bottom</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2em</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">1em</span> <span class="number">4em</span>;</span><br><span class="line">    <span class="attribute">display</span>:block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#instructor</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">background-color</span>:<span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">1em</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#loader</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">display</span>:none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>index.html</strong>框架</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"main.css"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./node_modules/web3/dist/web3.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Money Bank<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">"User"</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"userTrans"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"loader"</span> <span class="attr">src</span>=<span class="string">"https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"userName"</span> <span class="attr">class</span>=<span class="string">"col-lg-2 control-label"</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"userName"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"money"</span> <span class="attr">class</span>=<span class="string">"col-lg-2 control-label"</span>&gt;</span># of Money<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"money"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button1"</span>&gt;</span>Save Money<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button2"</span>&gt;</span>Withdraw<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://code.jquery.com/jquery-3.2.1.slim.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">       <span class="comment">// Put Scripts Here...</span></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<img src="/blog/2018/03/27/Web3-Solidity/web.png" title="网页截图">
+<p>下面，我将分布挑重点来介绍一下我的js代码。</p>
+<p>首先，我们在代码中放入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> web3 !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    web3 = <span class="keyword">new</span> Web3(web3.currentProvider);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// set the provider you want from Web3.providers</span></span><br><span class="line">    web3 = <span class="keyword">new</span> Web3(<span class="keyword">new</span> Web3.providers.HttpProvider(<span class="string">"http://localhost:8545"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这一段是官方提供的初始化连接web3的代码。如果你使用了metamask，那么currentProvider就会是来自你的metamask的网络以及账号。这个时候，在remix上，你的smart contract创建方式应当选择Injected Web3。</p>
+<p>若你没有使用metamask，那么你可以在remix上使用Web3 Provider的方式来创建smart contract。这里<code>&quot;http://localhost:8545&quot;</code>其实来自另一个好用的eth smart contract开发应用，其安装方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; npm install -g ethereumjs-testrpc</span><br></pre></td></tr></table></figure>
+<p>通过<code>&gt;&gt; testrpc</code>来启动这个provider并通过<code>&quot;http://localhost:8545&quot;</code>来进行数据的发送。</p>
+<p>接下来，我们选择web3应用中的账户。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">web3.eth.defaultAccount = web3.eth.accounts[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+<p>接下来，我们建立网页与合约之间的直接关联：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> saveMoney = web3.eth.contract(ABI OF THE CONTRACT);</span><br><span class="line"><span class="keyword">var</span> saveMoneyContract = saveMoney.at(<span class="string">'ADDR OF THE CONTRACT'</span>);</span><br></pre></td></tr></table></figure>
+<p>ABI即smart contract编译后产生的一个文件，在remix中点击Start to compile按钮，然后点击Details按钮，即可复制smart contract的ABI，大致格式如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">"constant"</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">"inputs"</span>: [],</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"withDraw"</span>,</span><br><span class="line">		<span class="attr">"outputs"</span>: [],</span><br><span class="line">		<span class="attr">"payable"</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">"stateMutability"</span>: <span class="string">"nonpayable"</span>,</span><br><span class="line">		<span class="attr">"type"</span>: <span class="string">"function"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">"constant"</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">"inputs"</span>: [],</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"deposits"</span>,</span><br><span class="line">		<span class="attr">"outputs"</span>: [</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="attr">"name"</span>: <span class="string">""</span>,</span><br><span class="line">				<span class="attr">"type"</span>: <span class="string">"uint256"</span></span><br><span class="line">			&#125;</span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"payable"</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">"stateMutability"</span>: <span class="string">"view"</span>,</span><br><span class="line">		<span class="attr">"type"</span>: <span class="string">"function"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	......</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">"anonymous"</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">"inputs"</span>: [</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="attr">"indexed"</span>: <span class="literal">false</span>,</span><br><span class="line">				<span class="attr">"name"</span>: <span class="string">"m"</span>,</span><br><span class="line">				<span class="attr">"type"</span>: <span class="string">"uint256"</span></span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="attr">"indexed"</span>: <span class="literal">false</span>,</span><br><span class="line">				<span class="attr">"name"</span>: <span class="string">"name"</span>,</span><br><span class="line">				<span class="attr">"type"</span>: <span class="string">"string"</span></span><br><span class="line">			&#125;</span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"accountInited"</span>,</span><br><span class="line">		<span class="attr">"type"</span>: <span class="string">"event"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">"anonymous"</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">"inputs"</span>: [],</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"moneyWithdrawed"</span>,</span><br><span class="line">		<span class="attr">"type"</span>: <span class="string">"event"</span></span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>然后smart contract的address的获取就比较简单了，就是创建好smart contract后，copy地址即可，e.g. <code>0x8f7e0a306b1a1f1205fa47b2bf2fefabaf056dae</code>。</p>
+<p>之后，设置点击save money和 withdraw按钮的触发事件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#button1"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $(<span class="string">"#loader"</span>).show();</span><br><span class="line">    saveMoneyContract.initAccount($(<span class="string">"#money"</span>).val(), $(<span class="string">"#userName"</span>).val(), &#123;<span class="attr">value</span>: $(<span class="string">"#money"</span>).val()+<span class="number">100000</span>&#125; ,(err, res) =&gt; &#123;</span><br><span class="line">       <span class="keyword">if</span> (err) &#123;</span><br><span class="line">           $(<span class="string">"#loader"</span>).hide();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">"#button2"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $(<span class="string">"#loader"</span>).show();</span><br><span class="line">    saveMoneyContract.withDraw(<span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (err) &#123;</span><br><span class="line">           $(<span class="string">"#loader"</span>).hide();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>其中需要注意的是initAccount函数中参数的设定。由于这个函数是一个带value的payable的函数，我们需要在编程时不仅传递函数的参数，还得传递一定数量的以太币。在查阅了官方的api文件后，可以用如上的方式传递value，即</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function(param1, param2, ..., paramk, &#123;value: # of eth&#125;)</span><br></pre></td></tr></table></figure>
+<p>这里我在设置value时使用了<code>$(&quot;#money&quot;).val()+100000</code>，这是因为提交函数需要消耗一定量的gas，+100000wei是为了防止由于gas的消耗，用户无法在账户中存入数量为<code>$(&quot;#money&quot;).val()</code>的金额，导致交易失败。</p>
+<p>最后，我们通过监听smart contract中的event来在网页上输出数据，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> saveEvent = saveMoneyContract.accountInited(&#123;&#125;, <span class="string">'latest'</span>);</span><br><span class="line"></span><br><span class="line">saveEvent.watch(<span class="function"><span class="keyword">function</span>(<span class="params">error, result</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!error)&#123;</span><br><span class="line">        $(<span class="string">"#loader"</span>).hide();</span><br><span class="line">        $(<span class="string">"#userTrans"</span>).html(<span class="string">'Block hash: '</span> + result.blockHash);</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">        $(<span class="string">"#User"</span>).html(result.args.name +<span class="string">' saved '</span> + result.args.m.c + <span class="string">' wei.'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">"#loader"</span>).hide();</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> withDrawEvent = saveMoneyContract.moneyWithdrawed(&#123;&#125;, <span class="string">'latest'</span>);</span><br><span class="line"></span><br><span class="line">withDrawEvent.watch(<span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!err)&#123;</span><br><span class="line">        $(<span class="string">"#loader"</span>).hide();</span><br><span class="line">        $(<span class="string">"#userTrans"</span>).html(<span class="string">'Block hash: '</span> + res.blockHash);</span><br><span class="line">        $(<span class="string">"#User"</span>).html(<span class="string">'Money has been withdrawed!'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">"#loader"</span>).hide();</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>最后，我附上了<strong>index.html</strong>文件的完整代码，供大家参考：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"main.css"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./node_modules/web3/dist/web3.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Money Bank<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">"User"</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"userTrans"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"loader"</span> <span class="attr">src</span>=<span class="string">"https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"userName"</span> <span class="attr">class</span>=<span class="string">"col-lg-2 control-label"</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"userName"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"money"</span> <span class="attr">class</span>=<span class="string">"col-lg-2 control-label"</span>&gt;</span># of Money<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"money"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button1"</span>&gt;</span>Save Money<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button2"</span>&gt;</span>Withdraw<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://code.jquery.com/jquery-3.2.1.slim.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">       <span class="keyword">if</span> (<span class="keyword">typeof</span> web3 !== <span class="string">'undefined'</span>) &#123;</span></span><br><span class="line"><span class="javascript">            web3 = <span class="keyword">new</span> Web3(web3.currentProvider);</span></span><br><span class="line"><span class="javascript">        &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// set the provider you want from Web3.providers</span></span></span><br><span class="line"><span class="javascript">            web3 = <span class="keyword">new</span> Web3(<span class="keyword">new</span> Web3.providers.HttpProvider(<span class="string">"http://localhost:8545"</span>));</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        web3.eth.defaultAccount = web3.eth.accounts[0];</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> saveMoney = web3.eth.contract([</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"constant"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"withDraw"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"outputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"payable"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"stateMutability"</span>: <span class="string">"nonpayable"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"function"</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"constant"</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"deposits"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"outputs"</span>: [</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"uint256"</span></span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                ],</span></span><br><span class="line"><span class="javascript">                <span class="string">"payable"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"stateMutability"</span>: <span class="string">"view"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"function"</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"constant"</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"user"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"outputs"</span>: [</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"address"</span></span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                ],</span></span><br><span class="line"><span class="javascript">                <span class="string">"payable"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"stateMutability"</span>: <span class="string">"view"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"function"</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"constant"</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"userName"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"outputs"</span>: [</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"string"</span></span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                ],</span></span><br><span class="line"><span class="javascript">                <span class="string">"payable"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"stateMutability"</span>: <span class="string">"view"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"function"</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"constant"</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"state"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"outputs"</span>: [</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">""</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"uint8"</span></span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                ],</span></span><br><span class="line"><span class="javascript">                <span class="string">"payable"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"stateMutability"</span>: <span class="string">"view"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"function"</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"constant"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">"_money"</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"uint256"</span></span></span><br><span class="line"><span class="undefined">                    &#125;,</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">"_userName"</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"string"</span></span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                ],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"initAccount"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"outputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"payable"</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"stateMutability"</span>: <span class="string">"payable"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"function"</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"anonymous"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"indexed"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">"m"</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"uint256"</span></span></span><br><span class="line"><span class="undefined">                    &#125;,</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="string">"indexed"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"name"</span>: <span class="string">"name"</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="string">"type"</span>: <span class="string">"string"</span></span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                ],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"accountInited"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"event"</span></span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"anonymous"</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"inputs"</span>: [],</span></span><br><span class="line"><span class="javascript">                <span class="string">"name"</span>: <span class="string">"moneyWithdrawed"</span>,</span></span><br><span class="line"><span class="javascript">                <span class="string">"type"</span>: <span class="string">"event"</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        ]);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> saveMoneyContract = saveMoney.at(<span class="string">'0x8f7e0a306b1a1f1205fa47b2bf2fefabaf056dae'</span>);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(saveMoneyContract);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> saveEvent = saveMoneyContract.accountInited(&#123;&#125;, <span class="string">'latest'</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        saveEvent.watch(<span class="function"><span class="keyword">function</span>(<span class="params">error, result</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (!error)&#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#loader"</span>).hide();</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#userTrans"</span>).html(<span class="string">'Block hash: '</span> + result.blockHash);</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(result);</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#User"</span>).html(result.args.name +<span class="string">' saved '</span> + result.args.m.c + <span class="string">' wei.'</span>);</span></span><br><span class="line"><span class="javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#loader"</span>).hide();</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(error);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> withDrawEvent = saveMoneyContract.moneyWithdrawed(&#123;&#125;, <span class="string">'latest'</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        withDrawEvent.watch(<span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (!err)&#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#loader"</span>).hide();</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#userTrans"</span>).html(<span class="string">'Block hash: '</span> + res.blockHash);</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#User"</span>).html(<span class="string">'Money has been withdrawed!'</span>);</span></span><br><span class="line"><span class="javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">"#loader"</span>).hide();</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(err);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        $(<span class="string">"#button1"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">"#loader"</span>).show();</span></span><br><span class="line"><span class="javascript">            saveMoneyContract.initAccount($(<span class="string">"#money"</span>).val(), $(<span class="string">"#userName"</span>).val(), &#123;<span class="attr">value</span>: $(<span class="string">"#money"</span>).val()+<span class="number">100000</span>&#125; ,(err, res) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">               <span class="keyword">if</span> (err) &#123;</span></span><br><span class="line"><span class="javascript">                   $(<span class="string">"#loader"</span>).hide();</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        $(<span class="string">"#button2"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">"#loader"</span>).show();</span></span><br><span class="line"><span class="javascript">            saveMoneyContract.withDraw(<span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">               <span class="keyword">if</span> (err) &#123;</span></span><br><span class="line"><span class="javascript">                   $(<span class="string">"#loader"</span>).hide();</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/code/" rel="tag"># code</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/03/24/LearnSolidity4/" rel="next" title="LearnSolidity4 — CrowdSensing">
+                <i class="fa fa-chevron-left"></i> LearnSolidity4 — CrowdSensing
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/04/02/boyfriend/" rel="prev" title="How to find the Mr. Right">
+                How to find the Mr. Right <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lingkun Kong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Solidity学习笔记-5-—-使用Web3-js实现与Smart-Contract的交互"><span class="nav-number">1.</span> <span class="nav-text">Solidity学习笔记(5) — 使用Web3.js实现与Smart Contract的交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-环境配置"><span class="nav-number">1.1.</span> <span class="nav-text">1.环境配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-smart-contract开发"><span class="nav-number">1.2.</span> <span class="nav-text">2.smart contract开发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-网页开发与js脚本编写"><span class="nav-number">1.3.</span> <span class="nav-text">3.网页开发与js脚本编写</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lingkun Kong</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=6.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

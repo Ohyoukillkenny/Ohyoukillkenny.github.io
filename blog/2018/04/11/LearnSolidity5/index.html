@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Project — Building a Simple Blockchain-based Crowdsensing SystemAuthor: Lingkun Kong, Linghe Kong,  Please indicate the source for reproduction. AbstractMotivated by constructing a crowd-sensing syste">
+<meta name="keywords" content="projects, code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Project — Building a Simple Blockchain-based Crowdsensing System">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/index.html">
+<meta property="og:site_name" content="Lingkun&#39;s Small House">
+<meta property="og:description" content="Project — Building a Simple Blockchain-based Crowdsensing SystemAuthor: Lingkun Kong, Linghe Kong,  Please indicate the source for reproduction. AbstractMotivated by constructing a crowd-sensing syste">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/tradi.png">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/advanced.png">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/smartcontract.png">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/requesterInterface.png">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/workerview.png">
+<meta property="og:image" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/workersubmit.png">
+<meta property="og:updated_time" content="2018-04-13T09:02:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Project — Building a Simple Blockchain-based Crowdsensing System">
+<meta name="twitter:description" content="Project — Building a Simple Blockchain-based Crowdsensing SystemAuthor: Lingkun Kong, Linghe Kong,  Please indicate the source for reproduction. AbstractMotivated by constructing a crowd-sensing syste">
+<meta name="twitter:image" content="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/tradi.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://ohyoukillkenny.github.io/blog/2018/04/11/LearnSolidity5/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Project — Building a Simple Blockchain-based Crowdsensing System | Lingkun's Small House</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lingkun's Small House</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Youth is not a time of life, it is a state of mind.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2018/04/11/LearnSolidity5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lingkun Kong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lingkun's Small House">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Project — Building a Simple Blockchain-based Crowdsensing System
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+                
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-11T10:44:20+08:00">2018-04-11</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Learn-Solidity/" itemprop="url" rel="index"><span itemprop="name">Learn Solidity</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Project-—-Building-a-Simple-Blockchain-based-Crowdsensing-System"><a href="#Project-—-Building-a-Simple-Blockchain-based-Crowdsensing-System" class="headerlink" title="Project — Building a Simple Blockchain-based Crowdsensing System"></a>Project — Building a Simple Blockchain-based Crowdsensing System</h3><p><strong>Author:</strong> Lingkun Kong, <a href="http://wirelesslab.sjtu.edu.cn/~klh/" target="_blank" rel="noopener">Linghe Kong</a>,  <strong>Please indicate the source for reproduction.</strong></p>
+<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><p>Motivated by constructing a crowd-sensing system with security and low services fee, we propose building a blockchain-based crowd-sensing framework that replaces traditional triangle architecture by decentralized blockchain system. Also, in order to accelerate the formation of the fabric of trust, instead of releasing a new virtual currency, the proposed framework implements applications of smart contracts to reward sensing-task workers which offers reliable anonymity. Also, by leveraging blockchain technology in crowd-sensing, the proposed framework is also an exploration on the mining puzzles of proof-of-usefulness.</p>
+<h4 id="Background-and-Motivation"><a href="#Background-and-Motivation" class="headerlink" title="Background and Motivation"></a>Background and Motivation</h4><p>Crowd-sensing systems, which take advantage of pervasive mobile devices to efficiently collect data, have gained considerable interest and adoption in recent years [1][2].  However, the majority of existing crowd-sensing systems rely on central servers, which are subject to the weaknesses of the traditional trust-based model, such as single point of failure and privacy disclosure [3][4].  They are also vulnerable to distributed denial of service (DDoS) and Sybil attacks due to malicious users’ involvement [5]. In addition, high service fees charged by the crowd-sensing platform which has monopolized the market may stem the development of crowd-sensing. How to address these potential issues remains to be an open problem.</p>
+<p>There have been several studies to deal with part of the aforementioned open problem [6-10], while the majority of these researches are built on the traditional triangular structure crowd-sensing models, which suffer from breakdown of trust. Thus, this research proposal is motivated by this: <em>Can we design a decentralized crowd-sensing system with security and low services fee?</em></p>
+<h4 id="Introduction-of-Blockchain-based-Crowd-sensing-System"><a href="#Introduction-of-Blockchain-based-Crowd-sensing-System" class="headerlink" title="Introduction of Blockchain-based Crowd-sensing System"></a>Introduction of Blockchain-based Crowd-sensing System</h4><p>The past few years have witnessed the emergence of blockchain as well as its multiple applications [11,12,16,17,19,22], which provides us an opportunity to solve all of the above issues in crowd-sensing systems simultaneously. Therefore, I propose building a blockchain-based decentralized framework for crowd-sensing, with the purpose of alleviating privacy leakage and reducing the charge of the central platform.</p>
+<p>To illustrate, by leveraging blockchain architecture, we can replace the centralized crowd-sensing platform by decentralized blockchain system. Therefore, the services fee charged by the platform can be used more efficiently, as it now is all paid to workers and blockchain miners [14]. Also, since now the crowd-sensing process does not depend on any central third party, there is no single point of failure issue. Besides, for the sake of properties of blockchain, we can guarantee privacy by allowing users to register without true identity and storing encrypted sensory data in the distributed database. Further, by stipulating that each identity must make a deposit before participation in smart contract protocols, we can efficiently prevent various attacks (e.g. DDoS, Sybil and “false-reporting” attacks [13]).</p>
+<p>In the context of blockchain applications, current prevalent blockchain-based systems such as Bitcoin [11], Litecoin [16], and Zcash [17], etc., always issue virtual currencies to incentivize miners and try to convince both miners and users that the virtual currency is worthy of being hold. However, to earn the trust from users and maintain the fabric of trust are quite difficult. Also, legal problems always ensue the issue of virtual currencies, and Governments worry about the high anonymity within currency systems will found the breeding ground for the crime [18]. When dealing with crowd-sensing problems, it is unrealistic to quickly build the reputation of the system and win the trust from users by issuing new virtual currencies. Additionally, with the awareness of legal issues, it is impractical to universally apply systems which release the virtual currency. </p>
+<p>Moreover, in traditional blockchain-based systems, there’s a concern that Bitcoin mining is extremely profligate, since massive energy is wasted by miners in solving “useless” puzzles for block discovery [21]. Thus, “Is there a puzzle, whose solution provides useful benefit to society, while still satisfying the basic requirements of Blockchain puzzles?” is raised to be a natural question. There have been several studies which attempted to reduce blockchain-based system’s energy waste, such as Primecoin and Permacoin [19,22]. However, their methods are not feasible for a lot of potential candidates such as problems of protein folding [23], space signal searching [20], which are of great scientific usefulness while needs a trusted administrator. In this case, building a blockchain-based crowd-sensing framework will also be an exploration of the proof-of-usefulness puzzle, which might be helpful to reduce the energy waste in traditional blockchain systems.</p>
+<p>Faced with these challenges, in our proposed framework, we introduce applications of smart contracts to reward users, which should be first initiated by sensing-task requesters with certain reserve money. On the one hand, by this method, we can build the reputation of the framework and raise the enthusiasm of both miners and workers in a short time. On the other hand, since there is deposit in the smart contract, and the methods of getting rewards are substantiated by published smart contract, both requesters and workers can trust the immutable codes from published smart contract as a credible administrator. Therefore, the new framework will be feasible for broad implementation of proof-of-usefulness puzzles.</p>
+<p>Specifically, the traditional crowd-sensing process consists of three groups of roles: requesters, workers and a centralized crowd-sensing system, where requesters submit tasks to the system and receive sensing results from the system; workers pull tasks from the system, complete tasks they interested in and submit sensing results to the system; the centralized system deals with submissions from requesters and workers and responds them accordingly. Figure below presents the crowd-sensing by traditional centralized systems.</p>
+<img src="/blog/2018/04/11/LearnSolidity5/tradi.png" title="The system model of traditional crowd-sensing.">
+<p>In the blockchain-based decentralized system which we propose, there is no centralized platform in crowd-sensing process anymore. Instead, by leveraging blockchain techniques, the crowd-sensing process is managed by a decentralized system, which is presented in Figure below.</p>
+<img src="/blog/2018/04/11/LearnSolidity5/advanced.png" title="The system model of blockchain-based crowd-sensing.">
+<p>Basically, the crowd-sensing process can be divided into following steps:</p>
+<p><strong>Step1:</strong> Requesters post tasks, and, meanwhile, they need to initialize the examining rules and send to communication platform, which, in our design, actually is to publish a smart contract and then create the function in smart contract. </p>
+<p><strong>Step2:</strong> Workers, by querying blockchain and fetching message from communication platform, i.e., querying the published smart contract, obtain attractive sensing tasks. After finishing tasks by recording sensing data, they post the message to the communication platform, i.e., call specific functions in smart contracts.</p>
+<p><strong>Step3:</strong> By querying blockchain and listening to the communication platform, miners fetch unsubstantiated sensing data, and they can examine the quality of this data based on rules the requester establishes. After miners substantiate the quality of sensing data, they will get the reward after pushing processed sensing data into blocks. In general, miners obtain reward by contributing computing power for running smart contracts.</p>
+<p><strong>Step4:</strong> Requesters listen to the blockchain periodically. Once they are satisfied with sensed data or decide to not continue collecting data for other reasons, they can send message to the system to burn the blockchain and get the remained reserve money from smart contract. As this message will be broadcasted in the system, miners and workers will then cease to work.</p>
+<h4 id="Detailed-Implementation-of-Smart-Contract"><a href="#Detailed-Implementation-of-Smart-Contract" class="headerlink" title="Detailed Implementation of Smart Contract"></a>Detailed Implementation of Smart Contract</h4><p>Additionally, we propose to add applications of smart contracts over the whole framework with the purpose of quickly obtaining users’ trust and making the design feasible for various purposes, such as aforementioned problems of protein folding and aliens discovery. Figure below shows the structure of decentralized system after adding smart contracts.</p>
+<img src="/blog/2018/04/11/LearnSolidity5/smartcontract.png" title="The system model of blockchain-based crowd-sensing after adding the controller of smart contracts.">
+<p>In this figure, the number indicates the order of the operation in a certain crowd-sensing task, where operation 3* means this operation can be processed concurrently with operation 3, and operation mark x means this operation can be undertaken in any time after operation 2. Moreover, the solid lines in the figure stand for operations being necessarily done in a certain task, while the unfilled lines indicate these operations might not be properly processed.</p>
+<p>In this system,  the requester enters in the system and create the smart contract by setting requirements for sensing data and stores a certain amount of deposits for determining the rewards. After that, once workers are attracted by the rewards as well as their data are substantiated by miners, they can get rewards stored in the smart contract protocol right away. Therefore, the reputation of this system can be quickly built, and the enthusiasm of both miners and workers can be aroused as once they got works done, they can receive valuable rewards. Also, since rules are “printed” in the smart contract, both workers and miners can trust the published smart contract as a credible administrator. Therefore, the challenge of lacking trusted administrators for puzzles like protein folding and space signal searching is overcome in this proposed framework. </p>
+<p><strong>Remarks:</strong> The submission of collected data will cost workers certain amount of gas in smart contract. In fact, it is tantamount for workers to make security deposits before participation in crowd-sensing task, which efficiently prevents various attacks (e.g. DDoS, Sybil and “false-reporting” attacks [13]).</p>
+<h4 id="Using-an-Simple-Example-to-Show-How-the-System-Works"><a href="#Using-an-Simple-Example-to-Show-How-the-System-Works" class="headerlink" title="Using an Simple Example to Show How the System Works"></a>Using an Simple Example to Show How the System Works</h4><p>Here, we use a simple wifi-sensing task to show how the system works.</p>
+<p>First of all, we present the source code of smart contract of wifi-sensing.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.21</span>;</span><br><span class="line"></span><br><span class="line">contract SensingWifi&#123;</span><br><span class="line">    uint public rewardUnit;</span><br><span class="line">    uint public rewardNum;</span><br><span class="line">    uint public dataCount;</span><br><span class="line">    bytes32 public wifiName;</span><br><span class="line">    address public requester;</span><br><span class="line">    enum State &#123;Uncreated, Created, Inactive&#125;</span><br><span class="line">    State public state;</span><br><span class="line"></span><br><span class="line">    mapping(<span class="function"><span class="params">bytes32</span> =&gt;</span> string) dataStatuses; <span class="comment">// Either '' or 'Committed'</span></span><br><span class="line"></span><br><span class="line">    modifier condition(bool _condition) &#123;</span><br><span class="line">        <span class="built_in">require</span>(_condition);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier onlyRequester() &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == requester);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier inState(State _state) &#123;</span><br><span class="line">        <span class="built_in">require</span>(state == _state);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event Aborted();</span><br><span class="line">    event TaskInited(uint ru, uint rn, bytes32 wn);</span><br><span class="line">    event ViewTask(uint ru, uint rn, bytes32 wn, uint cnt);</span><br><span class="line">    event DataCommited(bytes32 l, bytes32 w, int s);</span><br><span class="line">    event TaskDone();</span><br><span class="line">    event dataCheck(uint cnt);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Init the task as requster.</span></span><br><span class="line">    <span class="comment">// The requster need to set the value of reward for each sensing data,</span></span><br><span class="line">    <span class="comment">// as well as the maximum number of data he needed.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">initTask</span>(<span class="params">uint _rewardUnit, uint _rewardNum, bytes32 _wifiName</span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Uncreated</span>)</span></span><br><span class="line"><span class="function">        <span class="title">condition</span>(<span class="params">msg.value &gt;= _rewardUnit * _rewardNum</span>)</span></span><br><span class="line"><span class="function">        <span class="title">payable</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        requester = msg.sender;</span><br><span class="line">        rewardUnit = _rewardUnit;</span><br><span class="line">        rewardNum = _rewardNum;</span><br><span class="line">        wifiName = _wifiName;</span><br><span class="line">        state = State.Created;</span><br><span class="line">        emit TaskInited(_rewardUnit, _rewardNum, _wifiName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Abort the Task and reclaim the ether,</span></span><br><span class="line">    <span class="comment">// Can only be called by the requester.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">abort</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyRequester</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(dataCount &lt;= rewardNum);</span><br><span class="line">        state = State.Inactive;</span><br><span class="line">        requester.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">        emit Aborted();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getDataCnt</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">onlyRequester</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        emit dataCheck(dataCount);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Worker answer the task by sending data</span></span><br><span class="line">    <span class="comment">// such as &#123;"41-24-12.2-N 2-10-26.5-E", "SJTU", -51&#125;</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getTask</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        emit ViewTask(rewardUnit, rewardNum, wifiName, dataCount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">commitTask</span>(<span class="params">bytes32 _location, bytes32 _wifiName, int _signalDegree</span>)</span></span><br><span class="line"><span class="function">        <span class="title">public</span></span></span><br><span class="line"><span class="function">        <span class="title">inState</span>(<span class="params">State.Created</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(dataCount &lt; rewardNum);</span><br><span class="line">        bytes memory sensingDataCommit = bytes(dataStatuses[_location]);</span><br><span class="line">        <span class="comment">// Requester wants to get data from different location</span></span><br><span class="line">        <span class="built_in">require</span>(sensingDataCommit.length == <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Make sure that the wifi signal sensed is what requester wants</span></span><br><span class="line">        <span class="built_in">require</span>(wifiName==_wifiName);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// The theoretical maximum value of signal strength is -30 dBm</span></span><br><span class="line">        <span class="built_in">require</span>(_signalDegree &lt; <span class="number">-30</span>);</span><br><span class="line">        </span><br><span class="line">        dataStatuses[_location] = <span class="string">"Committed"</span>;</span><br><span class="line">        </span><br><span class="line">        dataCount += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(dataCount == rewardNum)&#123;</span><br><span class="line">            state = State.Inactive;</span><br><span class="line">            requester.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">            emit TaskDone();</span><br><span class="line">        &#125;</span><br><span class="line">        msg.sender.transfer(rewardUnit);</span><br><span class="line">        emit DataCommited(_location, _wifiName, _signalDegree);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Functions for Requesters:</strong></p>
+<p>For requesters, they are the initiators of the wifi-sensing tasks. Therefore, they have responsibilities to write the smart contract and initiate the wifi-sensing task.</p>
+<p><strong><code>initTask()</code></strong>: Requesters can call the <code>initTask()</code> function to create a wifi-sensing task and determine the rewards for each processed sensing data. In this function, requesters need to save certain amount of deposits in the smart contract and specify the value of each reward as well as the maximum number of data required.</p>
+<p><strong><code>abort()</code></strong>: Requesters have the rights to abort the task once they believe they have collected enough data by viewing the number of data in <code>getDataCnt()</code>. This function will give requesters refunds of their deposits.</p>
+<p>Also, we developed a simple interface for users to play the role as requesters, and figure below is the screenshot of the interface.</p>
+<img src="/blog/2018/04/11/LearnSolidity5/requesterInterface.png" title="The screenshot of requester interface after a requster creating a wifi-sensing task.">
+<p>Here, users, playing as requesters, create a wifi-sensing task by setting <em>Value of Each Reward</em> as 100000000 wei, <em>number of Data Required</em> as 5 and <em>wifi name</em> as SJTU. Similarly, users can abort the task and check the current status of the task by click buttons of <strong>Abort</strong> and <strong>Check</strong>. The text beneath the title of <strong>Wifi Sensing — Requester</strong> will present corresponding information.</p>
+<p><strong>Functions for Workers:</strong></p>
+<p>For workers, they choose the tasks they are interested in and submit data for this tasks. Here we assume that workers are interested in the wifi-sensing task and try to work for it.</p>
+<p><strong><code>commitTask()</code></strong>: Workers call this function to submit their collected data. Before they submit their data, they need to watch carefully about the requirements of the data “enacted” by the requesters as they are writers of <code>commitTask()</code> function. Here, for example, requesters need the data of wifi signal which are collected from different places, named as SJTU and measured to be restricted in a conscionable range. To be noticed, if data submitted by the workers do not meet the requirements, workers cannot receive a single penny from their work but waste money in paying the transaction fee, i.e., gas to miniers. Therefore, workers need to be really careful when trying to submitting the data, and it is always a good idea for workers to call <code>getTask()</code> function first though a little amount of gas fee will be costed (about 0.00011 ETH ~ 0.05 USD in 04/11/2018).</p>
+<p>We also provide a simple interface for workers to submit their data and get reward.</p>
+<img src="/blog/2018/04/11/LearnSolidity5/workerview.png" title="The screenshot of worker interface after a worker clicking the View Task button.">
+<p>This figure is about the screenshot of worker interface after a worker clicking the <strong>View Task</strong> button.</p>
+<img src="/blog/2018/04/11/LearnSolidity5/workersubmit.png" title="The screenshot of worker interface after a worker commits his data.">
+<p>This figure presents the screenshot of worker interface after a worker submits his data by clicking <strong>Commit</strong> button.</p>
+<p>The interesting thing is that as in this example, the requester sets 100000000 wei (about 0.00000000001 ETH) as the value of each reward, which is much smaller than the costs of gas fee the worker pay for calling <code>commitTask()</code> and <code>getTask()</code> function (about 0.00046 ETH). Therefore, the worker fells into the trap set by the requester — the worker works for requester and loses money. In other words, the worker actually needs to be really careful when calling <code>getTask()</code> to view the reward of each data, since he can only earn money as long as the reward of each collected data is larger than transaction fees paid to hidden miniers (in this case, the reward should be larger than 0.00046 ETH).</p>
+<p><strong>Remarks for Miners:</strong> The miners are hidden behind the smart contract, and they earn money by contributing their computing power to run the complied program in smart contracts. Actually, both requesters and workers pay for miners by providing gas fee.</p>
+<p>The source code of smart contract as well as the interfaces has been published on the webpage: <a href="https://github.com/Ohyoukillkenny/BCS" target="_blank" rel="noopener">https://github.com/Ohyoukillkenny/BCS</a></p>
+<h4 id="Analysis-of-the-Blockchain-based-Crowd-sensing-System"><a href="#Analysis-of-the-Blockchain-based-Crowd-sensing-System" class="headerlink" title="Analysis of the Blockchain-based Crowd-sensing System"></a>Analysis of the Blockchain-based Crowd-sensing System</h4><p>In this part, we briefly analyze our blockchain-based crowd-sensing system from the aspects of security and the financial efficiency.</p>
+<p><strong>Security:</strong></p>
+<ol>
+<li>By implementing smart contracts, the anomynity of workers as well as requesters can be highly assured, since they only know the ETH accounts of each others. Also, for workers, if they believe their collected data may include several private information which make them uncomfortable to share, they can directly refuse to submit the data.</li>
+<li>As we have mentioned in the <em>Remark</em> of <em>Introduction of Blockchain-based Crowd-sensing System</em>, workers actually need to make security deposits, i.e., pay transaction fees to miners, before participation in crowd-sensing task, which efficiently prevents various attacks (e.g. DDoS, Sybil and “false-reporting” attacks [13]).</li>
+<li>One potential attack of our system is so called <strong>front-run attacking</strong>, which has been leveraged in attacking Bancor protocol [27]. In our schema, attackers can use front-run attacking to steal the rewards which are supposed to provide to workers. To illustrate, attackers always listen to the network , fetch the submitted data from workers and then submit these data immediately. Since many crowd-sensing tasks require the uniqueness of the data and the attacker has chances to get submitted data substantiated by miners earlier, the “real” worker might not be able to get his reward as expected. However, there has been several solutions which we can refered to avoid this attack, even in the article [27] which discovered the front-run attacking toward applications of smart contracts. In fact, in our system, we can simply spread rumors among the networks to prevent this attack. That is we can submit a lot of invalid data to the smart contract while not confirm it, otherwise we will waste transaction fee. When attackers fetch these rumor message, they, however, will directly submit this message and waste a large bunch of money. Therefore, the attacking will be stemed.</li>
+</ol>
+<p><strong>Financial Efficiency:</strong></p>
+<p>The minimum cost of requesters for each data largely depends on the cost of transaction fee workers need to pay. This is because if the reward for each data cannot cover the transaction fee workers need to pay for submitting the data, no one will be willing to work for the requester.</p>
+<p>Therefore, using the wifi-sensing task as an instance, we use the table below to briefly count the average cost of transaction fees workers need to pay by lauching experiments of the participation of 1000 workers.</p>
+<table>
+<thead>
+<tr>
+<th>Cost of <code>getTask()</code> Call</th>
+<th>Cost of <code>commitTask()</code> Call</th>
+<th>Size of the Data</th>
+<th>avg Total Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.00011 ETH</td>
+<td>0.00041 ETH</td>
+<td>97.8 bytes</td>
+<td>0.00052 ETH</td>
+</tr>
+</tbody>
+</table>
+<p>Due to the violent fluctuation of the price of ETH, it is hard to evaluate the value of 0.00052 ETH in real-world market. Here we use the exchange rate between USD and ETH in 04/11/2018 [28] to roughly estimate the the value of 0.00052 ETH as 0.217 USD, which means that requesters need to pay each wifi-sensing data for at least 0.217 USD.</p>
+<p>This value might be too high for a simple wifi-sensing task. However, when the data the requester attempts to collect are essentially sensitive and require high anonymity, e.g., personal income, medical history and etc., this price might be totally acceptable. After all, the key advantage of decentralized crowdsensing system is to break the control of centralized data manage system as well as the monopoly price of data-sensing task. We hope our blockchain-based crowd-sensing system can offer users an another option when try to participate in crowd-sensing tasks.</p>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>To sum up, in this article, we propose building a blockchain-based crowd-sensing to make up for the paucity of decentralized crowd-sensing systems with security and low services fee. Since we are still in the early stage of blockchain technology, this project will be of importance to research in distributed systems by providing a concrete blockchain-based solution for a known scientific problem, i.e., crowd-sensing management.</p>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><blockquote>
+<p>[1] Ma, H., Zhao,D., &amp; Yuan, P. (2014). Opportunities in mobile crowd sensing. IEEECommunications Magazine, 52(8), 29-35.</p>
+<p>[2] Zhang, X.,Yang, Z., Sun, W., Liu, Y., Tang, S., Xing, K., &amp; Mao, X. (2016).Incentives for mobile crowd sensing: A survey. IEEE Communications Surveys&amp; Tutorials, 18(1), 54-67.</p>
+<p>[3]Vergara-Laurens, I. J., Jaimes, L. G., &amp; Labrador, M. A. (2016).Privacy-preserving mechanisms for crowdsensing: Survey and researchchallenges. IEEE Internet of Things Journal.</p>
+<p>[4] Pournajaf, L.,Xiong, L., Garcia-Ulloa, D. A., &amp; Sunderam, V. (2014). A survey on privacyin mobile crowd sensing task management. Tech. Rep. TR-2014–002.</p>
+<p>[5] Krontiris, I.,Langheinrich, M., &amp; Shilton, K. (2014). Trust and privacy in mobileexperience sharing: future challenges and avenues for research. IEEECommunications Magazine, 52(8), 50-55.</p>
+<p>[6] Cardone, G.,Foschini, L., Bellavista, P., Corradi, A., Borcea, C., Talasila, M., &amp;Curtmola, R. (2013). Fostering participaction in smart cities: a geo-socialcrowdsensing platform. IEEE Communications Magazine, 51(6), 112-119.</p>
+<p>[7] Cardone, G.,Cirri, A., Corradi, A., &amp; Foschini, L. (2014). The participact mobile crowdsensing living lab: The testbed for smart cities. IEEE CommunicationsMagazine, 52(10), 78-85.</p>
+<p>[8] Hamm, J.,Champion, A. C., Chen, G., Belkin, M., &amp; Xuan, D. (2015, June). Crowd-ML: Aprivacy-preserving learning framework for a crowd of smart devices.In Distributed Computing Systems (ICDCS), 2015 IEEE 35th InternationalConference on (pp. 11-20). IEEE.</p>
+<p>[9] Jayarajah, K.,Balan, R. K., Radhakrishnan, M., Misra, A., &amp; Lee, Y. (2016, June).LiveLabs: Building In-Situ Mobile Sensing &amp; Behavioural ExperimentationTestBeds. In Proceedings of the 14th Annual International Conference onMobile Systems, Applications, and Services (pp. 1-15). ACM.</p>
+<p>[10] Han, G., Liu,L., Chan, S., Yu, R., &amp; Yang, Y. (2017). HySense: A Hybrid MobileCrowdSensing Framework for Sensing Opportunities Compensation under DynamicCoverage Constraint. IEEE Communications Magazine, 55(3), 93-99.</p>
+<p>[11] Nakamoto, S.(2015). Bitcoin: A Peer-to-Peer Electronic Cash System. November 2008.</p>
+<p>[12] Swan, M.(2015). Blockchain: Blueprint for a new economy. “ O’Reilly Media,Inc.”.</p>
+<p>[13] Zhang, X.,Xue, G., Yu, R., Yang, D., &amp; Tang, J. (2015). Keep your promise: Mechanismdesign against free-riding and false-reporting in crowdsourcing. IEEEInternet of Things Journal, 2(6), 562-572.</p>
+<p>[14] Li, M., Lu,W., Weng, J., &amp; Yang, A. (2017). CrowdBC: A Blockchain-based Decentralized Framework for Crowdsourcing. IACR Cryptology ePrint Archive, 2017, 444.</p>
+<p>[15] <a href="https://en.wikipedia.org/wiki/PayPal" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/PayPal</a></p>
+<p>[16] Greenberg, A.(2016). Zcash, an untraceable bitcoin alternative, launches in alpha.</p>
+<p>[17] Lee, C.(2011). Litecoin.</p>
+<p>[18]<a href="http://www.gov.cn/gzdt/2013-12/05/content_2542751.htm" target="_blank" rel="noopener">http://www.gov.cn/gzdt/2013-12/05/content_2542751.htm</a></p>
+<p>[19] King, S.(2013). Primecoin: Cryptocurrency with prime number proof-of-work. July7th.</p>
+<p>[20] <a href="https://setiathome.berkeley.edu/" target="_blank" rel="noopener">https://setiathome.berkeley.edu/</a></p>
+<p>[21] <a href="https://motherboard.vice.com/en_us/article/aek3za/bitcoin-could-consume-as-much-electricity-as-denmark-by-2020" target="_blank" rel="noopener">https://motherboard.vice.com/en_us/article/aek3za/bitcoin-could-consume-as-much-electricity-as-denmark-by-2020</a></p>
+<p>[22] Miller, A.,Juels, A., Shi, E., Parno, B., &amp; Katz, J. (2014, May). Permacoin:Repurposing bitcoin work for data preservation. In Security and Privacy(SP), 2014 IEEE Symposium on (pp. 475-490). IEEE.</p>
+<p>[23] Dill, K. A.,&amp; MacCallum, J. L. (2012). The protein-folding problem, 50 yearson. science, 338(6110), 1042-1046.</p>
+<p>[24] Ron Rivest, Leonard Adleman, and Michael L. Dertouzos. On data banks and privacy homomorphisms. Foundations of Secure Computation, 1978.</p>
+<p>[25] Craig Gentry. Fully homomorphic encryption using ideal lattices. STOC, 2009. </p>
+<p>[26] Jake Loftus, Alexander May, Nigel P. Smart, and Frederik Vercauteren. On CCA-Secure Fully Homomorphic Encryption. Cryptology ePrint Archive 2010/560.</p>
+<p>[27] <a href="https://hackernoon.com/front-running-bancor-in-150-lines-of-python-with-ethereum-api-d5e2bfd0d798" target="_blank" rel="noopener">https://hackernoon.com/front-running-bancor-in-150-lines-of-python-with-ethereum-api-d5e2bfd0d798</a></p>
+<p>[28] <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">https://coinmarketcap.com/</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/projects-code/" rel="tag"># projects, code</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/04/02/boyfriend/" rel="next" title="How to find the Mr. Right">
+                <i class="fa fa-chevron-left"></i> How to find the Mr. Right
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/05/28/rbtree/" rel="prev" title="Using Python to Write a Printable Red-black Tree">
+                Using Python to Write a Printable Red-black Tree <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lingkun Kong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Project-—-Building-a-Simple-Blockchain-based-Crowdsensing-System"><span class="nav-number">1.</span> <span class="nav-text">Project — Building a Simple Blockchain-based Crowdsensing System</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Background-and-Motivation"><span class="nav-number">1.2.</span> <span class="nav-text">Background and Motivation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Introduction-of-Blockchain-based-Crowd-sensing-System"><span class="nav-number">1.3.</span> <span class="nav-text">Introduction of Blockchain-based Crowd-sensing System</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Detailed-Implementation-of-Smart-Contract"><span class="nav-number">1.4.</span> <span class="nav-text">Detailed Implementation of Smart Contract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-an-Simple-Example-to-Show-How-the-System-Works"><span class="nav-number">1.5.</span> <span class="nav-text">Using an Simple Example to Show How the System Works</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-of-the-Blockchain-based-Crowd-sensing-System"><span class="nav-number">1.6.</span> <span class="nav-text">Analysis of the Blockchain-based Crowd-sensing System</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.7.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reference"><span class="nav-number">1.8.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lingkun Kong</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=6.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

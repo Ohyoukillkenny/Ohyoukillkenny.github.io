@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="IntroductionThe Needleman–Wunsch algorithm is an algorithm used in bioinformatics to align protein or nucleotide sequences. It was one of the first applications of dynamic programming to compare biolo">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Needleman–Wunsch algorithm">
+<meta property="og:url" content="https://ohyoukillkenny.github.io/blog/2018/02/06/DNA-min-mismatch/index.html">
+<meta property="og:site_name" content="Lingkun&#39;s Small House">
+<meta property="og:description" content="IntroductionThe Needleman–Wunsch algorithm is an algorithm used in bioinformatics to align protein or nucleotide sequences. It was one of the first applications of dynamic programming to compare biolo">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-02-06T03:16:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Needleman–Wunsch algorithm">
+<meta name="twitter:description" content="IntroductionThe Needleman–Wunsch algorithm is an algorithm used in bioinformatics to align protein or nucleotide sequences. It was one of the first applications of dynamic programming to compare biolo">
+
+
+
+
+
+
+  <link rel="canonical" href="https://ohyoukillkenny.github.io/blog/2018/02/06/DNA-min-mismatch/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Needleman–Wunsch algorithm | Lingkun's Small House</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lingkun's Small House</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Youth is not a time of life, it is a state of mind.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ohyoukillkenny.github.io/blog/blog/2018/02/06/DNA-min-mismatch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lingkun Kong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lingkun's Small House">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Needleman–Wunsch algorithm
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+                
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-06T10:47:55+08:00">2018-02-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The <strong>Needleman–Wunsch algorithm</strong> is an <a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" rel="noopener">algorithm</a> used in <a href="https://en.wikipedia.org/wiki/Bioinformatics" target="_blank" rel="noopener">bioinformatics</a> to <a href="https://en.wikipedia.org/wiki/Sequence_alignment" target="_blank" rel="noopener">align</a> <a href="https://en.wikipedia.org/wiki/Protein" target="_blank" rel="noopener">protein</a> or <a href="https://en.wikipedia.org/wiki/Nucleotide" target="_blank" rel="noopener">nucleotide</a> sequences. It was one of the first applications of <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank" rel="noopener">dynamic programming</a> to compare biological sequences.</p>
+<p>In this article, we try to use Needleman-Wunsch algorithm to  find the minimum mismatch between two different DNA sequences.</p>
+<h4 id="Definition-of-Mismatches"><a href="#Definition-of-Mismatches" class="headerlink" title="Definition of Mismatches"></a>Definition of Mismatches</h4><p>Here we have two different DNA sequences, i.e., <code>S1</code> and <code>S2</code>, where</p>
+<p><code>S1 = &quot;GCATGCU&quot;</code>,</p>
+<p><code>S2 = &quot;GCTTAGCU&quot;</code>.</p>
+<p>One solution to match these two DNA sequences is listed as below:</p>
+<p><code>S1* = &quot;GCAT-GCU&quot;</code>,</p>
+<p><code>S2* = &quot;GCTTAGCU&quot;</code>,</p>
+<p>in which <code>-</code> is called as “gap”, i.e., in this position the DNA is supposed to be unknown.</p>
+<p><strong>Match</strong>: The two letters are the same, except both two letters are gapped.</p>
+<p><strong>Mismatch</strong>: The two letters are differential or both two letters are gapped.</p>
+<p>By above definition, the solution we find for matching <code>S1</code> and <code>S2</code> has two mismatches — <code>T</code> &amp; <code>A</code> and <code>-</code> &amp; <code>A</code>.</p>
+<h4 id="Codes-for-finding-minimum-mismatches"><a href="#Codes-for-finding-minimum-mismatches" class="headerlink" title="Codes for finding minimum mismatches"></a>Codes for finding minimum mismatches</h4><p>Here I list the python code for finding minimum number of mismatches between two DNA sequences. The insights of codes below can be viewed by supplemental documents <a href="./insights.pdf">here</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">input:</span></span><br><span class="line"><span class="string">    S1 = ['A','B','C','D']</span></span><br><span class="line"><span class="string">    S2 = ['A','B','C']</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">print info:</span></span><br><span class="line"><span class="string">    New S1 is:   ABCD</span></span><br><span class="line"><span class="string">    New S2 is:   ABC-</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MinMismatch</span><span class="params">(S1, S2)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    First of all, we construct matrix for counting maximum length of common subsequence.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    l1, l2 = len(S1), len(S2)</span><br><span class="line">    matrix = [[<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(l2+<span class="number">1</span>)] <span class="keyword">for</span> i <span class="keyword">in</span> range(l1+<span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, l1+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, l2+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> S1[i<span class="number">-1</span>] == S2[j<span class="number">-1</span>]:</span><br><span class="line">                matrix[i][j] = matrix[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                matrix[i][j] = max(matrix[i<span class="number">-1</span>][j<span class="number">-1</span>], matrix[i][j<span class="number">-1</span>], matrix[i<span class="number">-1</span>][j])</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Dynamic programming. Tracing back the matrix and construct two DNA sequences with gaps.</span></span><br><span class="line"><span class="string">    We saved the restructured sequences into A (originally S1) and B (originally S2).</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    left_up, up, left = <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span></span><br><span class="line">    i, j = l1, l2</span><br><span class="line">    A, B = [], []</span><br><span class="line">    <span class="keyword">while</span> (i,j) != (<span class="number">0</span>,<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            i, j = i, j<span class="number">-1</span></span><br><span class="line">            flag = left</span><br><span class="line">        <span class="keyword">elif</span> j == <span class="number">0</span>:</span><br><span class="line">            i, j = i<span class="number">-1</span>, j</span><br><span class="line">            flag = up</span><br><span class="line">        <span class="keyword">elif</span> S1[i<span class="number">-1</span>] == S2[j<span class="number">-1</span>] <span class="keyword">or</span> matrix[i<span class="number">-1</span>][j<span class="number">-1</span>] == max(matrix[i<span class="number">-1</span>][j<span class="number">-1</span>], matrix[i][j<span class="number">-1</span>], matrix[i<span class="number">-1</span>][j]):</span><br><span class="line">            i, j, flag = i<span class="number">-1</span>, j<span class="number">-1</span>, left_up</span><br><span class="line">        <span class="keyword">elif</span> matrix[i<span class="number">-1</span>][j] == max(matrix[i<span class="number">-1</span>][j<span class="number">-1</span>], matrix[i][j<span class="number">-1</span>], matrix[i<span class="number">-1</span>][j]):</span><br><span class="line">            i, j, flag = i<span class="number">-1</span>, j, up</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i, j, flag = i, j<span class="number">-1</span>, left</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> flag == left_up:</span><br><span class="line">            A.append(S1[i])</span><br><span class="line">            B.append(S2[j])</span><br><span class="line">        <span class="keyword">elif</span> flag == up:</span><br><span class="line">            A.append(S1[i])</span><br><span class="line">            B.append(<span class="string">'-'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            A.append(<span class="string">'-'</span>)</span><br><span class="line">            B.append(S2[j])</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Print info about new DNA sequences with minimum number of mismatches.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    A.reverse()</span><br><span class="line">    B.reverse()</span><br><span class="line">    printA, printB = <span class="string">''</span>,<span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(A)):</span><br><span class="line">        printA += A[i]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(B)):</span><br><span class="line">        printB += B[i]</span><br><span class="line">    print(<span class="string">'New S1 is:   '</span>+ printA)</span><br><span class="line">    print(<span class="string">'New S2 is:   '</span>+ printB)</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Calculate the number of mismatches.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    mismatch = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(A)):</span><br><span class="line">        <span class="keyword">if</span> A[i] != B[i] <span class="keyword">or</span> (A[i] == <span class="string">'-'</span> <span class="keyword">and</span> B[i] == <span class="string">'-'</span>):</span><br><span class="line">            mismatch += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> mismatch</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    S1 = list(<span class="string">"GGATCGA"</span>)</span><br><span class="line">    S2 = list(<span class="string">"GAATTCAGTTA"</span>)</span><br><span class="line">    print(MinMismatch(S1,S2))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/code/" rel="tag"># code</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/01/08/micro-payment/" rel="next" title="Micropayment">
+                <i class="fa fa-chevron-left"></i> Micropayment
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/02/06/hanoi/" rel="prev" title="Hanoi in Assembly x86 (NASM)">
+                Hanoi in Assembly x86 (NASM) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lingkun Kong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Definition-of-Mismatches"><span class="nav-number">1.1.</span> <span class="nav-text">Definition of Mismatches</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Codes-for-finding-minimum-mismatches"><span class="nav-number">1.2.</span> <span class="nav-text">Codes for finding minimum mismatches</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lingkun Kong</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=6.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
