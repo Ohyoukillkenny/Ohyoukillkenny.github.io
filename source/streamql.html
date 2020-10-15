@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><style id="stndz-style"></style>
+    <meta name="viewport" content="width=800">
+    <meta name="generator" content="HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org">
+
+    <style type="text/css">
+      a {
+      color: #1772d0;
+      text-decoration:none;
+      }
+      a:focus, a:hover {
+      color: #f09228;
+      text-decoration:none;
+      }
+      body,td,th,tr,p,a {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 14px
+      }
+      strong {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 14px;
+      }
+      heading {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 22px;
+      }
+      name {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 30px;
+      }
+      span.highlight {
+          background-color: #ffffd0;
+      }
+    </style>
+
+    <link rel="shortcut icon" href="./source/Pied_Piper.jpg"> 
+    <title>The StreamQL Language</title>
+    <link href="./source/css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <table width="800" border="0" align="center" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+      <td>
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%">
+            <p align="center"><name>StreamQL: A Query Language for Efficient Data Stream Processing</name></p>
+            <p> Recent technological advances, such as the Internet of Things (IoT), are causing an enormous proliferation of streaming data, i.e., data that is generated in real-time and at high rates. StreamQL is a query language which simplifies the task of specifying complex computations over streaming data.</p>
+            <p> The basic object in StreamQL is the <strong>stream transformation</strong> that describes how an input stream is transformed into an output stream. StreamQL provides a novel integration of several useful programming abstractions for stream processing: (1) relational constructs (such as filtering, mapping, aggregating, key-based partitioning, and windowing), (2) dataflow constructs (such as streaming/serial and parallel composition), and (3) temporal constructs that are inspired from Temporal Logic and regular expressions. StreamQL allows the programmer to specify a streaming analysis in a modular fashion, as its language constructs compose freely. </p>
+            <p>We provide a formal denotational semantics for StreamQL using a class of monotone functions over streams. We have implemented StreamQL as a lightweight Java library, which we use to experimentally evaluate our approach. The experiments show that the throughput of our implementation is competitive compared to state-of-the-art streaming engines including <a href="http://reactivex.io/">RxJava</a>, <a href="">Reactor</a>, <a href="https://siddhi.io/">Siddhi</a>, <a href="http://reactivex.io/">Rx.NET</a>, and <a href="https://www.microsoft.com/en-us/research/project/trill/">Trill</a>.</p>
+            <p>The following diagram shows the performance of StreamQL, RxJava, Rx.NET, Reactor, Trill and Siddhi on the micro benchmark. The vertical axis shows the throughput in number of tuples per second. 
+            </p>
+            <p align="center"><img src="streamql_micro.png" width="1000"></p>
+            <p>The following diagram shows the performance of StreamQL, RxJava, Reactor and Siddhi concerning realistic workloads -- detecting stock patterns (S1a-S4c), monitoring an online auction system (N1-N8), and analyzing a high-frequency trading market (T1-10). The vertical axis shows the throughput in number of tuples per second. 
+            </p>
+            <p align="center"><img src="streamql_realistic.png" width="1000"></p>
+            <p>The experiments were run in Ubuntu 16.04 LTS on a desktop computer equipped with an Intel Xeon(R) E3-1241 v3 CPU (4 cores) with 16 GB of memory (DDR3 at 1600 MHz).</p>
+          </td>
+        </tr>
+        </tbody></table>
+
+        <!-- Publication -->
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%" valign="middle">
+            <heading>Publications</heading>
+            <p>
+            <strong>Lingkun Kong</strong>, Konstantinos Mamouras. "StreamQL: A Query Language for Processing Streaming Time Series". OOPSLA, 2020 (to appear).
+            </p>
+            <p>
+            <strong>Lingkun Kong</strong>, Konstantinos Mamouras. "StreamQL: A Query Language for Efficient Data Stream Processing". OGHPC, 2020 (Poster). [<a href="2020OGHPC.pdf">link</a>]
+            </p>
+          </td>
+        </tr>
+        </tbody></table>
+
+
+        <!-- More about Me -->
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%" valign="middle">
+            <heading>The StreamQL Engine</heading>
+            <p>
+              The execution engine of StreamQL is given as a light-weight <a href="StreamQL_10_15_2020.jar"> Java library</a>.
+            </p>
+            <p>
+              More details can be found in the <a href="https://github.com/Ohyoukillkenny/StreamQL">StreamQL</a> Github repository. Currently, the documentation is still under construction.
+            </p>
+          </td>
+        </tr>
+        </tbody></table>
+      </td>
+      </tr>
+    </tbody></table>
+
+</body></html>
