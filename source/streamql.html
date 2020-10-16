@@ -75,17 +75,52 @@
         </tbody></table>
 
 
-        <!-- More about Me -->
         <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tbody><tr>
           <td width="100%" valign="middle">
             <heading>The StreamQL Engine</heading>
             <p>
               The execution engine of StreamQL is given as a light-weight <a href="StreamQL_10_15_2020.jar"> Java library</a>.
+              This library requires a Java JDK with version >= 1.8.
             </p>
-            <p>
-              More details can be found in the <a href="https://github.com/Ohyoukillkenny/StreamQL">StreamQL</a> Github repository. Currently, the documentation is still under construction.
-            </p>
+          </td>
+        </tr>
+        </tbody></table>
+
+    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%" valign="middle">
+            <heading>Programming with StreamQL</heading>
+            <p>We introduce a simple example of the StreamQL program in Java. Given a signal measurement of type <code>VT</code> that contains a double value in the field of <code>val</code> , the query <code>sum</code> computes the sum of a sequence of measurements. The method <code>eval</code> , which stands for "be evaluated", is used to obtain an object that encapsulates the algorithm for the query.</p>
+            <!-- code example -->
+            <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>import</span> streamql.QL;
+<span style='font-weight:bold;color:#7B0052;'>import</span> streamql.algo.*;
+<span style='font-weight:bold;color:#7B0052;'>import</span> streamql.plan.*;
+
+<span style='color:#3F7F5F'>// VT is the type of measurements, which contains a double value as val
+</span>Iterator&lt;VT&gt; stream = ... <span style='color:#3F7F5F'>// input stream
+</span>
+<span style='color:#3F7F5F'>// Sink of the output stream
+</span>Sink&lt;Double&gt; sink = ...
+
+<span style='color:#3F7F5F'>// Sum of the measurements
+</span>Q&lt;VT, Double&gt; sum = QL.aggr(0.0, (s, vt) -&gt; s + vt.val);
+
+<span style='color:#3F7F5F'>// Evaluation of the logical query plan
+</span>Algo&lt;VT, Double&gt; exe = sum.eval();
+
+<span style='color:#3F7F5F'>// Connect the output of query to sink
+</span>exe.connect(sink);
+
+<span style='color:#3F7F5F'>// Execution loop
+</span>exe.init();
+<span style='font-weight:bold;color:#7B0052;'>while</span> (stream.hasNext()) <span style='font-weight:bold;color:#D3171B'>{</span>
+  VT vt = stream.next();
+  exe.next(vt);
+<span style='font-weight:bold;color:#D3171B'>}</span>
+exe.end();</pre>
+            <p>On this evaluated object, the methods <code>init</code> and <code>next</code> are used to initialize the memory and consume data items, and after the input stream terminates, the method <code>end</code> is invoked to respond to the termination of the input stream.</p>
+            <p>Currently, more detailed documentation is still under construction.</p>
           </td>
         </tr>
         </tbody></table>
