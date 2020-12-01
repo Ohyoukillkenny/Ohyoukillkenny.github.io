@@ -50,10 +50,12 @@
             <p>We provide a formal denotational semantics for StreamQL using a class of monotone functions over streams. We have implemented StreamQL as a lightweight Java library, which we use to experimentally evaluate our approach. The experiments show that the throughput of our implementation is competitive compared to state-of-the-art streaming engines including <a href="http://reactivex.io/">RxJava</a>, <a href="">Reactor</a>, <a href="https://siddhi.io/">Siddhi</a>, <a href="http://reactivex.io/">Rx.NET</a>, and <a href="https://www.microsoft.com/en-us/research/project/trill/">Trill</a>.</p>
             <p>The following diagram shows the performance of StreamQL, RxJava, Rx.NET, Reactor, Trill and Siddhi on the micro benchmark. The vertical axis shows the throughput in number of tuples per second. 
             </p>
-            <p align="center"><img src="streamql_micro.png" width="1000"></p>
+            <p align="center"><img src="streamql_project/figures/micro.svg" width="1000"></p>
             <p>The following diagram shows the performance of StreamQL, RxJava, Reactor and Siddhi concerning realistic workloads -- detecting stock patterns (S1a-S4c), monitoring an online auction system (N1-N8), and analyzing a high-frequency trading market (T1-10). The vertical axis shows the throughput in number of tuples per second. 
             </p>
-            <p align="center"><img src="streamql_realistic.png" width="1000"></p>
+            <p align="center"><img src="streamql_project/figures/stock.svg" width="1000"></p>
+            <p align="center"><img src="streamql_project/figures/nex.svg" width="950"></p>
+            <p align="center"><img src="streamql_project/figures/taq.svg" width="1000"></p>
             <p>The experiments were run in Ubuntu 16.04 LTS on a desktop computer equipped with an Intel Xeon(R) E3-1241 v3 CPU (4 cores) with 16 GB of memory (DDR3 at 1600 MHz).</p>
           </td>
         </tr>
@@ -80,7 +82,7 @@
           <td width="100%" valign="middle">
             <heading>The StreamQL Engine</heading>
             <p>
-              The execution engine of StreamQL is given as a light-weight <a href="StreamQL_10_15_2020.jar"> Java library</a>.
+              The execution engine of StreamQL is given as a light-weight <a href="StreamQL_2020_1201.jar"> Java library</a>.
               This library requires a Java JDK with version >= 1.8.
             </p>
           </td>
@@ -91,37 +93,62 @@
         <tbody><tr>
           <td width="100%" valign="middle">
             <heading>Programming with StreamQL</heading>
-            <p>We introduce a simple example of the StreamQL program in Java. Given a signal measurement of type <code>VT</code> that contains a double value in the field of <code>val</code> , the query <code>sum</code> computes the sum of a sequence of measurements. The method <code>eval</code> , which stands for "be evaluated", is used to obtain an object that encapsulates the algorithm for the query.</p>
-            <!-- code example -->
+            <p>We introduce a simple example of the StreamQL program in Java. Given a stream of integers, the query <code>sum</code> computes the sum of the integers. The method <code>eval</code> , which stands for "be evaluated", is used to obtain an object that encapsulates the algorithm for the query.</p>
             <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>import</span> streamql.QL;
 <span style='font-weight:bold;color:#7B0052;'>import</span> streamql.algo.*;
-<span style='font-weight:bold;color:#7B0052;'>import</span> streamql.plan.*;
+<span style='font-weight:bold;color:#7B0052;'>import</span> streamql.query.*;
 
-<span style='color:#3F7F5F'>// VT is the type of measurements, which contains a double value as val
-</span>Iterator&lt;VT&gt; stream = ... <span style='color:#3F7F5F'>// input stream
-</span>
-<span style='color:#3F7F5F'>// Sink of the output stream
-</span>Sink&lt;Double&gt; sink = ...
+<span style='font-weight:bold;color:#7B0052;'>import</span> java.util.*;
 
-<span style='color:#3F7F5F'>// Sum of the measurements
-</span>Q&lt;VT, Double&gt; sum = QL.aggr(0.0, (s, vt) -&gt; s + vt.val);
+<span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> HelloWorld <span style='font-weight:bold;color:#D3171B'>{</span>
+  <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>static</span> <span style='font-weight:bold;color:#7B0052;'>void</span> main(String[] args) <span style='font-weight:bold;color:#D3171B'>{</span>
+    ArrayList&lt;Integer&gt; source = <span style='font-weight:bold;color:#7B0052;'>new</span> ArrayList&lt;&gt;(Arrays.asList(1,2,3,4,5));
+    <span style='color:#3F7F5F'>// get the input stream from a data source
+</span>    Iterator&lt;Integer&gt; stream = source.iterator(); 
 
-<span style='color:#3F7F5F'>// Evaluation of the logical query plan
-</span>Algo&lt;VT, Double&gt; exe = sum.eval();
+    <span style='color:#3F7F5F'>// sink that prints data items
+</span>    Sink&lt;Integer&gt; sink = <span style='font-weight:bold;color:#7B0052;'>new</span> Sink&lt;Integer&gt;() <span style='font-weight:bold;color:#D3171B'>{</span>
+      @Override
+      <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> next(Integer item) <span style='font-weight:bold;color:#D3171B'>{</span>
+        System.out.println(<span style='color:#2A00FF'>"Received: "</span> + item);
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+      @Override
+      <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> end() <span style='font-weight:bold;color:#D3171B'>{</span>
+        System.out.println(<span style='color:#2A00FF'>"Job Done"</span>);
+      <span style='font-weight:bold;color:#D3171B'>}</span>
+    <span style='font-weight:bold;color:#D3171B'>}</span>;
 
-<span style='color:#3F7F5F'>// Connect the output of query to sink
-</span>exe.connect(sink);
+    <span style='color:#3F7F5F'>// running sum of the integers
+</span>    Q&lt;Integer, Integer&gt; sum = QL.aggr(0, (s, x) -&gt; s + x);
 
-<span style='color:#3F7F5F'>// Execution loop
-</span>exe.init();
-<span style='font-weight:bold;color:#7B0052;'>while</span> (stream.hasNext()) <span style='font-weight:bold;color:#D3171B'>{</span>
-  VT vt = stream.next();
-  exe.next(vt);
-<span style='font-weight:bold;color:#D3171B'>}</span>
-exe.end();</pre>
+    <span style='color:#3F7F5F'>// evaluation of the logical query plan
+</span>    Algo&lt;Integer, Integer&gt; exe = sum.eval();
+
+    <span style='color:#3F7F5F'>// connect the output of query to sink
+</span>    exe.connect(sink);
+
+    <span style='color:#3F7F5F'>// execution loop
+</span>    exe.init();
+    <span style='font-weight:bold;color:#7B0052;'>while</span> (stream.hasNext()) <span style='font-weight:bold;color:#D3171B'>{</span>
+      Integer item = stream.next();
+      exe.next(item);
+    <span style='font-weight:bold;color:#D3171B'>}</span>
+    exe.end();
+    
+    <span style='color:#3F7F5F'>// Console Output:
+</span>    <span style='color:#3F7F5F'>// --------------
+</span>    <span style='color:#3F7F5F'>// Received: 1
+</span>    <span style='color:#3F7F5F'>// Received: 3
+</span>    <span style='color:#3F7F5F'>// Received: 6
+</span>    <span style='color:#3F7F5F'>// Received: 10
+</span>    <span style='color:#3F7F5F'>// Received: 15
+</span>    <span style='color:#3F7F5F'>// Job Done
+</span>  <span style='font-weight:bold;color:#D3171B'>}</span>
+<span style='font-weight:bold;color:#D3171B'>}</span></pre>
+
             <p>On this evaluated object, the methods <code>init</code> and <code>next</code> are used to initialize the memory and consume data items, and after the input stream terminates, the method <code>end</code> is invoked to respond to the termination of the input stream.</p>
             <p>The API documentation is given <a href="streamql_project/api/index.html">here</a>, which briefly introduces core interfaces of StreamQL and the usage of each StreamQL operator.</p>
-            <p>We also provide a tutorial that introduces how to program streaming computations using StreamQL, which can be found [under construction].</p>
+            <p>We also provide a tutorial that introduces how to program streaming computations using StreamQL, which can be found <a href="streamql_project/tutorial/tutorial.html">here</a>.</p>
           </td>
         </tr>
         </tbody></table>
