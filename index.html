@@ -111,25 +111,28 @@
         </tbody></table>
 
         <!-- Research -->
-        <!-- <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tbody><tr>
           <td width="100%" valign="middle">
             <heading>Research</heading>
-            <p>My current research interest focuses on:</p>
+            <p>My research interests lie in the design and implementation of programming languages and systems for data processing and IoT applications. My approach to research places a strong emphasis on 
             <ul>
-            <li>Distributed System</li>
-            <li>Data Mining</li>
+            <li>Principled language design with clear semantics</li>
+            <li>System implementation with formal guarantees of correctness and efficiency</li>
+            <li>Empirical validation of research ideas with real and significant case studies</li>
             </ul>
-            <p>Actually, I am interested in all research topics related with building fantastic systems and interesting tools.</p>
           </td>
         </tr>
-        </tbody></table> -->
+        </tbody></table>
 
         <!-- Publication -->
         <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tbody><tr>
           <td width="100%" valign="middle">
             <heading>Publication</heading>
+            <p>
+            <strong>L. Kong</strong>, Q. Yu, A. Chattopadhyay, A. Le Glaunec, Y. Huang, K. Mamouras, and K. Yang. "Software-Hardware Codesign for Efficient In-Memory Regular Pattern Matching". To be presented at PLDI, 2022.
+            </p>
             <p>
             <strong>Lingkun Kong</strong>, Konstantinos Mamouras. "StreamQL: A Query Language for Processing Streaming Time Series". OOPSLA, 2020. [<a href="https://dl.acm.org/doi/abs/10.1145/3428251">link</a>] [<a href="https://www.youtube.com/watch?v=4qiBotj4l38">talk</a>] [<a href="./source/streamql.html">code</a>]
             </p>
@@ -155,14 +158,76 @@
         </tr>
         </tbody></table>
 
-	<table width="100%" align="center" border="0" cellpadding="20">
+        <!-- <table width="100%" align="center" border="0" cellpadding="20">
+        <tbody><tr>
+          <td width="25%"><img src="./source/parql.png" width="160"></td>
+          <td width="75%" valign="top">
+          <p>
+            <strong>Regular Expression Matching Using Bit Vector Automata</strong>
+            <br>
+            <strong>Lingkun Kong</strong>, advised by Konstantinos Mamouras, from 2022 to now<br>
+          </p>
+          <p>
+            <br>
+            We built a Rust engine to efficiently handle the matching of regular expressions.
+            In comparison to the conventional DFA/NFA-based approaches, our engine is based on non-deterministic bit vector automata (NBVA), which is faster and more memory-efficient to handle the matching of regular expressions with counting. In benchmarks concerning realistic workloads, our matcher is faster than RE2, PCRE, and Microsofts's CsA engine by orders of magnitude in more than 90% of cases. 
+            <br>
+          </p>
+          <p></p>
+          </td>
+        </tr>
+        </tbody></table> -->
+
+        <table width="100%" align="center" border="0" cellpadding="20">
+        <tbody><tr>
+          <td width="25%"><img src="./source/codesign.png" width="160"></td>
+          <td width="75%" valign="top">
+          <p>
+            <strong>Software-Hardware Codesign for Efficient In-Memory Regular Pattern Matching</strong>
+            <br>
+            <strong>Lingkun Kong</strong>, advised by Konstantinos Mamouras and Kaiyuan Yang, from 2021 to 2022<br>
+            </p><p><br>
+            Regular pattern matching is used in numerous application domains, including text processing, bioinformatics, and network security. Patterns are typically expressed with an extended syntax of regular expressions. This syntax includes the computationally challenging construct of bounded repetition or counting, which describes the repetition of a pattern a fixed number of times. We develop a specialized in-memory hardware architecture that integrates counter and bit vector modules into a state-of-the-art in-memory NFA accelerator. 
+            <br>
+            <ul>
+              <li>The design is inspired by the theoretical model of nondeterministic counter automata (NCA). A key feature of our approach is that we statically analyze regular expressions to determine bounds on the amount of memory needed for the occurrences of bounded repetition.</li>
+              <li>We provide a regex-to-hardware compiler that allows users to make an appropriate selection of counter or bit vector modules. We evaluate our hardware implementation using a simulator based on circuit parameters collected by SPICE simulation in TSMC 28nm CMOS process. </li>
+              <li>We find that the use of counter and bit vector modules outperforms unfolding solutions by orders of magnitude. Experiments concerning realistic workloads show up to 76% energy reduction and 58% area reduction in comparison to CAMA, a recently proposed in-memory NFA accelerator.</li>
+            </ul> 
+            <br>
+            </p>
+          <p></p>
+          </td>
+        </tr>
+        </tbody></table>
+
+        <table width="100%" align="center" border="0" cellpadding="20">
+        <tbody><tr>
+          <td width="25%"><img src="./source/parql.png" width="160"></td>
+          <td width="75%" valign="top">
+          <p>
+            <strong>ParQL: A Query Language for Deterministic Parallel Stream Processing</strong>
+            <br>
+            <strong>Lingkun Kong</strong>, advised by Konstantinos Mamouras, from 2020 to now<br>
+          </p>
+          <p>
+            <br>
+            Applications that handle massive streaming time series have scalability requirements and would therefore benefit from a multicore implementation of the streaming language/engine. In this project, we proposes a stream query language called ParQL that provides a solution to achieve parallelism with the preservation of sequential semantics for applications that involve the complex analysis of time-series (e.g., outlier detection). 
+            <br>
+          </p>
+          <p></p>
+          </td>
+        </tr>
+        </tbody></table>
+
+	      <table width="100%" align="center" border="0" cellpadding="20">
         <tbody><tr>
           <td width="25%"><img src="./source/StreamQL.png" width="160"></td>
           <td width="75%" valign="top">
           <p>
             <strong><a href="./source/streamql.html">StreamQL: A Query Language for Efficient Data Stream Processing</a></strong>
             <br>
-            <strong>Lingkun Kong</strong>, Konstantinos Mamouras, from 2018 to now<br>
+            <strong>Lingkun Kong</strong>, advised by Konstantinos Mamouras, from 2018 to 2020<br>
             </p><p><br>
 	    
 	         Real-time data analysis applications increasingly rely on complex computations over data streams, such as the detection of patterns and trends, as well as the extraction and summarization of important information that lies in the data. We propose StreamQL, a language that facilitates the high-level specification of complex analyses over streaming data. <br>
@@ -186,7 +251,7 @@
           <p>
             <a href="https://github.com/Ohyoukillkenny/Bancor-Simulator"><strong>A Simulator for Market Analysis Under Bancor Protocol</strong></a>
             <br>
-            <strong>Lingkun Kong</strong>, Emin Gun Sirer, Jan. 2018 <br>
+            <strong>Lingkun Kong</strong>, advised by Emin Gun Sirer, from 2017 to 2018 <br>
             </p><p><br>
               <a href="https://www.bancor.network/">Bancor</a> holds the record for the biggest crowd-funding, ever, in the history of mankind. However, the robustness and efficiency of Bancor remain to be explored. Bancor also has several flaws due to its design principle.
             <br>
@@ -210,7 +275,7 @@
           <p>
             <a href="https://github.com/Ohyoukillkenny/EBM"><strong>Evolving Bipartite Model Reveals the Bounded Weights in Social Networks: A Case Study in Recommendation Networks</strong></a>
             <br>
-            <strong>Lingkun Kong</strong>, Xudong Wu, Hongru Zhu, Luoyi Fu, Xinbing Wang, Guihai Chen, Nov. 2017 <br>
+            <strong>Lingkun Kong</strong>, advised by Luoyi Fu and Xinbing Wang, from 2017 to 2018 <br>
             </p><p><br>
               Many realistic social networks can be presented by evolving bipartite graphs, in which dynamically added elements are divided into two entities and connected by links through these two entities, such as followees and followers in Twitter networks, authors and scientific topics in scholarly networks, users and items in recommendation networks, and etc. However, when adding weights of edges, i.e., connections between elements, how to mathematically model such evolving social networks, along with quantitative characterizations, remains unexplored.
             <br>
@@ -228,7 +293,7 @@
           <p>
             <a href="source/www.pdf"><strong>MSM: A Multi-entity Scholarly Model for Systematic Understanding of Evolving Scholarly Networks</strong></a>
             <br>
-            <strong>Lingkun Kong</strong>, Fengyu Deng, Jiaqi Liu, Jinghao Zhao, Luoyi Fu, Xinbing Wang, Oct. 2017
+            <strong>Lingkun Kong</strong>, advised by Luoyi Fu and Xinbing Wang, from 2017 to 2018
             <br>
             </p><p><br>
             Scholarly networks contain massive scholarly information that can be mainly categorized into three entities, i.e., paper, author and topic, which exhibit a co-evolution over time. <br>
@@ -246,7 +311,7 @@
           <p>
             <a href="http://acemap.sjtu.edu.cn/"><strong>Acemap: Academic Map System</strong></a>
             <br>
-            <strong>Lingkun Kong</strong>, advised by Prof. <a href="http://www.cs.sjtu.edu.cn/~wang-xb/">Xinbing Wang</a>, 2015 - 2017 <br>
+            <strong>Lingkun Kong</strong>, advised by Xinbing Wang, from 2015 to 2017 <br>
             </p><p><br>
               I joined the Acemap group in 2015. My major work in this group focused on:
               <ul>
@@ -339,6 +404,8 @@
             <heading>More About Me</heading>
             <p>
               I used to be a table tennis athlete. In 2016, I helped my undergraduate university to win her first championship in Shanghai.
+              Now, I am an amateur table tennis player with rating around 2100. 
+              In 2022, I finished as the top 16 of men's singles in USA college table tennis national championships.
             </p>
             <p>
               Playing basketball is also one of my hobbies.
