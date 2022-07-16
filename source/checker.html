@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><style id="stndz-style"></style>
+    <meta name="viewport" content="width=800">
+    <meta name="generator" content="HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org">
+
+    <style type="text/css">
+      a {
+      color: #1772d0;
+      text-decoration:none;
+      }
+      a:focus, a:hover {
+      color: #f09228;
+      text-decoration:none;
+      }
+      body,td,th,tr,p,a {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 14px
+      }
+      strong {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 14px;
+      }
+      heading {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 22px;
+      }
+      name {
+      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+      font-size: 30px;
+      }
+      span.highlight {
+          background-color: #ffffd0;
+      }
+    </style>
+
+    <link rel="shortcut icon" href="./source/Pied_Piper.jpg"> 
+    <title>Tools for Checking the Counter-(un)ambiguity of Regexes</title>
+    <link href="./source/css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <table width="800" border="0" align="center" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+      <td>
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%">
+            <p align="center"><name>Tools for Checking the Counter-(un)ambiguity of Regexes</name></p>
+            <p> 
+            In Java, we have implemented a program that can provide a static analysis over regexes to determine whether a regex is counter-(un)ambiguous, where counter-(un)ambiguity is defined in <a href="https://dl.acm.org/doi/10.1145/3519939.3523456">here</a>.
+            </p>
+            <p>
+            We packaged this program as a light-weight Java library, which requires Java's OpenJDK with version >= 17.
+            The library can be download <a href="checker.jar">here</a>.
+            </p>
+          </td>
+        </tr>
+        </tbody></table>
+
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%" valign="middle">
+            <heading>Configuration</heading>
+            <p>
+              This library requires a Java OpenJDK with version >= 17.
+            </p>
+            <p>
+              To use the library with the command line shown on this webpage, the java binary needs to be added to the source path. Type <code>java --version</code> on the command line to check whether the binary is added.
+              Below is the example output if the configuration is correct.
+            </p>
+            <pre><code>
+              openjdk 17.0.2 2022-01-18
+              OpenJDK Runtime Environment (build 17.0.2+8-86)
+              OpenJDK 64-Bit Server VM (build 17.0.2+8-86, mixed mode, sharing)
+            </code></pre>
+          </td>
+        </tr>
+        </tbody></table>
+
+    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody><tr>
+          <td width="100%" valign="middle">
+            <heading>Usage of the Java Library</heading>
+            <p>Below shows the usage of our Java library (<code>checker.jar</code>):</p>
+            <pre><code>
+              java -jar checker.jar --cambiguity {regex}
+              java -jar checker.jar --cambiguity --witness {regex}
+              java -jar checker.jar --nca {regex}
+            </code></pre>
+            <p>Here, <code>{regex}</code> is the regular expression used as the input for static analysis. Our Java library supports regexes with a <a href="https://urldefense.com/v3/__https://www.pcre.org/current/doc/html/pcre2posix.html__;!!BuQPrrmRaQ!g9wBCJLNDmeI-S5zWvvcUyEj461uO45NABOjse0EiPAfM2rXce_P1PqRDr1CsfPDAIIp2Q$">Posix-style syntax</a>.</p>
+            <!-- usage 1 -->
+            <p><strong style="font-size:18px">Usage 1.</strong></p>
+            <p> 
+              First of all, <code>java -jar checker.jar --cambiguity {regex}</code> checks the counter-ambiguity of the regular expression. 
+            </p>
+
+            <p><strong>Example 1.1.</strong> For example, we can use the command below to check the counter-ambiguity of regex <code>a{3,}</code>: </p>
+            <pre><code>
+              java -jar checker.jar --cambiguity "a{3,}"
+            </code></pre>
+            <p>The result will be:</p>
+            <pre><code>
+              regex is parsed as: (a){3}(a)*
+              is counter-ambiguous = false
+              token pairs explored = 4
+              running time = xxx nanoseconds
+            </code></pre>
+
+            <p><strong>Example 1.2.</strong> If we check regex <code>.*[a-d]{3,5}</code>, the command will be: </p>
+            <pre><code>
+              java -jar checker.jar --cambiguity ".*[a-d]{3,5}"
+            </code></pre>
+            <p>The result will be:</p>
+            <pre><code>
+              regex is parsed as: (.)*([abcd]){3,5}
+              is counter-ambiguous = true
+              token pairs explored = 4
+              running time = xxx nanoseconds
+            </code></pre>
+
+            <p><strong>Example 1.3.</strong> If we check regex <code>.*(a[^a]{1000}|b[^b]{1000})</code> by: </p>
+            <pre><code>
+              java -jar checker.jar --cambiguity ".*(a[^a]{1000}|b[^b]{1000})"
+            </code></pre>
+            <p>The result will be:</p>
+            <pre><code>
+              regex is parsed as: (.)*(a([^a]){1000}|b([^b]){1000})
+              is counter-ambiguous = false
+              token pairs explored = 4008
+              running time = xxx nanoseconds
+            </code></pre>
+
+            <!-- usage 2 -->
+            <p><strong style="font-size:18px">Usage 2.</strong></p>
+            <p> 
+              <code>java -jar checker.jar --cambiguity --witness {regex}</code> also checks whether a regex is counter-ambiguous. However, instead of simply returning a boolean result, it will return a string that is a witness of counter-amgibuity -- by executing on such a string, the NCA of the regex will have a state that has more than two counter values.
+            </p>
+
+            <p><strong>Example 2.1.</strong> For example: </p>
+            <pre><code>
+              java -jar checker.jar --cambiguity --witness ".*ab[ab]{5}"
+            </code></pre>
+            <p>The result will be:</p>
+            <pre><code>
+              regex is parsed as: (.)*ab([ab]){5}
+              is counter-ambiguous = true
+              witness = ababa
+            </code></pre>
+
+            <p><strong>Example 2.2.</strong> When checking counter-unambiguous regex: </p>
+            <pre><code>
+              java -jar checker.jar --cambiguity --witness ".*ab{1000}"
+            </code></pre>
+            <p>The result will be:</p>
+            <pre><code>
+              regex is parsed as: (.)*a(b){1000}
+              is counter-ambiguous = false
+              no witness.
+            </code></pre>
+
+            <!-- usage 3 -->
+            <p><strong style="font-size:18px">Usage 3.</strong></p>
+            <p> 
+              Finally, <code>java -jar checker.jar --nca {regex}</code> prints the NCA constructed from the regex.
+            </p>
+            <p><strong>Example 3.1.</strong> For example: </p>
+            <pre><code>
+              java -jar checker.jar --nca "a{5}(b{1,6}|c{6,})d"
+            </code></pre>
+            <p>The result will be:</p>
+            <pre><code>
+              regex is parsed as: 
+              (a){5}((b){1,6}|(c){6}(c)*)d
+              >>>>>>>>>>>>>>>> NCA is below >>>>>>>>>>>>>>>>
+              states: [0, 1, 2, 3, 4, 5]
+              initial States: [0]
+              final States: [5]
+              ===== below are transitions ======
+              (0)  ----  a, true / cnt := 0  --->  (1)
+              (1)  ----  a, cnt < 4 / cnt := cnt + 1  --->  (1)
+              (1)  ----  b, cnt == 4 / cnt := 0  --->  (2)
+              (1)  ----  c, cnt == 4 / cnt := 0  --->  (3)
+              (2)  ----  d, 0 <= cnt < 6 / null  --->  (5)
+              (2)  ----  b, cnt < 5 / cnt := cnt + 1  --->  (2)
+              (3)  ----  d, cnt == 5 / null  --->  (5)
+              (3)  ----  c, cnt < 5 / cnt := cnt + 1  --->  (3)
+              (3)  ----  c, cnt == 5 / null  --->  (4)
+              (4)  ----  d, null / null  --->  (5)
+              (4)  ----  c, null / null  --->  (4)
+            </code></pre>
+          </td>
+        </tr>
+        </tbody></table>
+      </td>
+      </tr>
+    </tbody></table>
+
+</body></html>
