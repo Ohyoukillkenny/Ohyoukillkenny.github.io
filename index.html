@@ -36,6 +36,7 @@
     <link rel="shortcut icon" href="./source/Pied_Piper.jpg"> 
     <title>Lingkun's Homepage</title>
     <link href="./source/css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <table width="800" border="0" align="center" cellspacing="0" cellpadding="0">
@@ -43,12 +44,18 @@
       <td>
         <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tbody><tr>
-          <td width="40%">
-            <img src="./source/klk.jpg" width="100%">
+          <td width="30%">
+            <div id="me-images"> </div>
+			<script> 
+			var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg'];
+			$('<img width="100%" src="./source/me/' + images[Math.floor(
+				Math.random() < 0.8? 0 : Math.random() * images.length
+				)] + '">').appendTo('#me-images');
+			</script>
           </td>
           <td width="60%" valign="middle">
             <p align="center"><name>Lingkun Kong</name></p>
-            <p>Hi, my name is Lingkun Kong. I am now a Ph.D. student, advised by <a href="https://mamouras.web.rice.edu/">Konstantinos Mamouras</a>, at the Department of Computer Science, Rice University.</p>
+            <p>Hi, my name is Lingkun Kong. I obtained my Ph.D. in Computer Science in Aug 2023 at Rice University, advised by <a href="https://mamouras.web.rice.edu/">Konstantinos Mamouras</a>. I was working on the design of programming language and the development of ASIC compiler.</p>
             <p>Before I joined Rice, I got my bachelor degree from Shanghai Jiao Tong University and was a member of Zhiyuan College.</p>
             <p align="center">
               <a href="source/Lingkun_Resume.pdf">CV</a> &nbsp;/&nbsp;
@@ -131,6 +138,9 @@
           <td width="100%" valign="middle">
             <heading>Publication</heading>
             <p>
+            Y. Huang, <strong>L. Kong</strong>, D. Chen, Z. Chen, X. Kong, J. Zhu, K. Mamouras, S. Wei, K. Yang, L. Liu. "CASA: An Energy-Efficient and High-Speed CAM-based SMEM Seeding Accelerator for Genome Alignment". MICRO, 2023. (appear soon)
+            </p>
+            <p>
             Alexis Le Glaunec, <strong>Lingkun Kong</strong>, Konstantinos Mamouras. "Regular Expression Matching Using Bit Vector Automata". OOPSLA, 2023. (code coming soon)[<a href="./source/2023oopsla-bva.pdf">preprint</a>]
             </p>
             <p>
@@ -160,176 +170,6 @@
           </td>
         </tr>
         </tbody></table>
-
-        <!-- <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/parql.png" width="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <strong>Regular Expression Matching Using Bit Vector Automata</strong>
-            <br>
-            Advised by Konstantinos Mamouras, from 2022 to now<br>
-          </p>
-          <p>
-            <br>
-            We built a Rust engine to efficiently handle the matching of regular expressions.
-            In comparison to the conventional DFA/NFA-based approaches, our engine is based on non-deterministic bit vector automata (NBVA), which is faster and more memory-efficient to handle the matching of regular expressions with counting. In benchmarks concerning realistic workloads, our matcher is faster than RE2, PCRE, and Microsofts's CsA engine by orders of magnitude in more than 90% of cases. 
-            <br>
-          </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table> -->
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/codesign.png" width="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <strong>Software-Hardware Codesign for Efficient In-Memory Regular Pattern Matching</strong>
-            <br>
-            Advised by Konstantinos Mamouras and Kaiyuan Yang, from 2021 to 2022<br>
-            </p><p><br>
-            Regular pattern matching is used in numerous application domains, including text processing, bioinformatics, and network security. Patterns are typically expressed with an extended syntax of regular expressions. This syntax includes the computationally challenging construct of bounded repetition or counting, which describes the repetition of a pattern a fixed number of times. We develop a specialized in-memory hardware architecture that integrates counter and bit vector modules into a state-of-the-art in-memory NFA accelerator. 
-            <br>
-            <ul>
-              <li>The design is inspired by the theoretical model of nondeterministic counter automata (NCA). A key feature of our approach is that we statically analyze regular expressions to determine bounds on the amount of memory needed for the occurrences of bounded repetition.</li>
-              <li>We provide a regex-to-hardware compiler that allows users to make an appropriate selection of counter or bit vector modules. We evaluate our hardware implementation using a simulator based on circuit parameters collected by SPICE simulation in TSMC 28nm CMOS process. </li>
-              <li>We find that the use of counter and bit vector modules outperforms unfolding solutions by orders of magnitude. Experiments concerning realistic workloads show up to 76% energy reduction and 58% area reduction in comparison to CAMA, a recently proposed in-memory NFA accelerator.</li>
-            </ul> 
-            <br>
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/parql.png" width="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <strong>ParQL: A Query Language for Deterministic Parallel Stream Processing</strong>
-            <br>
-            Advised by Konstantinos Mamouras, from 2020 to now<br>
-          </p>
-          <p>
-            <br>
-            Applications that handle massive streaming time series have scalability requirements and would therefore benefit from a multicore implementation of the streaming language/engine. In this project, we proposes a stream query language called ParQL that provides a solution to achieve parallelism with the preservation of sequential semantics for applications that involve the complex analysis of time-series (e.g., outlier detection). 
-            <br>
-          </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-	      <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/StreamQL.png" width="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <strong><a href="./source/streamql.html">StreamQL: A Query Language for Efficient Data Stream Processing</a></strong>
-            <br>
-            Advised by Konstantinos Mamouras, from 2018 to 2020<br>
-            </p><p><br>
-	    
-	         Real-time data analysis applications increasingly rely on complex computations over data streams, such as the detection of patterns and trends, as well as the extraction and summarization of important information that lies in the data. We propose StreamQL, a language that facilitates the high-level specification of complex analyses over streaming data. <br>
-	          <ul>
-              <li>Proposed a language that provides high-level programming abstractions for stream processing and gave a formal denotational semantics for the programming model.</li>
-              <li>Implemented the language in a Java library with a rich set of stream operators and, in benchmarking, showed it is on average 5 times faster than other state-of-the-art tools (RxJava, Reactor, and Siddhi).</li>
-              <li>Prototyped streaming algorithm for real applications, including healthcare monitoring, high-frequency market analysis, and wearable device monitoring.</li>
-             </ul> 
-            <br>
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-	
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/bancor.jpg" width="160" height="106"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="https://github.com/Ohyoukillkenny/Bancor-Simulator"><strong>A Simulator for Market Analysis Under Bancor Protocol</strong></a>
-            <br>
-            Advised by Emin Gun Sirer, from 2017 to 2018 <br>
-            </p><p><br>
-              <a href="https://www.bancor.network/">Bancor</a> holds the record for the biggest crowd-funding, ever, in the history of mankind. However, the robustness and efficiency of Bancor remain to be explored. Bancor also has several flaws due to its design principle.
-            <br>
-              Therefore, we build a simulator, and leveraging which, we find that Bancor protocol is flawed in three aspects: 
-            <ul>
-              <li>The existence of problem about <a href="https://www.bancor.network/whitepaper">"Double Coincidence of Wants"</a> Bancor wants to solve is unsubstantiated in real world. Even assuming this problem does exist, Bancor protocol cannot ensure its superiority to classic market.</li>
-              <li>The price of smart token, i.e. currency in Bancor protocol could fluctuate significantly, since Bancor neglects potential human behavior. </li>
-              <li>Bancor protocol is faced with severe cancellation of concurrent transactions under limited order.</li>
-            </ul>
-            <br>
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/EBM.png" width="160" height="180"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="https://github.com/Ohyoukillkenny/EBM"><strong>Evolving Bipartite Model Reveals the Bounded Weights in Social Networks: A Case Study in Recommendation Networks</strong></a>
-            <br>
-            Advised by Luoyi Fu and Xinbing Wang, from 2017 to 2018 <br>
-            </p><p><br>
-              Many realistic social networks can be presented by evolving bipartite graphs, in which dynamically added elements are divided into two entities and connected by links through these two entities, such as followees and followers in Twitter networks, authors and scientific topics in scholarly networks, users and items in recommendation networks, and etc. However, when adding weights of edges, i.e., connections between elements, how to mathematically model such evolving social networks, along with quantitative characterizations, remains unexplored.
-            <br>
-              Motivated by this, we develop a novel evolving bipartite model (EBM), which, based on empirically validated power-law distribution within multiple realistic social networks, discloses that the distribution of total weights given or received by each element in networks is determined by the weighting scale and bounded by certain ceilings and floors.
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/kdd.png" width="160" height="106"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="source/www.pdf"><strong>MSM: A Multi-entity Scholarly Model for Systematic Understanding of Evolving Scholarly Networks</strong></a>
-            <br>
-            Advised by Luoyi Fu and Xinbing Wang, from 2017 to 2018
-            <br>
-            </p><p><br>
-            Scholarly networks contain massive scholarly information that can be mainly categorized into three entities, i.e., paper, author and topic, which exhibit a co-evolution over time. <br>
-            Though scholarly networks have attracted much attention over the past years, most works focus on single dimension of the network, e.g. citation, collaboration or topic network; while few of them incorporate different kinds of entities into an entirety to generate a systematic understanding of scholarly networks at scale. We bridge this gap by proposing a multi-entity scholarly model (MSM) with succinct theoretical foundation, which amalgamates entities of paper, author and topic into one single framework to simulate interactions among different entities, and thus presenting the co-evolution within scholarly networks.
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellpadding="20">
-        <tbody><tr>
-          <td width="25%"><img src="./source/topicmap.png" width="160" height="160"></td>
-          <td width="75%" valign="top">
-          <p>
-            <a href="http://acemap.sjtu.edu.cn/"><strong>Acemap: Academic Map System</strong></a>
-            <br>
-            Advised by Xinbing Wang, from 2015 to 2017 <br>
-            </p><p><br>
-              I joined the Acemap group in 2015. My major work in this group focused on:
-              <ul>
-              <li>Develop visualizing applications for scholarly information networks and presentation approaches.</li>
-              <li>Implement the recommending algorithm for papers in Acemap, and present the result on website.</li>
-              <li>Build and maintain the server and the back-end for Acemap.</li>
-              </ul>
-            </p>
-          <p></p>
-          </td>
-        </tr>
-        </tbody></table>
-
-        
-        
 
         <!-- Teaching -->
         <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
@@ -407,7 +247,7 @@
             <heading>More About Me</heading>
             <p>
               I used to be a table tennis athlete. In 2016, I helped my undergraduate university to win her first championship in Shanghai.
-              Now, I am an amateur table tennis player with rating around 2100. 
+              Now, I am an amateur table tennis player with USATT rating around 2000. 
               In 2022, I finished as the top 16 of men's singles in USA college table tennis national championships.
             </p>
             <p>
