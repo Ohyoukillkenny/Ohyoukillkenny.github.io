@@ -49,14 +49,14 @@
 			<script> 
 			var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.JPG', '7.jpg', '8.jpg'];
 			$('<img width="100%" src="./source/me/' + images[Math.floor(
-				Math.random() < 0.65? 0 : Math.random() * images.length
+				Math.random() < 0.2333? 0 : Math.random() * images.length
 				)] + '">').appendTo('#me-images');
 			</script>
           </td>
           <td width="60%" valign="middle">
             <p align="center"><name>Lingkun Kong</name></p>
-            <p>Hi, my name is Lingkun Kong. I obtained my Ph.D. in Computer Science in Aug 2023 at Rice University, advised by <a href="https://mamouras.web.rice.edu/">Konstantinos Mamouras</a>. I was working on the design of programming language and the development of ASIC compiler.</p>
-            <p>Before I joined Rice, I got my bachelor degree from Shanghai Jiao Tong University and was a member of Zhiyuan College.</p>
+            <p>Hey there, my name is Lingkun Kong. I am now a research scientist at Meta's reality lab. My work is to build machine learning infrastructure for AR/VR devices.</p>
+            <p>I obtained my Ph.D. in Computer Science in Aug 2023 at Rice University, advised by <a href="https://mamouras.web.rice.edu/">Konstantinos Mamouras</a>. I was working on the design of programming language and the development of ASIC compiler.</p>
             <p align="center">
               <a href="source/Lingkun_Resume.pdf">CV</a> &nbsp;/&nbsp;
               <a href="blog/index.html">Blogs</a> &nbsp;/&nbsp;
@@ -103,15 +103,16 @@
             <heading>Education</heading>
             <p>
               <strong>Rice University</strong>, USA, from Aug. 2018 to Aug. 2023.<br>
-              Department of Computer Science
+              Department of Computer Science<br>
+              Ph.D. thesis: <a href="./source/kong-phd-thesis-2023.pdf">Language Support for Real-time Data Processing</a>
             </p>
             <p>
               <strong>Shanghai Jiao Tong University</strong>, China, from Sep. 2014 to Jun. 2018<br>
-              B.Sc., Department of Computer Science & Zhiyuan College
+              B.Sc. Department of Computer Science & Zhiyuan College
             </p>
             <p>
               <strong>Cornell University</strong>, USA, from Jun. 2017 to Aug. 2017<br>
-              Visiting Student, Computer Science Department     
+              Visiting Student。 Computer Science Department     
             </p>
           </td>
         </tr>
@@ -138,22 +139,25 @@
           <td width="100%" valign="middle">
             <heading>Publication</heading>
             <p>
-            Y. Huang, <strong>L. Kong</strong>, D. Chen, Z. Chen, X. Kong, J. Zhu, K. Mamouras, S. Wei, K. Yang, L. Liu. "CASA: An Energy-Efficient and High-Speed CAM-based SMEM Seeding Accelerator for Genome Alignment". MICRO, 2023. (appear soon)
+            Z. Wen, <strong>L. Kong</strong>, A. Le Glaunec, K. Mamouras, K. Yang. "BVAP: Energy and Memory Efficient Automata Processing for Regular Expressions with Bounded Repetitions". ASPLOS, 2024. (coming soon)
             </p>
             <p>
-            Alexis Le Glaunec, <strong>Lingkun Kong</strong>, Konstantinos Mamouras. "Regular Expression Matching Using Bit Vector Automata". OOPSLA, 2023. (code coming soon)[<a href="./source/2023oopsla-bva.pdf">preprint</a>]
+            Y. Huang, <strong>L. Kong</strong>, D. Chen, Z. Chen, X. Kong, J. Zhu, K. Mamouras, S. Wei, K. Yang, L. Liu. "CASA: An Energy-Efficient and High-Speed CAM-based SMEM Seeding Accelerator for Genome Alignment". MICRO, 2023. [<a href="https://dl.acm.org/doi/10.1145/3613424.3614313">link</a>]
+            </p>
+            <p>
+            A. Le Glaunec, <strong>L. Kong</strong>, K. Mamouras. "Regular Expression Matching Using Bit Vector Automata". OOPSLA, 2023. [<a href="https://dl.acm.org/doi/abs/10.1145/3586044">link</a>]
             </p>
             <p>
             <strong>L. Kong</strong>, Q. Yu, A. Chattopadhyay, A. Le Glaunec, Y. Huang, K. Mamouras, and K. Yang. "Software-Hardware Codesign for Efficient In-Memory Regular Pattern Matching". PLDI, 2022. [<a href="https://dl.acm.org/doi/abs/10.1145/3519939.3523456">link</a>] [<a href="https://www.youtube.com/watch?v=Whnz-odkgUg&list=PLyrlk8Xaylp4aGsN5wVcECG736A2JeMon&index=60&ab_channel=ACMSIGPLAN">talk</a>] [<a href="./source/regexchecker.html">code</a>]
             </p>
             <p>
-            <strong>Lingkun Kong</strong>, Konstantinos Mamouras. "StreamQL: A Query Language for Processing Streaming Time Series". OOPSLA, 2020. [<a href="https://dl.acm.org/doi/abs/10.1145/3428251">link</a>] [<a href="https://www.youtube.com/watch?v=4qiBotj4l38">talk</a>] [<a href="./source/streamql.html">code</a>]
+            <strong>L. Kong</strong>, K. Mamouras. "StreamQL: A Query Language for Processing Streaming Time Series". OOPSLA, 2020. [<a href="https://dl.acm.org/doi/abs/10.1145/3428251">link</a>] [<a href="https://www.youtube.com/watch?v=4qiBotj4l38">talk</a>] [<a href="./source/streamql.html">code</a>]
             </p>
             <p>
-            <strong>Lingkun Kong</strong>, Konstantinos Mamouras. "StreamQL: A Query Language for Efficient Data Stream Processing". OGHPC, 2020. [<a href="source/2020OGHPC.pdf">poster</a>]
+            <strong>L. Kong</strong>, K. Mamouras. "StreamQL: A Query Language for Efficient Data Stream Processing". OGHPC, 2020. [<a href="source/2020OGHPC.pdf">poster</a>]
             </p>
             <p>
-            Junqin Huang, <strong>Lingkun Kong</strong>, Linghe Kong, Zhen Liu, Zhiqiang Liu and Guihai Chen. "Blockchain-based Crowd-sensing System". IEEE HotICN International Conference, 2018. [<a href="https://doi.org/10.1109/HOTICN.2018.8605960">link</a>] [<a href="https://github.com/Ohyoukillkenny/BCS">code</a>]
+            J. Huang, <strong>L. Kong</strong>, L. Kong, Z. Liu, Z. Liu and G. Chen. "Blockchain-based Crowd-sensing System". IEEE HotICN International Conference, 2018. [<a href="https://doi.org/10.1109/HOTICN.2018.8605960">link</a>] [<a href="https://github.com/Ohyoukillkenny/BCS">code</a>]
             </p>
             <p>
               L. Fu, S. Ma, <strong>L. Kong</strong>, S. Shi, X. Wang, "FINE: A Framework for Distributed Learning on Incomplete Observations for Heterogeneous Crowdsensing Networks", in IEEE/ACM Transactions on Networking, Vo. 26, No. 3, pp. 1092-1109, June 2018. [<a href="https://doi.org/10.1109/TNET.2018.2814779">link</a>]
