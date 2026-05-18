@@ -1,255 +1,1093 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><style id="stndz-style"></style>
-    <meta name="viewport" content="width=800">
-    <meta name="generator" content="HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lingkun@kong:~$</title>
+  <link rel="shortcut icon" href="./source/Pied_Piper.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #161616;
+      --green: #00ff41;
+      --green-dim: #00cc33;
+      --green-glow: rgba(0, 255, 65, 0.15);
+      --green-glow-strong: rgba(0, 255, 65, 0.3);
+      --amber: #ffb000;
+      --text: #c0c0c0;
+      --text-dim: #666666;
+      --text-bright: #e0e0e0;
+      --border: #1a1a1a;
+      --border-green: #0a3d0a;
+      --mono: 'JetBrains Mono', 'Space Mono', 'Courier New', monospace;
+      --transition: 0.25s ease;
+    }
 
-    <style type="text/css">
-      a {
-      color: #1772d0;
-      text-decoration:none;
-      }
-      a:focus, a:hover {
-      color: #f09228;
-      text-decoration:none;
-      }
-      body,td,th,tr,p,a {
-      font-family: 'Lato', Verdana, Helvetica, sans-serif;
-      font-size: 14px
-      }
-      strong {
-      font-family: 'Lato', Verdana, Helvetica, sans-serif;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 70px;
+    }
+
+    body {
+      font-family: var(--mono);
+      background: var(--bg);
+      color: var(--text);
       font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* scanline overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    }
+
+    ::selection {
+      background: var(--green);
+      color: var(--bg);
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+      transition: color var(--transition), text-shadow var(--transition);
+    }
+
+    a:hover {
+      color: #33ff66;
+      text-shadow: 0 0 8px var(--green-glow-strong);
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-prompt {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .nav-prompt .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      font-size: 12px;
+      padding: 6px 12px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      transition: all var(--transition);
+      text-transform: lowercase;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+      border-color: var(--border-green);
+      background: var(--green-glow);
+      text-shadow: none;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--text-dim);
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 6px 10px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    /* ── Main container ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 100px 0 60px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .hero-photo-wrapper {
+      position: relative;
+    }
+
+    .hero-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 4px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1px solid var(--border-green);
+      filter: saturate(0.7) contrast(1.1);
+      transition: all 0.5s ease;
+    }
+
+    .hero-photo:hover {
+      filter: saturate(1) contrast(1);
+      border-color: var(--green-dim);
+      box-shadow: 0 0 20px var(--green-glow), 0 0 60px rgba(0,255,65,0.05);
+    }
+
+    .hero-photo-border {
+      position: absolute;
+      inset: -4px;
+      border: 1px solid var(--border-green);
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    .hero-ascii {
+      color: var(--green-dim);
+      font-size: 11px;
+      margin-top: 12px;
+      opacity: 0.5;
+      text-align: center;
+    }
+
+    .hero-content {
+      padding-top: 8px;
+    }
+
+    h1.hero-name {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0;
+      color: var(--green);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      text-shadow: 0 0 30px var(--green-glow);
+    }
+
+    .hero-title {
+      font-size: 14px;
+      color: var(--amber);
+      font-weight: 400;
+      margin: 8px 0 20px;
+    }
+
+    .hero-bio {
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .hero-bio .comment {
+      color: var(--text-dim);
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--border-green);
+      border-radius: 4px;
+      color: var(--green);
+      background: transparent;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+
+    .btn:hover {
+      background: var(--green-glow);
+      border-color: var(--green-dim);
+      box-shadow: 0 0 12px var(--green-glow);
+      color: var(--green);
+      text-shadow: none;
+    }
+
+    .btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ── Section ── */
+    section {
+      padding: 60px 0;
+    }
+
+    .section-head {
+      margin-bottom: 32px;
+    }
+
+    .section-head h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green);
+    }
+
+    .section-head h2::before {
+      content: '# ';
+      color: var(--text-dim);
+    }
+
+    .section-line {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0 0;
+    }
+
+    /* ── Contact ── */
+    .contact-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      padding: 16px 0;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .contact-row span {
+      color: var(--text-dim);
+    }
+
+    .contact-row .val {
+      color: var(--text-bright);
+    }
+
+    /* ── Education timeline ── */
+    .edu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .edu-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 24px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-card);
+      transition: all var(--transition);
+    }
+
+    .edu-item:hover {
+      border-color: var(--border-green);
+      background: var(--bg-card-hover);
+    }
+
+    .edu-date {
+      color: var(--text-dim);
+      font-size: 12px;
+      padding-top: 2px;
+    }
+
+    .edu-school {
+      color: var(--text-bright);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .edu-detail {
+      color: var(--text-dim);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    /* ── Publications ── */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pub-item {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-card);
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .pub-item:hover {
+      border-color: var(--border-green);
+      background: var(--bg-card-hover);
+    }
+
+    .pub-venue {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--bg);
+      background: var(--green-dim);
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+
+    .pub-venue.highlight {
+      background: var(--amber);
+    }
+
+    .pub-title-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .pub-authors {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .pub-authors .me {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .pub-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pub-link {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--green-dim);
+      padding: 3px 10px;
+      border: 1px solid var(--border-green);
+      border-radius: 3px;
+      transition: all var(--transition);
+      font-family: var(--mono);
+    }
+
+    .pub-link:hover {
+      background: var(--green-glow);
+      border-color: var(--green-dim);
+      color: var(--green);
+      text-shadow: none;
+    }
+
+    /* ── Teaching ── */
+    .teach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .teach-card {
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-card);
+      transition: all var(--transition);
+    }
+
+    .teach-card:hover {
+      border-color: var(--border-green);
+      background: var(--bg-card-hover);
+    }
+
+    .teach-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .teach-name a {
+      color: var(--text-bright);
+    }
+
+    .teach-name a:hover {
+      color: var(--green);
+    }
+
+    .teach-meta {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* ── Awards ── */
+    .award-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .award-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 12px 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-card);
+      transition: all var(--transition);
+    }
+
+    .award-item:hover {
+      border-color: var(--border-green);
+      background: var(--bg-card-hover);
+    }
+
+    .award-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .award-org {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .award-year {
+      font-size: 11px;
+      color: var(--green-dim);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ── About ── */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .about-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-card);
+      transition: all var(--transition);
+    }
+
+    .about-card:hover {
+      border-color: var(--border-green);
+      background: var(--bg-card-hover);
+    }
+
+    .about-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .about-card-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 48px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    .footer-art {
+      color: var(--text-dim);
+      font-size: 10px;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .footer-text a {
+      color: var(--text-dim);
+    }
+
+    .footer-text a:hover {
+      color: var(--green);
+    }
+
+    /* ── Matrix rain canvas ── */
+    #matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    /* ── Typing effect ── */
+    .typed-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 20px;
+      background: var(--green);
+      margin-left: 4px;
+      animation: blink 0.8s step-end infinite;
+      vertical-align: text-bottom;
+    }
+
+    /* ── Scroll animations ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
       }
-      heading {
-      font-family: 'Lato', Verdana, Helvetica, sans-serif;
-      font-size: 22px;
+
+      .hero-photo-wrapper {
+        margin: 0 auto;
       }
-      name {
-      font-family: 'Lato', Verdana, Helvetica, sans-serif;
-      font-size: 32px;
+
+      .hero-photo { width: 160px; height: 160px; }
+
+      h1.hero-name { font-size: 28px; }
+
+      .hero-links { justify-content: center; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0; right: 0;
+        background: rgba(10,10,10,0.98);
+        flex-direction: column;
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
       }
-      span.highlight {
-          background-color: #ffffd0;
+
+      .nav-links.active { display: flex; }
+      .nav-toggle { display: block; }
+
+      .edu-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
       }
-    </style>
 
-    <link rel="shortcut icon" href="./source/Pied_Piper.jpg">
-    <title>Lingkun's Homepage</title>
-    <link href="./source/css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <table width="800" border="0" align="center" cellspacing="0" cellpadding="0">
-      <tbody><tr>
-      <td>
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="40%">
-            <img src="./source/me.jpg" width="100%">
-            <!-- <div id="me-images"> </div>
-            <script>
-            var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.JPG', '7.jpg', '8.jpg'];
-            $('<img width="100%" src="./source/me/' + images[Math.floor(
-              Math.random() < 0.2333? 0 : Math.random() * images.length
-              )] + '">').appendTo('#me-images');
-            </script> -->
-          </td>
-          <td width="60%" valign="middle">
-            <p align="center"><name>Lingkun Kong</name></p>
-            <p>Hey there, my name is Lingkun Kong. I am now a research scientist at Meta's Reality Lab. My work involves building RAG systems for <a href="https://www.meta.com/ai-glasses/">AI glasses</a> and developing auto evaluation solutions to check the factuality of glass responses.</p>
-            <p>I obtained my Ph.D. in Computer Science in Aug 2023 at Rice University, advised by <a href="https://kmamouras.github.io/">Konstantinos Mamouras</a>. I was working on the design of programming language and the development of ASIC compiler.
-            Before that, I also had experience in the design of network systems.</p>
-            <p align="center">
-              <!-- <a href="source/Lingkun_Resume.pdf">CV</a> &nbsp;/&nbsp; -->
-              <a href="blog/index.html">Blogs</a> &nbsp;/&nbsp;
-              <a href="https://github.com/Ohyoukillkenny">GitHub</a> &nbsp;/&nbsp;
-              <a href="https://www.linkedin.com/in/lingkun-kong-303295117/">LinkedIn</a>
-            </p>
-          </td>
+      .contact-row { flex-direction: column; gap: 8px; }
 
-        </tr>
-        </tbody></table>
-        <!-- Adress -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>Find Me</heading>
-            <p>
-              <table>
-              <tbody>
-                <tr>
-                  <td style="vertical-align: top;"><b>Email</b></td>
-                  <td style="padding-left: 50px;">
-                    klk[at]meta[dot]com<br>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="vertical-align: top;"><b>Address</b></td>
-                  <td style="padding-left: 50px;">
-                    100 Binney St, FL8,
-                    Cambridge, MA, 02142.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
+      .about-content { grid-template-columns: 1fr; }
 
-        <!-- Education -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>Education</heading>
-            <p>
-              <strong>Rice University</strong>, USA, from Aug. 2018 to Aug. 2023.<br>
-              Department of Computer Science<br>
-              Ph.D. thesis: <a href="https://www.researchgate.net/publication/379778295_Language_Support_for_Real-time_Data_Processing">Language Support for Real-time Data Processing</a> [<a href="./source/kong-phd-thesis-2023.pdf">pdf</a>]
-            </p>
-            <p>
-              <strong>Shanghai Jiao Tong University</strong>, China, from Sep. 2014 to Jun. 2018<br>
-              B.Sc. Department of Computer Science & Zhiyuan College
-            </p>
-            <p>
-              <strong>Cornell University</strong>, USA, from Jun. 2017 to Aug. 2017<br>
-              Visiting Student. Computer Science Department
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
+      .teach-grid { grid-template-columns: 1fr; }
 
-        <!-- Publication -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>Publication</heading>
-            <p>
-            X. Yang, Y. Xu, K. Sun, J. Wang, <strong>L. Kong</strong>, W. Yih, X. Dong "KDD Cup CRAG competition: Systems, Findings and Learnings". IEEE Comp Society, 2025. [<a href="http://sites.computer.org/debull/A24dec/p163.pdf">link</a>]
-            </p>
-            <p>
-            A. Le Glaunec, <strong>L. Kong</strong>, K. Mamouras. "HybridSA: GPU Acceleration of Multi-pattern Regex Matching using Bit Parallelism". OOPSLA, 2024. [<a href="https://dl.acm.org/doi/10.1145/3689771">link</a>] [<a href="https://dl.acm.org/doi/pdf/10.1145/3689771">pdf</a>]
-            </p>
-            <p>
-            X. Yang, K. Sun, H. Xin, Y. Sun, N. Bhalla, X. Chen, S. Choudhary, R. Gui, Z. Jiang, Z. Jiang, <strong>L. Kong</strong>, B. Moran, J. Wang, Y. Xu, A. Yan, C. Yang, E. Yuan, H. Zha, N. Tang, L. Chen, N. Scheffer, Y. Liu, N. Shah, R. Wanga, A. Kumar, W. Yih, X. Dong. "CRAG -- Comprehensive RAG Benchmark". NeurIPS, 2024. [<a href="https://neurips.cc/virtual/2024/poster/97703">link</a>] [<a href="https://github.com/facebookresearch/CRAG">code</a>] [<a href="https://arxiv.org/abs/2406.04744">pdf</a>]
-            </p>
-            <p>
-            Z. Wen, <strong>L. Kong</strong>, A. Le Glaunec, K. Mamouras, K. Yang. "BVAP: Energy and Memory Efficient Automata Processing for Regular Expressions with Bounded Repetitions". ASPLOS, 2024. [<a href="https://dl.acm.org/doi/10.1145/3620665.3640412">link</a>] [<a href="./source/2024_ASPLOS.pdf">pdf</a>]
-            </p>
-            <p>
-            Y. Huang, <strong>L. Kong</strong>, D. Chen, Z. Chen, X. Kong, J. Zhu, K. Mamouras, S. Wei, K. Yang, L. Liu. "CASA: An Energy-Efficient and High-Speed CAM-based SMEM Seeding Accelerator for Genome Alignment". MICRO, 2023. [<a href="https://dl.acm.org/doi/10.1145/3613424.3614313">link</a>] [<a href="./source/casa.pdf">pdf</a>]
-            </p>
-            <p>
-            A. Le Glaunec, <strong>L. Kong</strong>, K. Mamouras. "Regular Expression Matching Using Bit Vector Automata". OOPSLA, 2023. [<a href="https://dl.acm.org/doi/abs/10.1145/3586044">link</a>] [<a href="./source/BVA.pdf">pdf</a>]
-            </p>
-            <p>
-            <strong>L. Kong</strong>, Q. Yu, A. Chattopadhyay, A. Le Glaunec, Y. Huang, K. Mamouras, and K. Yang. "Software-Hardware Codesign for Efficient In-Memory Regular Pattern Matching". PLDI, 2022. [<a href="https://dl.acm.org/doi/abs/10.1145/3519939.3523456">link</a>] [<a href="./source/codesign.pdf">pdf</a>] [<a href="https://www.youtube.com/watch?v=Whnz-odkgUg&list=PLyrlk8Xaylp4aGsN5wVcECG736A2JeMon&index=60&ab_channel=ACMSIGPLAN">talk</a>] [<a href="./source/regexchecker.html">code</a>]
-            </p>
-            <p>
-            <strong>L. Kong</strong>, K. Mamouras. "StreamQL: A Query Language for Processing Streaming Time Series". OOPSLA, 2020. [<a href="https://dl.acm.org/doi/abs/10.1145/3428251">link</a>] [<a href="./source/streamql.pdf">pdf</a>] [<a href="https://www.youtube.com/watch?v=4qiBotj4l38">talk</a>] [<a href="./source/streamql.html">code</a>]
-            </p>
-            <p>
-            <strong>L. Kong</strong>, K. Mamouras. "StreamQL: A Query Language for Efficient Data Stream Processing". OGHPC, 2020. [<a href="./source/2020OGHPC.pdf">poster</a>]
-            </p>
-            <p>
-            J. Huang, <strong>L. Kong</strong>, L. Kong, Z. Liu, Z. Liu and G. Chen. "Blockchain-based Crowd-sensing System". IEEE HotICN International Conference, 2018. [<a href="https://doi.org/10.1109/HOTICN.2018.8605960">link</a>] [<a href="./source/BCS.pdf">pdf</a>] [<a href="https://github.com/Ohyoukillkenny/BCS">code</a>]
-            </p>
-            <p>
-              L. Fu, S. Ma, <strong>L. Kong</strong>, S. Shi, X. Wang, "FINE: A Framework for Distributed Learning on Incomplete Observations for Heterogeneous Crowdsensing Networks", in IEEE/ACM Transactions on Networking, Vo. 26, No. 3, pp. 1092-1109, June 2018. [<a href="https://doi.org/10.1109/TNET.2018.2814779">link</a>] [<a href="./source/Fine.pdf">pdf</a>]
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
+      .award-item { grid-template-columns: 1fr; gap: 4px; }
+    }
 
-        <!-- Teaching -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>Teaching</heading>
-            <p>
-              TA for COMP 682,
-              Algorithms (Spring 2020),
-              Rice University
-              <br>
+    @media (max-width: 480px) {
+      h1.hero-name { font-size: 24px; }
+      .container { padding: 0 16px; }
+      section { padding: 40px 0; }
+    }
+  </style>
+</head>
+<body>
 
-              TA for COMP 481/581,
-              Automata, Formal Languages, and Computability (Fall 2019),
-              Rice University
-              <br>
+<canvas id="matrix"></canvas>
 
-              TA for COMP 411/511,
-              <a href="https://www.cs.rice.edu/~javaplt/411/19-spring/">Principles of Programming Languages (Spring 2019)</a>,
-              Rice University
-              <br>
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-prompt">lingkun@kong:~$<span class="blink">_</span></span>
+    <button class="nav-toggle" id="navToggle">[menu]</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">./about</a></li>
+      <li><a href="#education">./education</a></li>
+      <li><a href="#publications">./publications</a></li>
+      <li><a href="#teaching">./teaching</a></li>
+      <li><a href="#awards">./awards</a></li>
+      <li><a href="#beyond">./life</a></li>
+    </ul>
+  </div>
+</nav>
 
-              TA for CS 334,
-              Computer Organization Lab (Spring 2016),
-              Shanghai Jiao Tong University
-              <br>
+<!-- Hero -->
+<div class="container">
+  <header class="hero" id="about">
+    <div class="hero-grid">
+      <div class="hero-photo-wrapper fade-in">
+        <div class="hero-photo-border"></div>
+        <img src="./source/me.jpg" alt="Lingkun Kong" class="hero-photo">
+        <div class="hero-ascii">/* photo.jpg */</div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-name fade-in" id="heroName">Lingkun Kong</h1>
+        <div class="hero-title fade-in">Research Scientist @ Meta Reality Labs</div>
+        <p class="hero-bio fade-in">
+          <span class="comment">// current work</span><br>
+          Building RAG systems for <a href="https://www.meta.com/ai-glasses/">Meta AI glasses</a> and developing auto evaluation solutions to check the factuality of glass responses.
+        </p>
+        <p class="hero-bio fade-in">
+          <span class="comment">// background</span><br>
+          Ph.D. in Computer Science from Rice University, advised by <a href="https://kmamouras.github.io/">Konstantinos Mamouras</a>. Worked on the design of programming language and the development of ASIC compiler. Prior experience in network systems design.
+        </p>
+        <div class="hero-links fade-in">
+          <a href="https://github.com/Ohyoukillkenny" class="btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            github
+          </a>
+          <a href="https://www.linkedin.com/in/lingkun-kong-303295117/" class="btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            linkedin
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-              TA for CS 499,
-              <a href="http://basics.sjtu.edu.cn/~dominik/teaching/2017-cs499/index.html">Mathematical Foundations of Computer Science (Spring 2017)</a>,
-              Shanghai Jiao Tong University
-              <br>
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
+  <!-- Contact -->
+  <div class="contact-row fade-in">
+    <span>email:</span> <span class="val">klk[at]meta[dot]com</span>
+    <span>location:</span> <span class="val">100 Binney St, FL8, Cambridge, MA 02142</span>
+  </div>
 
-        <!-- Scholarships -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>Scholarships</heading>
-            <p>
-              <strong>National Scholarship</strong>, Ministry of Education of China, 2015 and 2017
-            </p>
-            <p>
-              <strong>Scholarship of Outstanding Undergraduates</strong>, Shanghai Jiao Tong University, 2017
-            </p>
-            <p>
-              <strong>Zhiyuan Honorary Scholarship</strong>, Shanghai Jiao Tong University, 2015, 2016 and 2017
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
+  <!-- Education -->
+  <section id="education">
+    <div class="section-head fade-in">
+      <h2>Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-list">
+      <div class="edu-item fade-in">
+        <div class="edu-date">2018.08 — 2023.08</div>
+        <div>
+          <div class="edu-school">Rice University</div>
+          <div class="edu-detail">Ph.D., Computer Science</div>
+          <div class="edu-detail">Thesis: <a href="https://www.researchgate.net/publication/379778295_Language_Support_for_Real-time_Data_Processing">Language Support for Real-time Data Processing</a> [<a href="./source/kong-phd-thesis-2023.pdf">pdf</a>]</div>
+        </div>
+      </div>
+      <div class="edu-item fade-in">
+        <div class="edu-date">2017.06 — 2017.08</div>
+        <div>
+          <div class="edu-school">Cornell University</div>
+          <div class="edu-detail">Visiting Student, Computer Science</div>
+        </div>
+      </div>
+      <div class="edu-item fade-in">
+        <div class="edu-date">2014.09 — 2018.06</div>
+        <div>
+          <div class="edu-school">Shanghai Jiao Tong University</div>
+          <div class="edu-detail">B.Sc., Computer Science &amp; Zhiyuan College</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Awards -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>Awards</heading>
-            <p>
-              <strong>Junzheng Scholar</strong>, Shanghai Jiao Tong University, 2017
-            </p>
-            <p>
-              <strong>Merit Student of Shanghai Jiao Tong University</strong>, Shanghai Jiao Tong University, 2015
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
+  <!-- Publications -->
+  <section id="publications">
+    <div class="section-head fade-in">
+      <h2>Publications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="pub-list">
 
+      <div class="pub-item fade-in">
+        <span class="pub-venue">IEEE Comp Society 2025</span>
+        <div class="pub-title-text">KDD Cup CRAG Competition: Systems, Findings and Learnings</div>
+        <div class="pub-authors">X. Yang, Y. Xu, K. Sun, J. Wang, <span class="me">L. Kong</span>, W. Yih, X. Dong</div>
+        <div class="pub-links">
+          <a href="http://sites.computer.org/debull/A24dec/p163.pdf" class="pub-link">link</a>
+        </div>
+      </div>
 
-        <!-- More about Me -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tbody><tr>
-          <td width="100%" valign="middle">
-            <heading>More About Me</heading>
-            <p>
-              I used to be a table tennis athlete. In 2016, I helped my undergraduate university to win her first championship in Shanghai.
-              Now, I am an amateur table tennis player with USATT rating around 2000.
-              In 2022, I finished as the top 16 of men's singles in USA college table tennis national championships.
-            </p>
-            <p>
-              Playing basketball is also one of my hobbies.
-            </p>
-          </td>
-        </tr>
-        </tbody></table>
+      <div class="pub-item fade-in">
+        <span class="pub-venue highlight">OOPSLA 2024</span>
+        <div class="pub-title-text">HybridSA: GPU Acceleration of Multi-pattern Regex Matching using Bit Parallelism</div>
+        <div class="pub-authors">A. Le Glaunec, <span class="me">L. Kong</span>, K. Mamouras</div>
+        <div class="pub-links">
+          <a href="https://dl.acm.org/doi/10.1145/3689771" class="pub-link">link</a>
+          <a href="https://dl.acm.org/doi/pdf/10.1145/3689771" class="pub-link">pdf</a>
+        </div>
+      </div>
 
+      <div class="pub-item fade-in">
+        <span class="pub-venue highlight">NeurIPS 2024</span>
+        <div class="pub-title-text">CRAG — Comprehensive RAG Benchmark</div>
+        <div class="pub-authors">X. Yang, K. Sun, H. Xin, Y. Sun, N. Bhalla, X. Chen, S. Choudhary, R. Gui, Z. Jiang, Z. Jiang, <span class="me">L. Kong</span>, B. Moran, J. Wang, Y. Xu, A. Yan, C. Yang, E. Yuan, H. Zha, N. Tang, L. Chen, N. Scheffer, Y. Liu, N. Shah, R. Wanga, A. Kumar, W. Yih, X. Dong</div>
+        <div class="pub-links">
+          <a href="https://neurips.cc/virtual/2024/poster/97703" class="pub-link">link</a>
+          <a href="https://github.com/facebookresearch/CRAG" class="pub-link">code</a>
+          <a href="https://arxiv.org/abs/2406.04744" class="pub-link">pdf</a>
+        </div>
+      </div>
 
-      </td>
-      </tr>
-    </tbody></table>
+      <div class="pub-item fade-in">
+        <span class="pub-venue highlight">ASPLOS 2024</span>
+        <div class="pub-title-text">BVAP: Energy and Memory Efficient Automata Processing for Regular Expressions with Bounded Repetitions</div>
+        <div class="pub-authors">Z. Wen, <span class="me">L. Kong</span>, A. Le Glaunec, K. Mamouras, K. Yang</div>
+        <div class="pub-links">
+          <a href="https://dl.acm.org/doi/10.1145/3620665.3640412" class="pub-link">link</a>
+          <a href="./source/2024_ASPLOS.pdf" class="pub-link">pdf</a>
+        </div>
+      </div>
 
-</body></html>
+      <div class="pub-item fade-in">
+        <span class="pub-venue highlight">MICRO 2023</span>
+        <div class="pub-title-text">CASA: An Energy-Efficient and High-Speed CAM-based SMEM Seeding Accelerator for Genome Alignment</div>
+        <div class="pub-authors">Y. Huang, <span class="me">L. Kong</span>, D. Chen, Z. Chen, X. Kong, J. Zhu, K. Mamouras, S. Wei, K. Yang, L. Liu</div>
+        <div class="pub-links">
+          <a href="https://dl.acm.org/doi/10.1145/3613424.3614313" class="pub-link">link</a>
+          <a href="./source/casa.pdf" class="pub-link">pdf</a>
+        </div>
+      </div>
+
+      <div class="pub-item fade-in">
+        <span class="pub-venue highlight">OOPSLA 2023</span>
+        <div class="pub-title-text">Regular Expression Matching Using Bit Vector Automata</div>
+        <div class="pub-authors">A. Le Glaunec, <span class="me">L. Kong</span>, K. Mamouras</div>
+        <div class="pub-links">
+          <a href="https://dl.acm.org/doi/abs/10.1145/3586044" class="pub-link">link</a>
+          <a href="./source/BVA.pdf" class="pub-link">pdf</a>
+        </div>
+      </div>
+
+      <div class="pub-item fade-in">
+        <span class="pub-venue highlight">PLDI 2022</span>
+        <div class="pub-title-text">Software-Hardware Codesign for Efficient In-Memory Regular Pattern Matching</div>
+        <div class="pub-authors"><span class="me">L. Kong</span>, Q. Yu, A. Chattopadhyay, A. Le Glaunec, Y. Huang, K. Mamouras, K. Yang</div>
+        <div class="pub-links">
+          <a href="https://dl.acm.org/doi/abs/10.1145/3519939.3523456" class="pub-link">link</a>
+          <a href="./source/codesign.pdf" class="pub-link">pdf</a>
+          <a href="https://www.youtube.com/watch?v=Whnz-odkgUg&amp;list=PLyrlk8Xaylp4aGsN5wVcECG736A2JeMon&amp;index=60&amp;ab_channel=ACMSIGPLAN" class="pub-link">talk</a>
+          <a href="./source/regexchecker.html" class="pub-link">code</a>
+        </div>
+      </div>
+
+      <div class="pub-item fade-in">
+        <span class="pub-venue highlight">OOPSLA 2020</span>
+        <div class="pub-title-text">StreamQL: A Query Language for Processing Streaming Time Series</div>
+        <div class="pub-authors"><span class="me">L. Kong</span>, K. Mamouras</div>
+        <div class="pub-links">
+          <a href="https://dl.acm.org/doi/abs/10.1145/3428251" class="pub-link">link</a>
+          <a href="./source/streamql.pdf" class="pub-link">pdf</a>
+          <a href="https://www.youtube.com/watch?v=4qiBotj4l38" class="pub-link">talk</a>
+          <a href="./source/streamql.html" class="pub-link">code</a>
+        </div>
+      </div>
+
+      <div class="pub-item fade-in">
+        <span class="pub-venue">OGHPC 2020</span>
+        <div class="pub-title-text">StreamQL: A Query Language for Efficient Data Stream Processing</div>
+        <div class="pub-authors"><span class="me">L. Kong</span>, K. Mamouras</div>
+        <div class="pub-links">
+          <a href="./source/2020OGHPC.pdf" class="pub-link">poster</a>
+        </div>
+      </div>
+
+      <div class="pub-item fade-in">
+        <span class="pub-venue">IEEE HotICN 2018</span>
+        <div class="pub-title-text">Blockchain-based Crowd-sensing System</div>
+        <div class="pub-authors">J. Huang, <span class="me">L. Kong</span>, L. Kong, Z. Liu, Z. Liu, G. Chen</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1109/HOTICN.2018.8605960" class="pub-link">link</a>
+          <a href="./source/BCS.pdf" class="pub-link">pdf</a>
+          <a href="https://github.com/Ohyoukillkenny/BCS" class="pub-link">code</a>
+        </div>
+      </div>
+
+      <div class="pub-item fade-in">
+        <span class="pub-venue">IEEE/ACM ToN 2018</span>
+        <div class="pub-title-text">FINE: A Framework for Distributed Learning on Incomplete Observations for Heterogeneous Crowdsensing Networks</div>
+        <div class="pub-authors">L. Fu, S. Ma, <span class="me">L. Kong</span>, S. Shi, X. Wang</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1109/TNET.2018.2814779" class="pub-link">link</a>
+          <a href="./source/Fine.pdf" class="pub-link">pdf</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Teaching -->
+  <section id="teaching">
+    <div class="section-head fade-in">
+      <h2>Teaching</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="teach-grid">
+      <div class="teach-card fade-in">
+        <div class="teach-name">COMP 682 — Algorithms</div>
+        <div class="teach-meta">TA · Spring 2020 · Rice University</div>
+      </div>
+      <div class="teach-card fade-in">
+        <div class="teach-name">COMP 481/581 — Automata, Formal Languages, and Computability</div>
+        <div class="teach-meta">TA · Fall 2019 · Rice University</div>
+      </div>
+      <div class="teach-card fade-in">
+        <div class="teach-name"><a href="https://www.cs.rice.edu/~javaplt/411/19-spring/">COMP 411/511 — Principles of Programming Languages</a></div>
+        <div class="teach-meta">TA · Spring 2019 · Rice University</div>
+      </div>
+      <div class="teach-card fade-in">
+        <div class="teach-name">CS 334 — Computer Organization Lab</div>
+        <div class="teach-meta">TA · Spring 2016 · Shanghai Jiao Tong University</div>
+      </div>
+      <div class="teach-card fade-in">
+        <div class="teach-name"><a href="http://basics.sjtu.edu.cn/~dominik/teaching/2017-cs499/index.html">CS 499 — Mathematical Foundations of Computer Science</a></div>
+        <div class="teach-meta">TA · Spring 2017 · Shanghai Jiao Tong University</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section id="awards">
+    <div class="section-head fade-in">
+      <h2>Scholarships &amp; Awards</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="award-list">
+      <div class="award-item fade-in">
+        <div>
+          <div class="award-name">National Scholarship</div>
+          <div class="award-org">Ministry of Education of China</div>
+        </div>
+        <div class="award-year">2015, 2017</div>
+      </div>
+      <div class="award-item fade-in">
+        <div>
+          <div class="award-name">Scholarship of Outstanding Undergraduates</div>
+          <div class="award-org">Shanghai Jiao Tong University</div>
+        </div>
+        <div class="award-year">2017</div>
+      </div>
+      <div class="award-item fade-in">
+        <div>
+          <div class="award-name">Zhiyuan Honorary Scholarship</div>
+          <div class="award-org">Shanghai Jiao Tong University</div>
+        </div>
+        <div class="award-year">2015, 2016, 2017</div>
+      </div>
+      <div class="award-item fade-in">
+        <div>
+          <div class="award-name">Junzheng Scholar</div>
+          <div class="award-org">Shanghai Jiao Tong University</div>
+        </div>
+        <div class="award-year">2017</div>
+      </div>
+      <div class="award-item fade-in">
+        <div>
+          <div class="award-name">Merit Student</div>
+          <div class="award-org">Shanghai Jiao Tong University</div>
+        </div>
+        <div class="award-year">2015</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beyond Work -->
+  <section id="beyond">
+    <div class="section-head fade-in">
+      <h2>Beyond Work</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-content">
+      <div class="about-card fade-in">
+        <div class="about-card-label">// table_tennis</div>
+        <div class="about-card-text">
+          Former table tennis athlete. In 2016, helped Shanghai Jiao Tong University win its first championship in Shanghai.
+          Now an amateur player with USATT rating ~2000. In 2022, finished top 16 in men's singles at USA college table tennis national championships.
+        </div>
+      </div>
+      <div class="about-card fade-in">
+        <div class="about-card-label">// hobbies</div>
+        <div class="about-card-text">
+          Playing basketball is also one of my hobbies.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <pre class="footer-art"> _    _  __
+| |  | |/ /
+| |  | ' /
+| |  |  &lt;
+| |__|_|\_\
+|_____|___/</pre>
+    <div class="footer-text">
+      <a href="https://github.com/Ohyoukillkenny">github</a> · <a href="https://www.linkedin.com/in/lingkun-kong-303295117/">linkedin</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Matrix rain
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+let w, h, cols, drops, matrixTimer;
+
+function initMatrix() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  const fontSize = 14;
+  cols = Math.floor(w / fontSize);
+  drops = Array(cols).fill(1);
+}
+
+initMatrix();
+window.addEventListener('resize', initMatrix);
+
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(){}[]|;:<>,.?/~`';
+
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+  ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#00ff41';
+  ctx.font = '14px monospace';
+
+  for (let i = 0; i < drops.length; i++) {
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(char, i * 14, drops[i] * 14);
+    if (drops[i] * 14 > h && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+
+matrixTimer = setInterval(drawMatrix, 50);
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    clearInterval(matrixTimer);
+  } else {
+    matrixTimer = setInterval(drawMatrix, 50);
+  }
+});
+
+// Typing effect for name
+const fullName = 'Lingkun Kong';
+const nameEl = document.getElementById('heroName');
+let charIndex = 0;
+
+function typeChar() {
+  if (charIndex < fullName.length) {
+    nameEl.textContent = fullName.slice(0, charIndex + 1);
+    charIndex++;
+    setTimeout(typeChar, 80 + Math.random() * 60);
+  } else {
+    const cursor = document.createElement('span');
+    cursor.className = 'typed-cursor';
+    nameEl.appendChild(cursor);
+  }
+}
+
+nameEl.textContent = '';
+setTimeout(typeChar, 600);
+
+// Mobile nav toggle
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('active'));
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('active')));
+
+// Nav scroll effect
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.style.borderBottomColor = window.scrollY > 20 ? '#1a1a1a' : 'transparent';
+});
+
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
